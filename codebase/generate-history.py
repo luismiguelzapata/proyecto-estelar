@@ -1,10 +1,6 @@
 from openai import OpenAI
 import os
 
-# Es recomendable guardar tu API Key como variable de entorno
-# export OPENAI_API_KEY="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"  (Linux/Mac)
-# setx OPENAI_API_KEY "tu_api_key_aqui"    (Windows)
-
 client = OpenAI()
 
 def enviar_prompt(prompt):
