@@ -170,15 +170,22 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 A single cute 3D cartoon puppy character, male Husky inspired, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible from head to paws.
 
 PHYSICAL DESCRIPTION:
-- Body color: uniform soft lavender-gray fur, hex code #E8E3F0, matte finish, no gradients
+- Color distribution: 
+  * Main body (back, sides, head top): soft lavender-gray fur, hex code #E8E3F0, matte finish
+  * Face mask (muzzle, chin): white/cream colored, hex #FDFBF7
+  * Chest and belly: light lavender-white fur, hex #F5F3F8
+  * Neck mane: slightly darker lavender, hex #D4C9E0
+  * All color transitions soft and natural, no hard edges
 - Head shape: perfectly round, 1.5 times larger than body
 - Eyes: HETEROCHROMIA - left eye bright blue (hex #6BB6D6), right eye warm brown (hex #8B6F47), both extremely oversized occupying 40% of face width, three white circular highlights per eye at 10 o'clock, perfectly symmetrical in size and shape
 - Nose: small black triangular nose (hex #2C2C2C), centered below eyes, glossy finish
 - Mouth: simple curved line forming "w" shape, subtle friendly smile
 - Ears: medium-sized rounded triangular ears, standing upright with slight forward tilt
-- Distinctive mark: lightning bolt shape on LEFT SIDE of body (visible on left flank), baby blue color (hex #A8D8EA), zigzag pattern with 3 points, 25% length of body height
-- Neck mane: fluffy collar-like fur around neck, slightly darker lavender (hex #D4C9E0), 1.5x thickness of body fur, covers upper chest
-- Tail: fluffy straight tail with slight upward curve, same lavender as body, 0.9x body length
+- Distinctive marks: 
+  * Primary: White facial mask (hex #FDFBF7) covering lower muzzle, chin, and extending to upper chest in natural Husky pattern
+  * Secondary: Lightning bolt shape on LEFT SIDE of body (visible on left flank), baby blue color (hex #A8D8EA), zigzag pattern with 3 points, 25% length of body height
+- Neck mane: fluffy collar-like fur around neck, slightly darker lavender (hex #D4C9E0), 1.5x thickness of body fur, covers upper chest area, highly visible volume
+- Tail: fluffy straight tail with slight upward curve, same lavender-gray as main body, 0.9x body length
 - Body: compact rounded torso, no visible muscle definition, simplified smooth shapes
 - Legs: four short stubby legs, rounded paws, no visible toes, each leg 0.3x body height
 - Proportions: head to body ratio exactly 1:1.5
@@ -194,6 +201,7 @@ TECHNICAL SPECIFICATIONS:
 - Lighting: soft even studio lighting, no harsh shadows
 - Texture: smooth painted cartoon fur, NO realistic hair strands
 - Neck mane should appear fluffy but stylized, not realistic
+- Color transitions between lavender body and white facial mask should be soft and natural
 - No accessories, collars, bandanas, or clothing
 - No background elements or props
 - Single character only, no other animals
@@ -202,7 +210,8 @@ TECHNICAL SPECIFICATIONS:
 NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Realistic dog, photographic, fur texture details
 - Same-colored eyes (both blue or both brown)
-- Multiple patterns or spots beyond the single lightning bolt on left side
+- Multiple patterns or spots beyond the white facial mask and single lightning bolt on left side
+- Hard edges between color zones
 - Accessories (collars, bandanas, hats, clothes)
 - Sharp teeth, claws, or aggressive features
 - Adult proportions, long legs, thin body
@@ -220,17 +229,25 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 A single cute 3D cartoon puppy character, male Husky inspired, rendered in Pixar/Disney CGI animation style, clean white studio background, left side profile view, full body visible from nose to tail tip.
 
 PHYSICAL DESCRIPTION:
-- Body color: uniform soft lavender-gray fur, hex code #E8E3F0, matte finish, no gradients
+- Color distribution: 
+  * Main body (back, sides, head top, tail): soft lavender-gray fur, hex code #E8E3F0, matte finish
+  * Face mask (muzzle, lower face, chin): white/cream colored, hex #FDFBF7, visible from profile covering lower muzzle area
+  * Chest and belly: light lavender-white fur, hex #F5F3F8, clearly visible in profile view
+  * Neck mane: slightly darker lavender, hex #D4C9E0
+  * All color transitions soft and natural, no hard edges
 - Head shape: perfectly round sphere visible from side, 1.5 times larger than body
 - Eyes: single oversized eye visible from left profile - BROWN eye (hex #8B6F47), occupying 40% of face width, three white circular highlights at 10 o'clock
-- Nose: small black triangular nose (hex #2C2C2C), protruding slightly from face, glossy finish
-- Mouth: simple curved line forming gentle smile, visible from side
-- Ears: single triangular ear visible on left side, standing upright with slight forward tilt
-- Distinctive mark: lightning bolt shape PROMINENTLY VISIBLE on left flank, baby blue color (hex #A8D8EA), zigzag with 3 sharp points, 25% length of body height, positioned mid-body
-- Neck mane: fluffy collar-like fur visible around neck from profile, slightly darker lavender (hex #D4C9E0), creating volume around upper chest
-- Tail: fluffy straight tail with upward curve, prominent in profile, same lavender as body
+- Nose: small black triangular nose (hex #2C2C2C), protruding slightly from face, glossy finish, positioned at edge of white facial mask
+- Mouth: simple curved line forming gentle smile, visible from side, located on white/cream facial area
+- Ears: single triangular ear visible on left side, standing upright with slight forward tilt, lavender-gray color
+- Distinctive marks:
+  * Primary: White/cream facial mask (hex #FDFBF7) covering lower muzzle and chin, clearly visible in profile, extending down throat to chest
+  * Secondary: Lightning bolt shape PROMINENTLY VISIBLE on left flank, baby blue color (hex #A8D8EA), zigzag with 3 sharp points, 25% length of body height, positioned mid-body on lavender-gray area
+- Neck mane: fluffy collar-like fur visible around neck from profile, slightly darker lavender (hex #D4C9E0), creating volume around upper chest, blending with white chest area
+- Tail: fluffy straight tail with upward curve, prominent in profile, same lavender-gray as main body
 - Body: compact rounded torso, smooth curve from neck to hindquarters
-- Legs: all four short stubby legs visible in profile, rounded paws
+- Chest area: white/cream coloration clearly visible in profile view
+- Legs: all four short stubby legs visible in profile, rounded paws, lavender-gray color
 - Proportions: head to body ratio exactly 1:1.5, visible in profile
 
 POSE AND EXPRESSION:
@@ -240,11 +257,13 @@ POSE AND EXPRESSION:
 - Ears upright
 - Tail with gentle upward curve, clearly visible
 - Neutral friendly expression
+- White facial mask and chest clearly visible from side
 
 TECHNICAL SPECIFICATIONS:
-- Lighting: soft even studio lighting, no harsh shadows
+- Lighting: soft even studio lighting, no harsh shadows, should highlight natural color zones
 - Texture: smooth painted cartoon fur, NO realistic hair strands
-- Lightning bolt mark must be sharp and clearly defined, not blurry
+- Lightning bolt mark must be sharp and clearly defined, not blurry, positioned on lavender body area
+- Color transitions between lavender body and white facial mask/chest should be soft and natural
 - No accessories, collars, bandanas, or clothing
 - No background elements or props
 - Single character only, no other animals
@@ -254,7 +273,9 @@ TECHNICAL SPECIFICATIONS:
 NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Realistic dog, photographic, fur texture details
 - Both eyes visible (only brown eye should be visible from left profile)
-- Multiple patterns beyond the single lightning bolt on left side
+- Uniform single color (must have white facial mask and chest visible)
+- Multiple patterns beyond white facial mask and single lightning bolt on left side
+- Hard edges between color zones
 - Accessories (collars, bandanas, hats, clothes)
 - Sharp teeth, claws, or aggressive features
 - Adult proportions, long legs, thin body
@@ -273,17 +294,25 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 A single cute 3D cartoon puppy character, male Husky inspired, rendered in Pixar/Disney CGI animation style, clean white studio background, three-quarter view at 45-degree angle, full body visible, looking slightly toward camera.
 
 PHYSICAL DESCRIPTION:
-- Body color: uniform soft lavender-gray fur, hex code #E8E3F0, matte finish, no gradients
+- Color distribution: 
+  * Main body (back, sides, head top, tail): soft lavender-gray fur, hex code #E8E3F0, matte finish
+  * Face mask (muzzle, lower face, chin): white/cream colored, hex #FDFBF7, creating natural Husky facial pattern visible from angle
+  * Chest and belly: light lavender-white fur, hex #F5F3F8, covering entire ventral area, prominently visible from three-quarter view
+  * Neck mane: slightly darker lavender, hex #D4C9E0
+  * All color transitions soft and natural, no hard edges between zones
 - Head shape: perfectly round, 1.5 times larger than body, rotated 45 degrees toward viewer
 - Eyes: HETEROCHROMIA - both eyes visible, left eye bright blue (hex #6BB6D6), right eye warm brown (hex #8B6F47), both extremely oversized occupying 40% of face width, three white circular highlights per eye at 10 o'clock
-- Nose: small black triangular nose (hex #2C2C2C), centered below eyes, glossy finish
-- Mouth: simple curved line forming "w" shape, subtle friendly smile
-- Ears: both triangular ears visible, standing upright with slight forward tilt
-- Distinctive mark: lightning bolt shape partially visible on LEFT SIDE of body, baby blue color (hex #A8D8EA), zigzag pattern visible from angle
-- Neck mane: fluffy collar-like fur around neck clearly visible from angle, slightly darker lavender (hex #D4C9E0), creating volume
-- Tail: fluffy tail with upward curve, visible from angle, same lavender as body
+- Nose: small black triangular nose (hex #2C2C2C), centered below eyes on white facial mask area, glossy finish
+- Mouth: simple curved line forming "w" shape, subtle friendly smile, positioned on white/cream facial area
+- Ears: both triangular ears visible, standing upright with slight forward tilt, lavender-gray color matching head
+- Distinctive marks:
+  * Primary: White/cream facial mask (hex #FDFBF7) covering lower muzzle, chin, throat, and upper chest, clearly visible from three-quarter angle
+  * Secondary: Lightning bolt shape partially visible on LEFT SIDE of body, baby blue color (hex #A8D8EA), zigzag pattern visible from angle on lavender-gray body area
+- Neck mane: fluffy collar-like fur around neck clearly visible from angle, slightly darker lavender (hex #D4C9E0), creating impressive volume, blending naturally with white chest area below
+- Tail: fluffy tail with upward curve, visible from angle, same lavender-gray as main body
 - Body: compact rounded torso, three-quarter view showing depth
-- Legs: all four short stubby legs visible, front legs closer to camera, rounded paws
+- Chest area: white/cream coloration prominently visible from angle, covering front chest
+- Legs: all four short stubby legs visible, front legs closer to camera, rounded paws, lavender-gray color
 - Proportions: head to body ratio exactly 1:1.5, visible from angle
 
 POSE AND EXPRESSION:
@@ -293,12 +322,15 @@ POSE AND EXPRESSION:
 - Both ears upright and visible
 - Tail with gentle upward curve, partially visible from angle
 - Weight evenly distributed, stable stance
+- White facial mask and chest prominently visible facing camera
 
 TECHNICAL SPECIFICATIONS:
-- Lighting: soft even studio lighting, subtle shadow under character
+- Lighting: soft even studio lighting, subtle shadow under character, should highlight natural color zones (lavender body vs white face/chest)
 - Texture: smooth painted cartoon fur, NO realistic hair strands
 - Heterochromia (different colored eyes) must be clearly visible and distinct
-- Neck mane should add volume without looking realistic
+- Neck mane should add volume without looking realistic, natural blend with white chest
+- Color transitions between lavender body and white facial mask/chest should be soft, natural, and gradual
+- Lightning bolt on left side should be partially visible from this angle
 - No accessories, collars, bandanas, or clothing
 - No background elements or props
 - Single character only, no other animals
@@ -308,7 +340,9 @@ TECHNICAL SPECIFICATIONS:
 NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Realistic dog, photographic, fur texture details
 - Same-colored eyes (both blue or both brown)
-- Multiple patterns beyond the single lightning bolt on left side
+- Uniform single color (must have white facial mask and chest visible)
+- Multiple patterns beyond white facial mask and single lightning bolt on left side
+- Hard edges or artificial-looking color boundaries
 - Accessories (collars, bandanas, hats, clothes)
 - Sharp teeth, claws, or aggressive features
 - Adult proportions, long legs, thin body
