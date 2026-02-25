@@ -354,6 +354,18 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Floppy ears (ears must be upright)
 ```
 
+## ⚠️ NOTAS IMPORTANTES
+
+### Códigos HEX a usar:
+- Cuerpo principal: `#E8E3F0` (lavanda-gris)
+- Pecho/vientre: `#F5F3F8` (lavanda muy claro)
+- Rayo: `#A8D8EA` (azul baby)
+- Melena: `#D4C9E0` (lavanda oscuro)
+- Manchita: `#A8D8EA` (azul baby)
+- Ojos: `#6BB6D6` (azul) + `#8B6F47` (café)
+- Nariz: `#2C2C2C` (negro mate)
+
+
 ---
 
 ## 🎯 GUÍA DE USO DE PROMPTS

@@ -137,11 +137,13 @@ Ambos perritos comparten:
 - Brillos: `#FFFFFF` (blanco puro)
 
 ### Toby Cósmico:
-- Principal: `#E8E3F0` (gris lavanda)
+- Cuerpo principal: `#E8E3F0` (lavanda-gris)
+- Pecho/vientre: `#F5F3F8` (lavanda muy claro)
+- Rayo: `#A8D8EA` (azul baby)
+- Melena: `#D4C9E0` (lavanda oscuro)
 - Manchita: `#A8D8EA` (azul baby)
 - Ojos: `#6BB6D6` (azul) + `#8B6F47` (café)
 - Nariz: `#2C2C2C` (negro mate)
-- Melena: `#D4C9E0` (lavanda más oscuro)
 
 ---
 
