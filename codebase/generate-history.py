@@ -3,6 +3,8 @@ import os
 
 client = OpenAI()
 
+
+
 def enviar_prompt(prompt):
     response = client.responses.create(
         model="gpt-4.1-nano",  # Puedes cambiar el modelo si lo necesitas
