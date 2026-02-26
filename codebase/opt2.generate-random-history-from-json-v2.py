@@ -20,7 +20,35 @@ def cargar_texto_externo(nombre_archivo):
 SYSTEM_PROMPT = cargar_texto_externo("./componentes/history-teller.md")
 PROMPT_TEMPLATE = cargar_texto_externo("./componentes/prompt_template.md")
 
+
+
+def obtener_identidad_visual(personaje):
+    identidad = DATOS_HISTORIAS.get("identidadVisualPersonajes", {}).get(personaje)
     
+    if not identidad:
+        return ""
+    
+    prompt_identidad = f"""
+PERSONAJE FIJO (NO MODIFICAR DISEÑO):
+- Especie: {identidad['species']}
+- Tamaño relativo: {identidad['height_ratio']}
+- Forma cuerpo: {identidad['body_shape']}
+- Proporción cabeza: {identidad['head_ratio']}
+- Color pelaje: {identidad['fur_color']}
+- Interior orejas: {identidad['inner_ear_color']}
+- Color ojos: {identidad['eye_color']}
+- Nariz: {identidad['nose_color']}
+- Orejas: {identidad['ears']}
+- Cola: {identidad['tail']}
+- Accesorio permanente: {identidad['accessory']}
+
+REGLAS ESTRICTAS:
+{identidad['forbidden_changes']}
+"""
+    return prompt_identidad
+
+
+
 # ========================================
 # CARGAR DATOS DEL JSON EXTERNO
 # ========================================
@@ -84,51 +112,23 @@ except (FileNotFoundError, json.JSONDecodeError, ValueError) as e:
 
 
 # ========================================
-# FUNCIONES AUXILIARES
-# ========================================
-
-def obtener_nombre_personaje(personaje_dict):
-    """
-    Extrae el nombre del personaje desde el dict.
-    Si recibe un string (compatibilidad), lo devuelve directamente.
-    
-    Args:
-        personaje_dict: dict o str con datos del personaje
-        
-    Returns:
-        str: Nombre del personaje
-    """
-    if isinstance(personaje_dict, dict):
-        return personaje_dict.get("nombre", "personaje desconocido")
-    else:
-        return str(personaje_dict)
-
-
-# ========================================
 # GENERADOR DE ELEMENTOS ALEATORIOS
 # ========================================
 
 def generar_elementos_historia():
     """
     Genera una combinación aleatoria de elementos para la historia.
-    Ahora maneja personajesSecundarios como dict con características.
     
     Returns:
-        dict: Diccionario con elementos seleccionados, incluyendo personaje_secundario_nombre
+        dict: Diccionario con elementos seleccionados
     """
-    
-    personaje_secundario = random.choice(DATOS_HISTORIAS['personajesSecundarios'])
-    
-    # Extraer nombre del personaje para uso en PROMPT_TEMPLATE
-    personaje_nombre = obtener_nombre_personaje(personaje_secundario)
     
     elementos = {
         "lugar": random.choice(DATOS_HISTORIAS['lugares']),
         "objeto_principal": random.choice(DATOS_HISTORIAS['objetosCotidianos']),
         "color_objeto": random.choice(DATOS_HISTORIAS['colores']),
         "objeto_magico": random.choice(DATOS_HISTORIAS['objetosMagicos']),
-        "personaje_secundario": personaje_secundario,  # Dict completo con características
-        "personaje_secundario_nombre": personaje_nombre,  # Solo el nombre para template
+        "personaje_secundario": random.choice(DATOS_HISTORIAS['personajesSecundarios']),
         "sentimiento_kira": random.choice(DATOS_HISTORIAS['sentimientos']),
         "sentimiento_toby": random.choice(DATOS_HISTORIAS['sentimientos']),
         "fenomeno": random.choice(DATOS_HISTORIAS['fenomenosNaturales']),
@@ -162,10 +162,6 @@ def extraer_titulo_historia(contenido_historia):
         titulo = match.group(1).strip()
         # Reemplazar espacios y caracteres especiales por guiones bajos
         titulo = re.sub(r'[^a-záéíóúñA-ZÁÉÍÓÚÑ0-9]', '_', titulo)
-        # Limpiar múltiples guiones bajos consecutivos
-        titulo = re.sub(r'_+', '_', titulo)
-        # Eliminar guiones bajos del inicio y final
-        titulo = titulo.strip('_')
         return titulo
     return "Historia_Sin_Titulo"
 
@@ -196,7 +192,6 @@ def generar_prompt_imagen_escena(num_escena, descripcion_escena, historia_dict):
     """
     Genera un prompt en español para generar una imagen de la escena.
     Sigue el estilo de película animada cinématica para audiencia infantil.
-    Incluye características del personaje secundario para consistencia visual.
     
     Args:
         num_escena (int): Número de la escena
@@ -209,39 +204,9 @@ def generar_prompt_imagen_escena(num_escena, descripcion_escena, historia_dict):
     lugar = historia_dict.get("elementos", {}).get("lugar", "escena mágica")
     color_obj = historia_dict.get("elementos", {}).get("color_objeto", "mágico")
     objeto = historia_dict.get("elementos", {}).get("objeto_principal", "objeto")
-    
-    # NUEVO: Extraer características del personaje secundario
-    personaje_sec = historia_dict.get("elementos", {}).get("personaje_secundario", {})
-    nombre_personaje = obtener_nombre_personaje(personaje_sec)
-    
-    # Construir descripción del personaje secundario
-    caracteristicas_personaje = ""
-    if isinstance(personaje_sec, dict):
-        species = personaje_sec.get("species", "")
-        body_shape = personaje_sec.get("body_shape", "")
-        height_ratio = personaje_sec.get("height_ratio", "")
-        accessory = personaje_sec.get("accessory", "")
-        forbidden = personaje_sec.get("forbidden_changes", "")
-        
-        # Agrupar colores por tipo
-        colores_dict = {}
-        for key in personaje_sec.keys():
-            if "_color" in key or "color" in key:
-                color_key = key.replace("_color", "").replace("color", "").strip("_")
-                colores_dict[color_key] = personaje_sec[key]
-        
-        colores_str = ", ".join([f"{k}: {v}" for k, v in colores_dict.items()])
-        
-        caracteristicas_personaje = f"""
-PERSONAJE SECUNDARIO - {nombre_personaje.upper()}:
-- Especie: {species}
-- Altura: {height_ratio}
-- Forma del cuerpo: {body_shape}
-- Colores: {colores_str}
-- Accesorios: {accessory}
-- PROHIBIDO (para consistencia visual): {forbidden}"""
-    else:
-        caracteristicas_personaje = f"PERSONAJE SECUNDARIO: {nombre_personaje}"
+    personaje_sec = historia_dict.get("elementos", {}).get("personaje_secundario")
+    bloque_identidad = obtener_identidad_visual(personaje_sec)
+
     
     prompt = f"""Escena cinematográfica de película animada.
 
@@ -251,7 +216,12 @@ Escena {num_escena}: {descripcion_escena}
 
 Lugar: {lugar} con iluminación cálida de hora dorada, luz suave y soñadora. El viento mueve suavemente el pasto y las flores.
 
-PERSONAJES PRINCIPALES:
+Personaje secundario:
+{personaje_sec}
+
+{bloque_identidad}
+
+Personajes: 
 - Kira (perrita): Energética y expresiva, con postura confiada y movimientos animados.
 
 Carácterísticas visuales de Kira:
@@ -291,6 +261,7 @@ PHYSICAL DESCRIPTION:
 - Legs: four short stubby legs, rounded paws, no visible toes, each leg 0.3x body height
 - Proportions: head to body ratio exactly 1:1.5
 
+
 NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Multiple spots or patterns beyond the single heart on right cheek
 - Sharp teeth, claws, or aggressive features
@@ -300,15 +271,24 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Complex backgrounds, grass, sky, objects
 - Anime style, 2D flat art
 
-{caracteristicas_personaje}
 
-ELEMENTO DESTACADO: {objeto} de color {color_obj}
+
+
+
+- Objeto destacado: {objeto} de color {color_obj}
 
 Atmósfera: Calorosa, mágica y envolvente. Música orquestal suave, tono caprichoso y aventurero.
 
 Calidad técnica: Cinemática, animación altamente detallada, movimientos suaves y dinámicos, iluminación cinematográfica, profundidad de campo, 4K, atmósfera emotiva y edificante.
 
-Perfecto para una audiencia infantil."""
+Perfecto para una audiencia infantil.
+
+
+IMPORTANT:
+MANTENER EXACTAMENTE EL MISMO DISEÑO DEL PERSONAJE EN TODAS LAS ESCENAS.
+NO reinterpretar.
+NO rediseñar.
+NO cambiar proporciones."""
     
     return prompt
 
@@ -316,7 +296,6 @@ Perfecto para una audiencia infantil."""
 def generar_prompt_video_escena(num_escena, descripcion_escena, historia_dict):
     """
     Genera un prompt en español para generar un video de la escena.
-    Incluye características del personaje secundario para consistencia visual.
     
     Args:
         num_escena (int): Número de la escena
@@ -328,16 +307,20 @@ def generar_prompt_video_escena(num_escena, descripcion_escena, historia_dict):
     """
     lugar = historia_dict.get("elementos", {}).get("lugar", "escena mágica")
     
-    # NUEVO: Extraer características del personaje secundario
-    personaje_sec = historia_dict.get("elementos", {}).get("personaje_secundario", {})
-    nombre_personaje = obtener_nombre_personaje(personaje_sec)
-    
-    # Extraer accesorios y detalles del personaje
-    accessory = ""
-    if isinstance(personaje_sec, dict):
-        accessory = personaje_sec.get("accessory", "")
-    
     prompt = f"""VIDEO ANIMADO - Escena {num_escena}
+
+Descripción: {descripcion_escena}
+
+Duración: 15-30 segundos
+
+Estilo: Película animada 3D de alta calidad, dirigida a audiencia infantil.
+
+Locación: {lugar}
+
+Personajes en movimiento:
+- Kira y Toby interactuando de forma dinámica y expresiva
+- Movimientos fluidos y naturales
+- Expresiones faciales emotivas
 
 Elementos de cámara:
 - Transiciones suaves
@@ -345,7 +328,14 @@ Elementos de cámara:
 - Movimiento de cámara envolvente
 - Enfoque sobre momentos clave
 
-Calidad: 4K, animación suave, atmósfera emotiva y edificante."""
+Sonido:
+- Música de fondo: orquestal, suave y aventurera
+- Efectos de sonido: subtiles y mágicos
+- Diálogos: cortos y claros (si aplica)
+
+Iluminación: Cálida, dorada, mágica. Profundidad y realismo.
+
+Qualidad: 4K, animación suave, atmósfera emotiva y edificante."""
     
     return prompt
 
@@ -386,11 +376,13 @@ def guardar_escenas_markdown(titulo, escenas, historia_dict):
 
 ---
 
-## 🎬 Prompt para Generar Video
+## 🎬 Prompt para Generar Imagen
 
 {prompt_imagen}
 
 ---
+
+## 🎥 Prompt para Generar Video
 
 {prompt_video}
 
@@ -582,8 +574,7 @@ def generar_multiples_historias(cantidad=5):
 
 if __name__ == "__main__":
     print("🐶 GENERADOR ALEATORIO DE HISTORIAS - KIRA Y TOBY")
-    print("📂 Cargando datos desde: inputs.opt2.json")
-    print("✨ Nueva estructura con características detalladas de personajes secundarios\n")
+    print("📂 Cargando datos desde: inputs.opt2.json\n")
     
     # Opción 1: Historia única aleatoria
     print("Generando historia con elementos aleatorios...\n")

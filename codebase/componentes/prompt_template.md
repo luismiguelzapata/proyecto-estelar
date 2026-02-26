@@ -22,7 +22,7 @@ ELEMENTOS OBLIGATORIOS PARA ESTA HISTORIA:
 ESCENARIO: {lugar}
 OBJETO PRINCIPAL: {objeto_principal} de color {color_objeto}
 ELEMENTO MÁGICO: {objeto_magico}
-PERSONAJE SECUNDARIO: {personaje_secundario}
+PERSONAJE SECUNDARIO: {personaje_secundario_nombre}
 FENÓMENO NATURAL: {fenomeno}
 DESAFÍO: {desafio}
 
@@ -40,12 +40,12 @@ MORALEJA OBJETIVO: {moraleja}
 
 REQUISITOS:
 
-1. Duración: 450-600 palabras (3-4 minutos lectura)
-2. Tono: Activo, dinámico, enganchante, con lenguaje sencillo y directo, ideal para niños pequeños, con diálogos cortos y escenas visuales claras.
+1. Duración: (5-10 minutos lectura)
+2. Tono: Activo, simple, dinámico, divertido, no muy literario, enganchante, facil de entender, sin tanto adornos a las palabras, con lenguaje sencillo y directo, ideal para niños pequeños, con diálogos y escenas visuales claras.
 3. Estructura: Inicio rápido → Desafío → Colaboración → Éxito → Moraleja
 4. Incorporar TODOS los elementos listados de manera natural
-5. Diálogos cortos (máximo 8 palabras)
-6. Máximo 8 escenas visuales diferenciadas
+5. Diálogos entendibles y claros (máximo 20 palabras)
+6. Máximo 12 escenas visuales diferenciadas
 
 ---
 
@@ -62,7 +62,7 @@ FORMATO DE ENTREGA:
 **ESCENAS:**
 1. [Descripción escena 1]
 2. [Descripción escena 2]
-[...hasta 8]
+[...hasta 12]
 
 ---
 

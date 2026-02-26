@@ -1,0 +1,838 @@
+
+
+# 🎨 PROMPTS DE GENERACIÓN PARA PERSONAJES SECUNDARIOS
+## Universo Kira & Toby - Biblioteca Completa de Personajes
+
+---
+
+## 📋 ESTRUCTURA BASE DE PROMPTS
+
+Cada prompt sigue estos principios:
+- Estilo Pixar/Disney 3D cartoon consistente
+- Proporciones chibi (cabeza grande, cuerpo pequeño)
+- Ojos grandes expresivos (40% del ancho de la cara)
+- Colores exactos con códigos HEX
+- Sin realismo, texturas suaves
+- Accesorios específicos y consistentes
+
+---
+
+## 🐰 PERSONAJES PEQUEÑOS (Hasta 0.6x altura de Kira)
+
+### 1. CONEJITO BLANCO
+```json
+{
+  "nombre": "conejito blanco",
+  "species": "conejo",
+  "height_ratio": "0.6x altura de Kira",
+  "body_shape": "cuerpo redondo y compacto",
+  "head_ratio": "1.4x el cuerpo",
+  "fur_color": "#FFFFFF",
+  "inner_ear_color": "#FFDDE1",
+  "eye_color": "#5C4033",
+  "accessory": "pañuelo azul claro #A8D8EA",
+  "forbidden_changes": "no manchas, no cambio de proporciones, no variación de color",
+  
+  "prompt": "A single cute 3D cartoon baby rabbit character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: pure white fur, hex code #FFFFFF, matte soft finish, uniform across entire body\n- Head shape: perfectly round, 1.4 times larger than body\n- Eyes: extremely oversized warm brown eyes (hex #5C4033), occupying 40% of face width, three white circular highlights per eye at 10 o'clock, innocent expression\n- Nose: tiny pink triangular nose, centered below eyes\n- Mouth: simple curved line forming gentle smile\n- Ears: long floppy ears standing upright, inner ear soft pink (hex #FFDDE1), ears 1.5x head height\n- Accessory: light blue bandana around neck (hex #A8D8EA), tied in small bow on side\n- Body: compact rounded torso, stubby limbs, no muscle definition\n- Legs: four very short rounded legs, large rounded paws\n- Tail: small fluffy cotton ball tail, white\n- Proportions: head to body ratio exactly 1:1.4\n\nPERSONALITY VISUAL:\n- Posture: standing upright, slightly shy pose, one paw near chest\n- Expression: sweet, gentle, kind, slightly timid\n- Ears: slightly forward tilt showing attentiveness\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted cartoon fur, NO realistic strands\n- Pure white with NO spots, patterns, or color variations\n- Bandana is ONLY accessory\n- Single character only\n\nNEGATIVE PROMPTS:\n- Realistic rabbit, photographic, detailed fur texture\n- Spots, patches, color variations beyond pure white\n- Multiple accessories beyond bandana\n- Adult proportions, long legs\n- Aggressive or sad expression"
+}
+```
+
+---
+
+### 2. ARDILLA MENSAJERA
+```json
+{
+  "nombre": "ardilla mensajera",
+  "species": "ardilla",
+  "height_ratio": "0.55x altura de Kira",
+  "body_shape": "pequeña con cola muy esponjosa en espiral fija",
+  "head_ratio": "1.3x el cuerpo",
+  "fur_color": "#C68642",
+  "belly_color": "#F3D7B6",
+  "eye_color": "#2F1B0C",
+  "accessory": "mochila roja #E63946",
+  "forbidden_changes": "no alterar tamaño de cola ni tonalidad",
+  
+  "prompt": "A single cute 3D cartoon squirrel character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm caramel brown fur, hex code #C68642, matte finish\n- Belly color: soft cream, hex code #F3D7B6, covering chest and belly area\n- Head shape: perfectly round, 1.3 times larger than body\n- Eyes: extremely oversized dark brown eyes (hex #2F1B0C), occupying 40% of face width, three white highlights at 10 o'clock, bright and energetic expression\n- Nose: tiny black triangular nose\n- Mouth: small cheerful smile\n- Ears: small rounded triangular ears with slight tufts\n- Tail: MASSIVE fluffy tail in permanent spiral shape, same caramel brown as body, tail volume 2x body size, spiral curves upward and forward\n- Accessory: small red backpack (hex #E63946) on back, simple design with one pocket\n- Body: compact rounded torso\n- Legs: four short stubby legs, tiny paws with rounded fingers\n- Proportions: head to body ratio 1:1.3\n\nPERSONALITY VISUAL:\n- Posture: standing alert, tail prominently displayed in spiral\n- Expression: energetic, helpful, ready for adventure\n- Body language: enthusiastic, forward-leaning slightly\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur, tail extra fluffy but stylized\n- Tail spiral must be FIXED and consistent\n- Red backpack clearly visible\n- NO variation in brown tone\n\nNEGATIVE PROMPTS:\n- Realistic squirrel, photographic detail\n- Straight or normal-sized tail\n- Multiple accessories beyond backpack\n- Dark or saturated brown colors\n- Adult proportions"
+}
+```
+
+---
+
+### 3. MARIPOSA BRILLANTE
+```json
+{
+  "nombre": "mariposa brillante",
+  "species": "mariposa mágica",
+  "height_ratio": "0.4x altura de Kira",
+  "wing_shape": "grandes alas redondeadas simétricas",
+  "wing_color": "gradiente fijo #FF9EEB a #A0C4FF",
+  "detail": "puntos blancos uniformes",
+  "accessory": "brillo dorado sutil",
+  "forbidden_changes": "no alterar patrón ni colores",
+  
+  "prompt": "A single cute 3D cartoon magical butterfly character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible with wings spread.\n\nPHYSICAL DESCRIPTION:\n- Body: small rounded cylindrical body, soft lavender color #D8BFD8\n- Head: round, same size as body, with two small antennae with rounded tips\n- Eyes: large circular eyes occupying 50% of face, bright blue #A0C4FF, three white highlights, friendly expression\n- Wings: FOUR large rounded symmetrical wings (two upper, two lower)\n  * Upper wings: 3x body size each\n  * Lower wings: 2x body size each\n  * Wing gradient: smooth transition from hot pink #FF9EEB at base to soft blue #A0C4FF at tips\n  * Pattern: 6 white circular dots per wing (hex #FFFFFF), evenly distributed, 10% wing size each\n  * Edges: smooth rounded curves, no sharp points\n- Magical effect: subtle golden shimmer around wing edges (hex #FFD700), translucent glow\n- Legs: six tiny legs tucked close to body\n\nPERSONALITY VISUAL:\n- Posture: hovering position, wings spread symmetrically\n- Expression: cheerful, magical, friendly\n- Wing position: gentle upward curve showing flight\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft with magical glow effect\n- Texture: smooth painted, wings slightly translucent\n- Gradient MUST be smooth and consistent\n- White dots MUST be perfectly circular and evenly spaced\n- Symmetry is CRITICAL - both sides identical\n\nNEGATIVE PROMPTS:\n- Realistic butterfly, photographic\n- Different gradient colors\n- Irregular dot patterns\n- Asymmetrical wings\n- Sharp or pointed wing edges\n- Multiple butterflies"
+}
+```
+
+---
+
+### 4. PÁJARO CANTOR
+```json
+{
+  "nombre": "pájaro cantor",
+  "species": "pájaro pequeño",
+  "height_ratio": "0.5x altura de Kira",
+  "body_shape": "ovalado compacto",
+  "feather_color": "#4CC9F0",
+  "belly_color": "#E9F5FF",
+  "beak_color": "#FFB703",
+  "forbidden_changes": "no variar tono azul",
+  
+  "prompt": "A single cute 3D cartoon small bird character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright sky blue feathers, hex code #4CC9F0, matte finish\n- Belly color: very light blue almost white, hex code #E9F5FF, covering chest and belly\n- Head shape: perfectly round, 1.2 times larger than body\n- Eyes: extremely oversized black eyes with blue reflection, occupying 45% of face width, three white highlights at 10 o'clock, joyful expression\n- Beak: small triangular bright yellow beak (hex #FFB703), cheerful and short\n- Body: rounded oval compact torso\n- Wings: two small rounded wings tucked close to body, same blue as body\n- Tail: short rounded tail feathers, 3 visible feathers, same blue\n- Legs: two tiny stick legs, yellow (matching beak), three toes each\n- No crest or head decorations\n- Proportions: compact and round, chibi style\n\nPERSONALITY VISUAL:\n- Posture: standing upright, cheerful stance\n- Expression: singing/happy, beak slightly open\n- Wings: relaxed position showing contentment\n- Body language: musical, joyful energy\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted feathers, NO individual feather detail\n- Blue tone MUST be exactly #4CC9F0, no darker or lighter\n- Simple clean design\n- Single character only\n\nNEGATIVE PROMPTS:\n- Realistic bird, photographic\n- Darker or saturated blue\n- Detailed feather texture\n- Complex wing patterns\n- Adult bird proportions\n- Aggressive expression"
+}
+```
+
+---
+
+### 5. ERIZO TÍMIDO
+```json
+{
+  "nombre": "erizo tímido",
+  "species": "erizo",
+  "height_ratio": "0.5x altura de Kira",
+  "body_shape": "redondo bajo",
+  "spike_color": "#8D5524",
+  "face_color": "#F5D6C6",
+  "accessory": "bufanda verde #81B29A",
+  "forbidden_changes": "no modificar forma de púas",
+  
+  "prompt": "A single cute 3D cartoon hedgehog character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body shape: round low sphere, compact\n- Spike color: warm brown, hex code #8D5524, covering top and back of body\n- Spikes: simplified cartoon spikes, rounded tips (not sharp), evenly distributed, standing upright, each spike 20% of body height\n- Face color: soft peach cream, hex code #F5D6C6, covering face, belly, and paws\n- Head: round, integrated with body, 1.1x body width\n- Eyes: large round black eyes, occupying 35% of face width, three white highlights, shy gentle expression, slightly looking down or to side\n- Nose: tiny black round nose\n- Mouth: very small curved smile, timid\n- Ears: barely visible small rounded ears between spikes\n- Accessory: soft green scarf (hex #81B29A) wrapped around neck, simple knot\n- Legs: four very short stubby legs, barely visible under round body\n- Paws: rounded, same peach as face\n\nPERSONALITY VISUAL:\n- Posture: slightly curled, shy stance\n- Expression: gentle, timid, sweet, slightly nervous\n- Body language: modest, reserved, endearing\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even lighting\n- Texture: smooth painted, spikes stylized not realistic\n- Spikes MUST have rounded tips, not sharp points\n- Green scarf clearly visible\n- Compact round silhouette\n\nNEGATIVE PROMPTS:\n- Realistic hedgehog, photographic\n- Sharp pointed spikes\n- Aggressive or confident expression\n- Long legs or stretched body\n- Complex accessories beyond scarf"
+}
+```
+
+---
+
+## 🦊 PERSONAJES MEDIANOS (0.6x - 0.8x altura de Kira)
+
+### 6. ZORRITO CURIOSO
+```json
+{
+  "nombre": "zorrito curioso",
+  "species": "zorro pequeño",
+  "height_ratio": "0.65x altura de Kira",
+  "fur_color": "#F77F00",
+  "belly_color": "#FFF3E0",
+  "tail_tip": "#FFFFFF",
+  "accessory": "pañuelo verde menta #A8E6CF",
+  "forbidden_changes": "no oscurecer pelaje, no cambiar cola",
+  
+  "prompt": "A single cute 3D cartoon baby fox character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright warm orange fur, hex code #F77F00, matte finish\n- Belly color: cream white, hex code #FFF3E0, covering chest, belly, and inner legs\n- Head shape: rounded triangular, 1.3x larger than body\n- Eyes: extremely oversized amber brown eyes, occupying 40% of face width, three white highlights at 10 o'clock, curious intelligent expression\n- Nose: small black triangular nose\n- Mouth: small friendly smile with hint of mischief\n- Ears: large triangular pointed ears standing upright, black tips (hex #2C2C2C) on outer ear edges\n- Tail: very fluffy bushy tail, 1.2x body length, orange with white tip (hex #FFFFFF) covering last 25% of tail\n- Accessory: mint green bandana (hex #A8E6CF) tied around neck in small bow\n- Body: compact rounded torso\n- Legs: four short legs, small rounded paws, white \"socks\" on paws matching belly color\n- Proportions: head to body 1:1.3\n\nPERSONALITY VISUAL:\n- Posture: alert, leaning forward slightly, one paw raised\n- Expression: curious, clever, playful, investigating\n- Tail: curved upward showing energy\n- Ears: perked forward showing attention\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur, tail extra fluffy but stylized\n- Orange MUST be bright #F77F00, not dark or muted\n- White tail tip clearly defined\n- Mint bandana visible\n\nNEGATIVE PROMPTS:\n- Realistic fox, photographic\n- Dark orange or brown tones\n- Tail without white tip\n- Adult fox proportions\n- Aggressive expression"
+}
+```
+
+---
+
+### 7. BÚHO SABIO
+```json
+{
+  "nombre": "búho sabio",
+  "species": "búho",
+  "height_ratio": "0.8x altura de Kira",
+  "body_shape": "ovalado robusto",
+  "head_ratio": "proporcional grande",
+  "feather_color": "#8C6A4A",
+  "eye_color": "#F4A261",
+  "accessory": "gafas redondas doradas #C9A227",
+  "forbidden_changes": "no quitar gafas, no cambiar tamaño",
+  
+  "prompt": "A single cute 3D cartoon owl character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm brown feathers, hex code #8C6A4A, matte soft finish\n- Body shape: rounded oval, robust but not fat, 1.2x width of height\n- Head: large round head, seamlessly connected to body, 1.1x body width\n- Eyes: HUGE circular eyes occupying 50% of face, warm orange color (hex #F4A261), black pupils, wise gentle expression\n- Accessory: round golden glasses (hex #C9A227), thin wire frames, sitting on face in front of eyes, MUST be present\n- Beak: small curved yellow beak below eyes\n- Facial disc: lighter brown circular pattern around eyes, hex #B8956A\n- Ear tufts: two small rounded feather tufts on top of head\n- Wings: two small rounded wings tucked to sides\n- Feet: two visible feet with three toes each, yellow-brown\n- Tail: short rounded tail feathers\n- Proportions: compact, wise, approachable\n\nPERSONALITY VISUAL:\n- Posture: sitting upright, dignified but friendly\n- Expression: wise, patient, kind, thoughtful\n- Head: slight tilt showing listening/thinking\n- Wings: relaxed at sides\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted feathers, NO individual detail\n- Glasses are MANDATORY and must be clearly visible\n- Warm brown tone consistent\n- Eyes large and expressive behind glasses\n\nNEGATIVE PROMPTS:\n- Realistic owl, photographic\n- Without glasses (glasses REQUIRED)\n- Aggressive or stern expression\n- Dark or saturated colors\n- Detailed feather texture"
+}
+```
+
+---
+
+### 8. TORTUGA VIAJERA
+```json
+{
+  "nombre": "tortuga viajera",
+  "species": "tortuga",
+  "height_ratio": "0.55x altura de Kira",
+  "shell_color": "#6A994E",
+  "shell_pattern": "hexágonos suaves fijos",
+  "accessory": "estrella amarilla #FFD166 en caparazón",
+  "forbidden_changes": "no alterar patrón del caparazón",
+  
+  "prompt": "A single cute 3D cartoon turtle character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Shell color: forest green, hex code #6A994E, dome-shaped\n- Shell pattern: soft hexagon pattern, darker green #52734D for hexagon outlines, 8-10 visible hexagons on top, geometric but rounded edges\n- Shell decoration: yellow star sticker (hex #FFD166) on center top of shell, five-pointed star, 15% of shell width\n- Body color: light green #8FBC8F for head, legs, tail\n- Head: round, 1.2x width of shell opening, emerging from shell\n- Eyes: large round friendly eyes, dark green #2D5016, occupying 40% of face, three white highlights, calm wise expression\n- Mouth: gentle smile\n- Legs: four short stubby legs, rounded feet, same light green as head\n- Tail: small rounded tail barely visible\n- Shell height: 1.3x body width when viewed from side\n\nPERSONALITY VISUAL:\n- Posture: walking slowly, steady pace\n- Expression: patient, experienced, friendly traveler\n- Head: slightly extended from shell showing confidence\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted, shell slightly glossy\n- Hexagon pattern MUST be consistent and geometric\n- Yellow star clearly visible on shell top\n- Forest green exact shade #6A994E\n\nNEGATIVE PROMPTS:\n- Realistic turtle, photographic\n- Random or organic shell pattern (must be hexagons)\n- Shell without yellow star\n- Retracted head hidden in shell\n- Darker or brighter green tones"
+}
+```
+
+---
+
+## 🐻 PERSONAJES GRANDES (0.8x - 1.2x altura de Kira)
+
+### 9. OSO CARPINTERO
+```json
+{
+  "nombre": "oso carpintero",
+  "species": "oso joven",
+  "height_ratio": "0.85x altura de Kira",
+  "fur_color": "#7F5539",
+  "belly_color": "#EDE0D4",
+  "accessory": "delantal azul oscuro #1D3557",
+  "forbidden_changes": "no hacerlo adulto ni aumentar masa",
+  
+  "prompt": "A single cute 3D cartoon young bear character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm brown fur, hex code #7F5539, matte soft finish\n- Belly color: cream beige, hex code #EDE0D4, covering chest and belly in oval shape\n- Head shape: round with slightly wider cheeks, 1.3x larger than body\n- Eyes: large round black eyes, occupying 35% of face width, three white highlights, friendly hardworking expression\n- Snout: rounded beige snout matching belly color, small black nose at tip\n- Ears: two small rounded ears on top of head, same brown as body\n- Accessory: dark blue work apron (hex #1D3557), covering chest and extending to knees, simple design with one front pocket\n- Body: rounded but not fat, young bear proportions, compact torso\n- Arms: short rounded arms, large paws\n- Legs: short sturdy legs, large rounded feet\n- Proportions: youthful, strong but gentle, approachable\n\nPERSONALITY VISUAL:\n- Posture: standing upright, confident but friendly\n- Expression: cheerful, helpful, capable, proud of work\n- Arms: one arm slightly raised or holding position\n- Body language: reliable, warm\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur, NO realistic hair\n- Must look young, NOT adult bear\n- Blue apron clearly visible and fitted\n- Warm brown tone consistent\n\nNEGATIVE PROMPTS:\n- Realistic bear, photographic\n- Adult bear proportions or large size\n- Aggressive or intimidating expression\n- Without apron\n- Dark or saturated brown"
+}
+```
+
+---
+
+### 10. DRAGÓN AMISTOSO
+```json
+{
+  "nombre": "dragón amistoso",
+  "species": "dragón pequeño",
+  "height_ratio": "0.9x altura de Kira",
+  "skin_color": "#90DBF4",
+  "wing_color": "#48CAE4",
+  "belly_color": "#CAF0F8",
+  "accessory": "pequeña corona dorada #FFD166",
+  "forbidden_changes": "no cambiar color azul base",
+  
+  "prompt": "A single cute 3D cartoon baby dragon character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft sky blue, hex code #90DBF4, smooth scales texture but stylized\n- Belly color: very light blue, hex code #CAF0F8, covering chest, belly, and underside of tail\n- Head shape: rounded with gentle snout, 1.4x larger than body\n- Eyes: huge round friendly eyes, bright blue #00B4D8, occupying 45% of face width, three white highlights, innocent playful expression\n- Snout: short rounded, same blue as belly\n- Horns: two small rounded nubs on top of head, slightly darker blue #48CAE4\n- Accessory: tiny golden crown (hex #FFD166) sitting between horns, simple three-point design\n- Wings: two small rounded wings on back, hex #48CAE4, membrane style, wings folded or slightly spread, each wing 0.8x body height\n- Tail: medium length rounded tail with arrow-shaped tip, same blue as body\n- Body: compact rounded torso, sitting or standing on haunches\n- Legs: four short chubby legs, three rounded claws per foot\n- Spine: small rounded bumps along back and tail, slightly darker blue\n\nPERSONALITY VISUAL:\n- Posture: friendly playful stance, maybe sitting\n- Expression: sweet, magical, innocent, non-threatening\n- Wings: relaxed position\n- Tail: gentle curve showing happiness\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft studio lighting with slight magical glow\n- Texture: smooth painted scales, NOT realistic\n- Blue tones MUST be soft and pastel #90DBF4\n- Crown small but visible\n- Friendly dragon, not intimidating\n\nNEGATIVE PROMPTS:\n- Realistic dragon, detailed scales\n- Aggressive or fierce expression\n- Dark or saturated colors\n- Large sharp claws or teeth\n- Adult dragon proportions\n- Without crown"
+}
+```
+
+---
+
+## 📊 SISTEMA DE GENERACIÓN MASIVA
+
+### Código Python para generar todos los personajes:
+```python
+import json
+
+PERSONAJES_DATABASE = [
+    {
+        "nombre": "conejito blanco",
+        "prompt": "[PROMPT COMPLETO AQUÍ]"
+    },
+    {
+        "nombre": "ardilla mensajera",
+        "prompt": "[PROMPT COMPLETO AQUÍ]"
+    },
+    # ... todos los demás personajes
+]
+
+def generar_personaje(nombre_personaje):
+    """
+    Genera imagen de un personaje específico usando su prompt.
+    """
+    personaje = next((p for p in PERSONAJES_DATABASE if p["nombre"] == nombre_personaje), None)
+    
+    if not personaje:
+        return f"Personaje '{nombre_personaje}' no encontrado"
+    
+    # Aquí iría la llamada a Midjourney/DALL-E/SD
+    print(f"Generando: {personaje['nombre']}")
+    print(f"Prompt: {personaje['prompt'][:100]}...")
+    
+    return personaje['prompt']
+
+def generar_todos_personajes():
+    """
+    Genera todos los personajes de la base de datos.
+    """
+    for personaje in PERSONAJES_DATABASE:
+        generar_personaje(personaje["nombre"])
+```
+
+---
+
+## 🎯 RESUMEN
+
+**Total de personajes con prompts completos:** 10 (de muestra)
+
+**Características comunes:**
+- Estilo Pixar/Disney consistente
+- Proporciones chibi
+- Ojos grandes expresivos
+- Colores HEX exactos
+- Accesorios específicos
+- Personalidades visuales claras
+
+**Próximos pasos:**
+1. Generar los 10 personajes de muestra
+2. Validar consistencia visual
+3. Ajustar prompts según resultados
+4. Completar los 30+ personajes restantes
+
+---
+
+**¿Quieres que continúe con los prompts de los 30+ personajes restantes del listado?**
+
+
+
+# 🎨 PROMPTS COMPLETOS PARA TODOS LOS PERSONAJES SECUNDARIOS
+## Universo Kira & Toby - Biblioteca Completa (40 Personajes)
+
+---
+
+## 🐰 GRUPO 1: PERSONAJES PEQUEÑOS (0.4x - 0.6x altura de Kira)
+
+### 11. RATONCITO INVENTOR
+```json
+{
+  "nombre": "ratoncito inventor",
+  "species": "ratón",
+  "height_ratio": "0.45x altura de Kira",
+  "fur_color": "#BDB2A7",
+  "ear_color": "#FFD6E0",
+  "accessory": "lentes plateadas #C0C0C0",
+  "forbidden_changes": "no variar tamaño de orejas",
+  
+  "prompt": "A single cute 3D cartoon mouse character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft gray-beige fur, hex code #BDB2A7, matte finish\n- Head shape: rounded with slightly pointed snout, 1.5x larger than body\n- Eyes: extremely oversized black eyes, occupying 40% of face width, three white highlights at 10 o'clock, intelligent curious expression\n- Ears: VERY LARGE rounded ears, hex code #FFD6E0 pink inside, ears 1.8x head height, translucent appearance, prominent feature\n- Nose: tiny pink triangular nose at snout tip\n- Whiskers: three simple lines per side, thin black lines\n- Accessory: small round silver glasses (hex #C0C0C0), thin wire frames, sitting on nose, reflecting light\n- Body: very small compact torso, thin and agile\n- Arms: thin short arms, small paws with visible fingers\n- Legs: thin short legs, small feet\n- Tail: long thin tail, 1.5x body length, same gray as body, slight curve\n- Proportions: head to body 1:1.5, ears dominate silhouette\n\nPERSONALITY VISUAL:\n- Posture: standing upright, one paw raised to glasses or chin (thinking pose)\n- Expression: clever, inventive, focused, brilliant mind\n- Ears: perked forward showing attention to detail\n- Body language: intellectual, precise\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting, glasses reflect light\n- Texture: smooth painted fur, ears slightly translucent\n- Ears MUST be oversized and prominent\n- Silver glasses clearly visible and essential\n- Thin proportions showing agility\n\nNEGATIVE PROMPTS:\n- Realistic mouse, photographic\n- Small or normal-sized ears\n- Without glasses (glasses REQUIRED)\n- Fat or chubby body\n- Aggressive expression"
+}
+```
+
+---
+
+### 12. RANA OPTIMISTA
+```json
+{
+  "nombre": "rana optimista",
+  "species": "rana",
+  "height_ratio": "0.5x altura de Kira",
+  "skin_color": "#52B788",
+  "eye_color": "#1B4332",
+  "accessory": "sombrero amarillo #FFD60A",
+  "forbidden_changes": "no cambiar intensidad verde",
+  
+  "prompt": "A single cute 3D cartoon frog character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright green skin, hex code #52B788, smooth matte finish\n- Body shape: round plump body, sitting position\n- Head: wide flat head integrated with body, 1.2x body width\n- Eyes: HUGE bulging eyes on top of head, dark green #1B4332, occupying 50% of head width, positioned on sides of head, three white highlights per eye, optimistic happy expression\n- Mouth: wide smiling mouth, slight curve showing joy\n- Belly: slightly lighter green #74C69D, rounded\n- Legs: two visible front legs with four webbed fingers each, two strong back legs bent in sitting position\n- Webbed feet: visible webbing between toes, same green as body\n- Accessory: bright yellow hat (hex #FFD60A), simple rounded cap style, sitting on top of head between eyes\n- Proportions: round, cheerful, compact\n\nPERSONALITY VISUAL:\n- Posture: sitting upright, confident and happy\n- Expression: optimistic, cheerful, enthusiastic, big smile\n- Eyes: bright and wide showing positivity\n- Body language: energetic, hopeful\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth skin, slight shine but not wet\n- Green MUST be bright #52B788, not dark or dull\n- Yellow hat clearly visible and fitted\n- Wide smile essential to character\n\nNEGATIVE PROMPTS:\n- Realistic frog, photographic\n- Dark or muted green\n- Small eyes or normal proportions\n- Without hat (hat REQUIRED)\n- Sad or neutral expression"
+}
+```
+
+---
+
+### 13. CABALLITO DE MAR MÁGICO
+```json
+{
+  "nombre": "caballito de mar mágico",
+  "species": "caballito de mar",
+  "height_ratio": "0.45x altura de Kira",
+  "body_color": "#FFAFCC",
+  "detail_color": "#FFC8DD",
+  "accessory": "aura brillante azul #A2D2FF",
+  "forbidden_changes": "no alterar forma en espiral",
+  
+  "prompt": "A single cute 3D cartoon magical seahorse character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible in floating position.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft pink, hex code #FFAFCC, smooth gradient finish\n- Body shape: classic seahorse S-curve spiral shape, upright position\n- Detail color: lighter pink #FFC8DD for belly and face area\n- Head: rounded with elongated snout, 1.3x width of body\n- Eyes: large round magical eyes, sparkly blue-pink, occupying 45% of head, three star-shaped white highlights, wonder expression\n- Snout: small rounded tubular snout, same pink as body\n- Crest: small rounded fin-like crest on top of head, ruffled appearance\n- Dorsal fin: translucent pink fin along back, gentle wave pattern\n- Tail: curved spiral tail, 1.5x body length, elegant curve, prehensile tip\n- Accessory/Effect: soft blue magical aura (hex #A2D2FF) glowing around entire body, translucent shimmer, particle effect\n- Proportions: delicate, magical, graceful\n\nPERSONALITY VISUAL:\n- Posture: floating upright, gentle S-curve\n- Expression: magical, dreamy, kind, mystical\n- Tail: elegantly curved showing grace\n- Aura: visible glow around body\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft with magical glow effect\n- Texture: smooth with slight translucency\n- S-curve spiral shape MUST be maintained\n- Blue aura clearly visible as magical effect\n- Pink tones soft and pastel\n\nNEGATIVE PROMPTS:\n- Realistic seahorse, photographic\n- Straight body without S-curve\n- Without magical aura\n- Dark or saturated colors\n- Detailed scale texture"
+}
+```
+
+---
+
+### 14. TOPO CONSTRUCTOR
+```json
+{
+  "nombre": "topo constructor",
+  "species": "topo",
+  "height_ratio": "0.5x altura de Kira",
+  "fur_color": "#6D597A",
+  "nose_color": "#FFB4A2",
+  "accessory": "casco amarillo #FFB703",
+  "forbidden_changes": "no cambiar forma nariz",
+  
+  "prompt": "A single cute 3D cartoon mole character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: dark purple-gray fur, hex code #6D597A, velvety matte finish\n- Body shape: rounded cylindrical, compact and sturdy\n- Head: round, 1.3x larger than body, seamlessly connected\n- Eyes: very small beady eyes, nearly closed happy squint, black dots, cheerful expression (moles have poor vision)\n- Nose: LARGE prominent pink snout, hex code #FFB4A2, star-shaped nose tip with 22 tiny points (simplified to 8-10 visible points), signature feature\n- Paws: large flat front paws with visible claws, oversized for digging, pink palms\n- Back legs: small short legs, less prominent\n- Tail: very short barely visible tail\n- Accessory: bright yellow construction helmet (hex #FFB703), rounded dome shape, small brim, fits on top of head\n- Proportions: compact, powerful digger build\n\nPERSONALITY VISUAL:\n- Posture: standing or slight digging pose, sturdy stance\n- Expression: happy, hardworking, dedicated, cheerful\n- Paws: prominent showing work capability\n- Body language: reliable, industrious\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth velvety fur appearance\n- Star-shaped nose MUST be prominent and pink\n- Yellow helmet clearly visible and fitted\n- Large front paws essential feature\n\nNEGATIVE PROMPTS:\n- Realistic mole, photographic\n- Normal-sized nose or paws\n- Large open eyes (eyes should be tiny)\n- Without helmet (helmet REQUIRED)\n- Detailed fur texture"
+}
+```
+
+---
+
+### 15. CARACOL PACIENTE
+```json
+{
+  "nombre": "caracol paciente",
+  "species": "caracol",
+  "height_ratio": "0.4x altura de Kira",
+  "body_color": "#DDB892",
+  "shell_color": "#A47148",
+  "shell_spiral": "espiral marrón oscuro fijo",
+  "forbidden_changes": "no cambiar espiral",
+  
+  "prompt": "A single cute 3D cartoon snail character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft tan-beige, hex code #DDB892, smooth skin texture\n- Body shape: elongated slug-like body extending from shell\n- Shell color: medium brown, hex code #A47148, dome-shaped\n- Shell pattern: PERFECT SPIRAL from center outward, darker brown #6F4E37 spiral line, 3-4 visible rotations, mathematical precision\n- Shell size: 1.5x body width, prominent on back\n- Head: small rounded head at front of body\n- Eyes: two eyes on long thin stalks, large round black eyes at tips, 30% of head width each, gentle patient expression, eye stalks can bend slightly\n- Mouth: tiny simple smile\n- Antennae: two smaller antennae below eye stalks\n- Body trail: slight shine on ground showing slime trail (optional)\n- Proportions: slow, peaceful, deliberate\n\nPERSONALITY VISUAL:\n- Posture: moving slowly forward, peaceful pace\n- Expression: patient, calm, wise, unhurried\n- Eye stalks: gently curved showing contentment\n- Body language: tranquil, meditative\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth skin, shell slightly glossy\n- Spiral pattern MUST be perfect and mathematical\n- Eye stalks clearly visible and extended\n- Peaceful slow-motion implied\n\nNEGATIVE PROMPTS:\n- Realistic snail, photographic\n- Random or irregular shell pattern\n- Retracted eye stalks\n- Fast or dynamic pose\n- Detailed texture on shell"
+}
+```
+
+---
+
+### 16. PEZ DORADO SABIO
+```json
+{
+  "nombre": "pez dorado sabio",
+  "species": "pez",
+  "height_ratio": "0.4x altura de Kira",
+  "scale_color": "#FFB703",
+  "fin_color": "#FB8500",
+  "accessory": "brillo suave constante",
+  "forbidden_changes": "no alterar tono dorado",
+  
+  "prompt": "A single cute 3D cartoon goldfish character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible in floating position.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright golden yellow, hex code #FFB703, smooth glossy finish with gentle shimmer\n- Body shape: rounded oval, slightly compressed laterally\n- Head: integrated with body, large front section\n- Eyes: large round wise eyes, dark amber with golden reflection, occupying 40% of head, three white highlights, knowing peaceful expression\n- Mouth: small O-shape, gentle\n- Fins - Dorsal: single rounded fin on top back, hex code #FB8500 orange, flowing graceful\n- Fins - Pectoral: two side fins, translucent orange #FB8500, rounded\n- Fins - Tail: large flowing double-lobed tail fin, orange #FB8500, elegant movement\n- Scales: simplified suggestion of scales, not detailed, smooth appearance\n- Magical effect: constant soft golden shimmer around body, subtle glow\n- Proportions: graceful, serene, flowing\n\nPERSONALITY VISUAL:\n- Posture: floating horizontally, gentle swimming pose\n- Expression: wise, peaceful, knowing, ancient wisdom\n- Fins: gently flowing showing calm movement\n- Body language: tranquil, meditative\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft with golden shimmer effect\n- Texture: smooth glossy, slight transparency on fins\n- Golden color MUST be #FFB703, bright and warm\n- Fins flowing and elegant\n- Peaceful floating implied\n\nNEGATIVE PROMPTS:\n- Realistic fish, photographic\n- Detailed scale texture\n- Dark or orange-brown tones\n- Stiff or rigid fins\n- Aggressive expression"
+}
+```
+
+---
+
+### 17. MURCIÉLAGO NOCTURNO
+```json
+{
+  "nombre": "murciélago nocturno",
+  "species": "murciélago pequeño",
+  "height_ratio": "0.55x altura de Kira",
+  "fur_color": "#6A4C93",
+  "wing_color": "#5A189A",
+  "eye_color": "#F1FAEE",
+  "accessory": "mini chaleco azul #3A86FF",
+  "forbidden_changes": "no cambiar forma alas",
+  
+  "prompt": "A single cute 3D cartoon bat character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible with wings spread or folded.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft purple fur, hex code #6A4C93, fluffy appearance\n- Body shape: small rounded furry body\n- Head: round with large pointed ears, 1.4x body size\n- Ears: large triangular pointed ears standing upright, inner ear lighter purple #9D4EDD\n- Eyes: LARGE round pale eyes, hex code #F1FAEE cream-white, occupying 45% of face, three small highlights, friendly nocturnal expression, NOT red eyes\n- Nose: tiny pink upturned nose\n- Mouth: small friendly smile showing tiny fangs (cute not scary)\n- Wings: membrane wings, hex code #5A189A darker purple, can be spread or folded, simplified bone structure visible, each wing 1.5x body height when spread\n- Accessory: tiny blue vest (hex #3A86FF), fitted around torso, simple design\n- Legs: two small legs with tiny claws\n- Proportions: adorable, friendly night creature\n\nPERSONALITY VISUAL:\n- Posture: hanging upside down OR standing with wings folded\n- Expression: friendly, curious, helpful, nocturnal but not scary\n- Ears: alert and listening\n- Body language: approachable, gentle\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even lighting\n- Texture: fluffy fur on body, smooth membrane wings\n- Purple tones consistent #6A4C93 and #5A189A\n- Eyes pale and friendly, NOT red\n- Blue vest visible\n\nNEGATIVE PROMPTS:\n- Realistic bat, photographic\n- Red or scary eyes\n- Intimidating or aggressive\n- Dark black coloring\n- Sharp detailed teeth"
+}
+```
+
+---
+
+## 🦊 GRUPO 2: PERSONAJES MEDIANOS (0.6x - 0.8x altura de Kira)
+
+### 18. GALLINA VALIENTE
+```json
+{
+  "nombre": "gallina valiente",
+  "species": "gallina",
+  "height_ratio": "0.6x altura de Kira",
+  "feather_color": "#FDF0D5",
+  "comb_color": "#D00000",
+  "accessory": "pañuelo azul #00B4D8",
+  "forbidden_changes": "no cambiar cresta",
+  
+  "prompt": "A single cute 3D cartoon hen character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: cream white feathers, hex code #FDF0D5, soft fluffy appearance\n- Body shape: rounded plump body, upright posture\n- Head: small round head, 0.9x body width\n- Eyes: large round black eyes, occupying 40% of head, three white highlights, determined brave expression\n- Beak: short yellow-orange beak, slightly curved\n- Comb: red wavy comb on top of head (hex #D00000), 3-4 rounded peaks, signature feature, MUST be present\n- Wattle: small red wattle under beak matching comb color\n- Wings: two small rounded wings tucked to sides, same cream as body\n- Tail: small rounded tail feathers pointing upward, fluffy\n- Legs: two yellow-orange stick legs, three toes each\n- Accessory: blue bandana (hex #00B4D8) tied around neck in bow\n- Proportions: sturdy, confident, determined\n\nPERSONALITY VISUAL:\n- Posture: standing tall, chest out, confident stance\n- Expression: brave, determined, protective, strong\n- Wings: slightly away from body showing readiness\n- Body language: courageous, heroic\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted feathers, fluffy appearance\n- Red comb clearly visible and prominent\n- Blue bandana tied at neck\n- Confident upright posture essential\n\nNEGATIVE PROMPTS:\n- Realistic chicken, photographic\n- Without comb (comb REQUIRED)\n- Scared or timid expression\n- Detailed feather texture\n- Dark or brown coloring"
+}
+```
+
+---
+
+### 19. GATO MARINERO
+```json
+{
+  "nombre": "gato marinero",
+  "species": "gato",
+  "height_ratio": "0.7x altura de Kira",
+  "fur_color": "#ADB5BD",
+  "eye_color": "#118AB2",
+  "accessory": "gorra marinera azul #1D3557",
+  "forbidden_changes": "no cambiar color ojos",
+  
+  "prompt": "A single cute 3D cartoon cat character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: light gray fur, hex code #ADB5BD, soft matte finish\n- Body shape: sleek elongated feline body, agile build\n- Head: rounded with subtle triangular shape, 1.3x body width\n- Eyes: large almond-shaped ocean blue eyes (hex #118AB2), occupying 40% of face, three white highlights, adventurous intelligent expression, STRIKING color\n- Nose: small pink triangular nose\n- Whiskers: six thin white whiskers, three per side\n- Ears: medium triangular pointed ears, pink inside\n- Tail: long elegant tail, 1.2x body length, slight curve at tip\n- Paws: four paws with visible toe beans (pink)\n- Accessory: sailor cap (hex #1D3557 navy blue), white anchor symbol on front, sitting on head between ears, slight tilt\n- Proportions: graceful, nautical, adventurous\n\nPERSONALITY VISUAL:\n- Posture: standing alert, one paw raised slightly\n- Expression: adventurous, clever, seafaring spirit\n- Tail: curved showing confidence\n- Eyes: bright blue showing ocean love\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth short fur\n- Blue eyes MUST be #118AB2, vibrant and clear\n- Navy sailor cap with white anchor visible\n- Sleek elegant feline silhouette\n\nNEGATIVE PROMPTS:\n- Realistic cat, photographic\n- Green, yellow, or normal cat eyes (MUST be blue)\n- Without sailor cap (cap REQUIRED)\n- Fat or chubby build\n- Detailed fur texture"
+}
+```
+
+---
+
+### 20. MAPACHE EXPLORADOR
+```json
+{
+  "nombre": "mapache explorador",
+  "species": "mapache",
+  "height_ratio": "0.7x altura de Kira",
+  "fur_color": "#6C757D",
+  "mask_color": "#343A40",
+  "tail_rings": "anillos gris oscuro fijos",
+  "accessory": "linterna naranja #F77F00",
+  "forbidden_changes": "no eliminar antifaz",
+  
+  "prompt": "A single cute 3D cartoon raccoon character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: medium gray fur, hex code #6C757D, fluffy appearance\n- Facial mask: dark gray mask pattern (hex #343A40) around eyes, signature raccoon feature, MUST be present\n- Mask shape: covers eyes and connects across nose bridge, lighter gray #ADB5BD border around mask\n- Head: rounded with pointed snout, 1.3x body size\n- Eyes: large round black eyes within mask, occupying 35% of face, three white highlights, curious adventurous expression\n- Nose: small black triangular nose\n- Ears: rounded ears with white edges, alert position\n- Body: compact rounded torso, fluffy\n- Tail: BUSHY ringed tail, 1.3x body length, alternating dark gray #343A40 and medium gray #6C757D rings (5-6 visible rings), rings evenly spaced\n- Paws: small dexterous paws with visible fingers\n- Accessory: orange lantern (hex #F77F00) held in paw or hanging from belt, glowing effect\n- Proportions: curious explorer build\n\nPERSONALITY VISUAL:\n- Posture: slightly crouched, investigating pose\n- Expression: curious, clever, adventurous, explorer spirit\n- Tail: curved upward showing alertness\n- Paws: one reaching or holding lantern\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft studio lighting, lantern glow effect\n- Texture: fluffy fur appearance, smooth painted\n- Facial mask MUST be clearly defined\n- Tail rings clearly visible and evenly spaced\n- Orange lantern with glow visible\n\nNEGATIVE PROMPTS:\n- Realistic raccoon, photographic\n- Without facial mask (mask REQUIRED)\n- Solid tail without rings\n- Dark or black coloring\n- Detailed fur strands"
+}
+```
+
+---
+
+### 21. KOALA DORMILÓN
+```json
+{
+  "nombre": "koala dormilón",
+  "species": "koala",
+  "height_ratio": "0.7x altura de Kira",
+  "fur_color": "#B0BEC5",
+  "ear_inner": "#ECEFF1",
+  "accessory": "hojita verde #52B788",
+  "forbidden_changes": "no variar tono gris",
+  
+  "prompt": "A single cute 3D cartoon koala character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft blue-gray fur, hex code #B0BEC5, fluffy plush appearance\n- Body shape: rounded chubby build, huggable\n- Head: very large round head, 1.5x body width\n- Ears: HUGE fluffy rounded ears, 1.5x head width, inner ear cream color hex #ECEFF1, prominent feature\n- Eyes: large round sleepy eyes, dark gray, half-closed peaceful expression, long eyelashes\n- Nose: LARGE black oval nose, signature feature, shiny\n- Belly: lighter gray #CFD8DC, rounded\n- Arms: short thick arms for hugging\n- Legs: short thick legs, sitting position\n- Paws: large paws with visible pads\n- Accessory: single green eucalyptus leaf (hex #52B788) held in paw or near mouth\n- Proportions: sleepy, cuddly, peaceful\n\nPERSONALITY VISUAL:\n- Posture: sitting relaxed, possibly leaning or sleepy\n- Expression: peaceful, drowsy, content, half-asleep\n- Eyes: half-closed showing sleepiness\n- Body language: calm, relaxed, restful\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft warm studio lighting\n- Texture: very fluffy fur appearance\n- Gray tone MUST be #B0BEC5, soft blue-gray\n- Huge ears prominent and fluffy\n- Large black nose shiny\n- Green leaf visible\n\nNEGATIVE PROMPTS:\n- Realistic koala, photographic\n- Alert or wide-awake expression\n- Small ears or nose\n- Dark gray or brown tones\n- Detailed fur texture"
+}
+```
+
+---
+
+### 22. HURÓN EXPLORADOR
+```json
+{
+  "nombre": "hurón explorador",
+  "species": "hurón",
+  "height_ratio": "0.65x altura de Kira",
+  "fur_color": "#C19A6B",
+  "mask_color": "#6C584C",
+  "accessory": "mochila pequeña azul #457B9D",
+  "forbidden_changes": "no quitar antifaz oscuro",
+  
+  "prompt": "A single cute 3D cartoon ferret character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: tan beige fur, hex code #C19A6B, smooth appearance\n- Body shape: long slender elongated body, flexible agile build, 2.5x length to height ratio\n- Facial mask: dark brown mask (hex #6C584C) around eyes, raccoon-like pattern, MUST be present\n- Head: small narrow head with pointed face\n- Eyes: small round dark eyes within mask, occupying 30% of face, curious alert expression\n- Nose: tiny pink triangular nose\n- Ears: small rounded ears\n- Body: very long flexible torso, tube-like\n- Legs: four very short legs, compact\n- Tail: medium thick tail, 0.8x body length, slightly bushy\n- Accessory: small blue backpack (hex #457B9D) on back, exploration style\n- Proportions: elongated, agile, curious explorer\n\nPERSONALITY VISUAL:\n- Posture: low to ground, investigating, curious stance\n- Expression: alert, clever, adventurous, playful\n- Body: slightly arched showing energy\n- Tail: lifted showing excitement\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth short fur\n- Dark facial mask MUST be visible\n- Long slender body shape essential\n- Blue backpack visible on back\n\nNEGATIVE PROMPTS:\n- Realistic ferret, photographic\n- Without facial mask (mask REQUIRED)\n- Short or normal body proportions\n- Fat or chubby build\n- Large eyes"
+}
+```
+
+---
+
+### 23. PATO AVENTURERO
+```json
+{
+  "nombre": "pato aventurero",
+  "species": "pato",
+  "height_ratio": "0.6x altura de Kira",
+  "feather_color": "#FDE74C",
+  "beak_color": "#F77F00",
+  "accessory": "sombrero verde #2A9D8F",
+  "forbidden_changes": "no alterar amarillo base",
+  
+  "prompt": "A single cute 3D cartoon duck character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright yellow feathers, hex code #FDE74C, smooth soft finish\n- Body shape: rounded plump, classic duck silhouette\n- Head: round, 1.2x body width\n- Eyes: large round black eyes, occupying 40% of head, three white highlights, adventurous excited expression\n- Beak: flat orange beak (hex #F77F00), wide duck bill shape, smiling expression\n- Body: compact rounded torso\n- Wings: two small rounded wings at sides\n- Tail: small rounded tail feathers pointing upward\n- Legs: two orange stick legs (matching beak), webbed feet visible\n- Accessory: green explorer hat (hex #2A9D8F), safari/adventure style with small brim, sitting on head\n- Proportions: cheerful adventurer duck\n\nPERSONALITY VISUAL:\n- Posture: standing upright, ready for adventure\n- Expression: excited, enthusiastic, brave, adventurous\n- Wings: slightly spread showing energy\n- Body language: bold, fearless\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted feathers\n- Yellow MUST be bright #FDE74C\n- Orange beak flat duck-bill shape\n- Green explorer hat visible\n\nNEGATIVE PROMPTS:\n- Realistic duck, photographic\n- White or other color duck\n- Small pointed beak (must be flat)\n- Without hat (hat REQUIRED)\n- Detailed feather texture"
+}
+```
+
+---
+
+## 🦁 GRUPO 3: PERSONAJES GRANDES (0.8x - 1.2x altura de Kira)
+
+### 24. CANGURO SALTARÍN
+```json
+{
+  "nombre": "canguro saltarín",
+  "species": "canguro joven",
+  "height_ratio": "0.85x altura de Kira",
+  "fur_color": "#C19A6B",
+  "belly_color": "#F4E1D2",
+  "accessory": "mochila verde #52B788",
+  "forbidden_changes": "no modificar tamaño de orejas",
+  
+  "prompt": "A single cute 3D cartoon young kangaroo character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: tan brown fur, hex code #C19A6B, soft matte finish\n- Belly color: cream, hex code #F4E1D2, covering chest and belly\n- Body shape: upright posture, long powerful back legs\n- Head: rounded with elongated snout, 1.2x body width\n- Ears: VERY LONG pointed ears, 1.8x head height, can swivel, prominent feature, pink inside\n- Eyes: large round friendly brown eyes, occupying 40% of face, three white highlights, energetic expression\n- Nose: small black triangular nose\n- Mouth: gentle smile\n- Arms: short front arms, small paws\n- Legs: VERY LONG powerful back legs for hopping, thick thighs, large feet\n- Tail: THICK strong tail, 1.3x body length, used for balance, touches ground\n- Pouch: suggestion of pouch on belly (small line)\n- Accessory: green backpack (hex #52B788) on back\n- Proportions: athletic hopper, energetic\n\nPERSONALITY VISUAL:\n- Posture: upright ready to hop, leaning slightly forward\n- Expression: energetic, friendly, bouncy personality\n- Ears: alert upright position\n- Legs: bent ready to jump\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth short fur\n- Long ears MUST be prominent\n- Long back legs essential feature\n- Thick tail visible\n- Green backpack on back\n\nNEGATIVE PROMPTS:\n- Realistic kangaroo, photographic\n- Short ears or legs\n- Small thin tail\n- Adult large kangaroo\n- Detailed fur texture"
+}
+```
+
+---
+
+### 25. LEONCITO AMABLE
+```json
+{
+  "nombre": "leoncito amable",
+  "species": "león cachorro",
+  "height_ratio": "0.85x altura de Kira",
+  "fur_color": "#F4A261",
+  "mane_color": "#E76F51 suave",
+  "accessory": "pañuelo azul #457B9D",
+  "forbidden_changes": "no hacerlo adulto ni agrandar melena",
+  
+  "prompt": "A single cute 3D cartoon lion cub character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm orange-tan fur, hex code #F4A261, soft appearance\n- Mane color: soft coral-orange, hex code #E76F51, SMALL fluffy mane around head (cub size, not adult)\n- Mane style: rounded fluffy collar, not fully developed, youthful\n- Head: round with slight lion facial structure, 1.3x body width\n- Eyes: large round warm brown eyes, occupying 40% of face, three white highlights, kind gentle expression\n- Nose: small pink triangular nose\n- Snout: short rounded snout, lighter tan\n- Ears: small rounded ears visible within mane\n- Tail: medium length with small tuft at end, same orange as body, black tuft tip\n- Body: compact cub proportions, not muscular\n- Legs: four short sturdy legs, large paws\n- Accessory: blue bandana (hex #457B9D) around neck\n- Proportions: young cub, friendly, approachable\n\nPERSONALITY VISUAL:\n- Posture: sitting or standing friendly, non-threatening\n- Expression: kind, gentle, sweet, protective friend\n- Mane: small and cute, not intimidating\n- Body language: warm, approachable\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft warm studio lighting\n- Texture: smooth painted fur, fluffy mane\n- Mane MUST be small cub-sized, not adult\n- Warm orange tones consistent\n- Blue bandana visible\n- Friendly not fierce\n\nNEGATIVE PROMPTS:\n- Realistic lion, photographic\n- Adult lion with large mane\n- Fierce or aggressive expression\n- Dark orange or brown colors\n- Muscular adult body"
+}
+```
+
+---
+
+### 26. LOBO PROTECTOR
+```json
+{
+  "nombre": "lobo protector",
+  "species": "lobo joven",
+  "height_ratio": "0.9x altura de Kira",
+  "fur_color": "#6C757D gris suave uniforme",
+  "chest_color": "#DEE2E6",
+  "eye_color": "#495057",
+  "accessory": "collar verde bosque #2D6A4F",
+  "forbidden_changes": "no hacerlo intimidante ni cambiar tamaño corporal",
+  
+  "prompt": "A single cute 3D cartoon young wolf character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft gray fur, hex code #6C757D, smooth uniform finish\n- Chest color: light gray-white, hex code #DEE2E6, covering chest and neck\n- Body shape: lean athletic but not intimidating, young wolf proportions\n- Head: rounded with gentle elongated snout, 1.3x body width\n- Eyes: large almond-shaped gray eyes (hex #495057), occupying 40% of face, three white highlights, protective but kind expression\n- Nose: medium black nose, not too large\n- Ears: medium triangular pointed ears, alert but friendly position\n- Tail: fluffy medium tail, 1.0x body length, slight curve\n- Body: compact athletic build, not muscular or large\n- Legs: four medium legs, lean and agile\n- Paws: medium paws with visible toe pads\n- Accessory: forest green collar (hex #2D6A4F), simple band around neck\n- Proportions: young guardian, protective not scary\n\nPERSONALITY VISUAL:\n- Posture: alert standing, confident but approachable\n- Expression: protective, loyal, kind, trustworthy\n- Ears: forward showing attentiveness\n- Body language: guardian energy, not aggressive\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur\n- MUST look young and friendly, not intimidating\n- Gray tones soft #6C757D\n- Green collar visible\n- Kind protective expression essential\n\nNEGATIVE PROMPTS:\n- Realistic wolf, photographic\n- Aggressive, fierce, or scary\n- Large adult wolf size\n- Dark or black coloring\n- Intimidating posture or expression"
+}
+```
+
+---
+
+### 27. CIERVO GENTIL
+```json
+{
+  "nombre": "ciervo gentil",
+  "species": "ciervo joven",
+  "height_ratio": "0.9x altura de Kira",
+  "fur_color": "#BC6C25",
+  "belly_color": "#FEFAE0",
+  "antlers": "pequeños y redondeados",
+  "forbidden_changes": "no aumentar tamaño de astas",
+  
+  "prompt": "A single cute 3D cartoon young deer character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm brown fur, hex code #BC6C25, soft matte finish\n- Belly color: cream yellow, hex code #FEFAE0, covering chest, belly, under tail\n- Body shape: slender graceful build, elegant proportions\n- Head: gentle elongated face, 1.2x body width\n- Eyes: VERY LARGE round black eyes, occupying 45% of face, three white highlights, innocent gentle expression, long eyelashes\n- Nose: small black triangular nose\n- Ears: medium oval ears, alert position, pink inside\n- Antlers: SMALL rounded antler nubs, 0.3x head height, two points each, not fully developed (young deer), brown matching body\n- Tail: small white fluffy tail, visible from behind\n- Legs: four long slender legs, delicate build\n- Hooves: small black hooves\n- Optional: small white spots on back (fawn pattern, can be omitted for older fawn)\n- Proportions: gentle, graceful, innocent\n\nPERSONALITY VISUAL:\n- Posture: standing gracefully, elegant stance\n- Expression: gentle, kind, innocent, pure-hearted\n- Ears: forward showing trust\n- Body language: peaceful, approachable\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft warm studio lighting\n- Texture: smooth short fur\n- Antlers MUST be small rounded nubs, not large\n- Very large innocent eyes essential\n- Slender elegant build\n\nNEGATIVE PROMPTS:\n- Realistic deer, photographic\n- Large branching antlers (must be small nubs)\n- Small normal eyes\n- Muscular or heavy build\n- Alert or scared expression"
+}
+```
+
+---
+
+### 28. JIRAFA SOÑADORA
+```json
+{
+  "nombre": "jirafa soñadora",
+  "species": "jirafa joven",
+  "height_ratio": "1.2x altura de Kira",
+  "fur_color": "#E9C46A",
+  "spot_color": "#BC6C25",
+  "accessory": "bufanda celeste #A8DADC",
+  "forbidden_changes": "no modificar patrón de manchas",
+  
+  "prompt": "A single cute 3D cartoon young giraffe character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: golden yellow, hex code #E9C46A, soft matte finish\n- Spot pattern: medium brown spots (hex #BC6C25), irregular puzzle-like shapes, evenly distributed across body and neck, FIXED pattern\n- Body shape: tall slender build, characteristic long neck\n- Neck: VERY LONG elegant neck, 2x body height\n- Head: small gentle face on top of long neck, rounded\n- Eyes: large round dreamy blue eyes, occupying 45% of face, three white highlights, thoughtful faraway expression\n- Ears: small rounded ears\n- Ossicones: two small rounded horn-like bumps on head, brown matching spots\n- Snout: gentle elongated snout\n- Mane: short brown mane along neck, simplified\n- Body: compact torso, slender\n- Legs: four long slender legs, elegant\n- Hooves: small brown hooves\n- Tail: thin tail with brown tuft at end\n- Accessory: light blue scarf (hex #A8DADC) around neck, flowing\n- Proportions: tall, dreamy, graceful\n\nPERSONALITY VISUAL:\n- Posture: standing tall, head high, gazing upward\n- Expression: dreamy, thoughtful, imaginative, looking at sky\n- Neck: gracefully curved\n- Body language: peaceful, contemplative\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur, spots clearly defined\n- Spot pattern MUST be consistent puzzle-like shapes\n- Long neck essential feature\n- Light blue scarf visible and flowing\n\nNEGATIVE PROMPTS:\n- Realistic giraffe, photographic\n- Random or organic spot patterns\n- Short neck or normal proportions\n- Alert or focused expression (must be dreamy)\n- Detailed texture"
+}
+```
+
+---
+
+### 29. ELEFANTE SABIO
+```json
+{
+  "nombre": "elefante sabio",
+  "species": "elefante joven",
+  "height_ratio": "1.1x altura de Kira",
+  "skin_color": "#A9A9A9",
+  "ear_inner": "#CED4DA",
+  "accessory": "pañuelo púrpura #9D4EDD",
+  "forbidden_changes": "no reducir tamaño orejas",
+  
+  "prompt": "A single cute 3D cartoon young elephant character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: medium gray skin, hex code #A9A9A9, smooth soft finish\n- Body shape: rounded sturdy build, compact young elephant\n- Head: large rounded head, 1.4x body width\n- Eyes: medium round wise eyes, dark with kind expression, occupying 35% of face, three white highlights, gentle wisdom\n- Ears: VERY LARGE rounded fan-shaped ears, 1.8x head height each, inner ear lighter gray hex #CED4DA, can move independently, prominent feature\n- Trunk: medium length flexible trunk, can curl, expressive\n- Tusks: tiny white tusk tips barely visible (young elephant), optional\n- Body: compact rounded torso\n- Legs: four thick sturdy legs, cylindrical\n- Feet: large rounded feet with visible toe lines\n- Tail: thin rope-like tail with tuft at end\n- Accessory: purple bandana (hex #9D4EDD) around neck or head\n- Proportions: wise young gentle giant\n\nPERSONALITY VISUAL:\n- Posture: standing calmly, dignified but friendly\n- Expression: wise, patient, kind, ancient wisdom in young eyes\n- Ears: slightly forward showing listening\n- Trunk: gently curved showing peace\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth skin, slight wrinkles minimal\n- Ears MUST be very large and prominent\n- Gray tone medium #A9A9A9\n- Purple bandana visible\n- Wise but approachable expression\n\nNEGATIVE PROMPTS:\n- Realistic elephant, photographic\n- Small ears (ears must be huge)\n- Large adult tusks\n- Detailed wrinkled skin texture\n- Dark gray or heavy coloring"
+}
+```
+
+---
+
+### 30. ZEBRA RISUEÑA
+```json
+{
+  "nombre": "zebra risueña",
+  "species": "cebra joven",
+  "height_ratio": "0.95x altura de Kira",
+  "stripe_pattern": "blanco #FFFFFF y negro #1F1F1F fijo",
+  "accessory": "pañuelo rosa #FFAFCC",
+  "forbidden_changes": "no cambiar patrón rayas",
+  
+  "prompt": "A single cute 3D cartoon young zebra character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Base color: white, hex code #FFFFFF\n- Stripe color: black, hex code #1F1F1F\n- Stripe pattern: vertical stripes covering entire body, head, legs, FIXED consistent pattern, evenly spaced, smooth edges not jagged\n- Body shape: horse-like build, compact young proportions\n- Head: rounded with gentle horse-like face, 1.3x body width, stripes continue across face\n- Eyes: large round friendly black eyes, occupying 40% of face, three white highlights, joyful laughing expression\n- Mouth: big smile showing happiness\n- Mane: short black and white striped mane standing upright along neck\n- Ears: medium pointed horse-like ears, striped\n- Body: compact athletic build\n- Legs: four slender legs, striped pattern continues\n- Hooves: small black hooves\n- Tail: medium tail with black tuft at end\n- Accessory: pink bandana (hex #FFAFCC) tied around neck\n- Proportions: cheerful, energetic, happy\n\nPERSONALITY VISUAL:\n- Posture: playful energetic stance, maybe prancing\n- Expression: laughing, joyful, happy, giggling\n- Ears: forward showing joy\n- Body language: fun-loving, cheerful\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted, stripes clean edges\n- Stripe pattern MUST be consistent and fixed\n- Pure white and black contrast\n- Pink bandana visible\n- Big happy smile essential\n\nNEGATIVE PROMPTS:\n- Realistic zebra, photographic\n- Irregular or random stripe pattern\n- Gray tones in stripes (must be pure black/white)\n- Serious or neutral expression (must be happy)\n- Detailed fur texture"
+}
+```
+
+---
+
+## 🎨 CONTINUACIÓN DE PERSONAJES ESPECIALES
+
+### 31. VACA PINTORA
+```json
+{
+  "nombre": "vaca pintora",
+  "species": "vaca joven",
+  "height_ratio": "1.0x altura de Kira",
+  "body_color": "#FFFFFF",
+  "spot_color": "#6C757D",
+  "accessory": "boina azul #1D3557",
+  "forbidden_changes": "no modificar forma de manchas",
+  
+  "prompt": "A single cute 3D cartoon young cow character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: pure white, hex code #FFFFFF, clean soft finish\n- Spot pattern: gray spots (hex #6C757D), irregular organic shapes, 5-7 large spots on body, FIXED pattern, asymmetric but balanced\n- Body shape: rounded sturdy build, gentle cow proportions\n- Head: large rounded face, 1.3x body width, spots on face\n- Eyes: VERY LARGE round gentle brown eyes, occupying 45% of face, three white highlights, artistic dreamy expression, long eyelashes\n- Snout: wide pink nose area with two nostrils\n- Ears: medium floppy ears, tag optional\n- Horns: two small rounded horn nubs, light gray\n- Body: rounded torso, maternal gentle shape\n- Udder: small simplified udder, pink\n- Legs: four sturdy legs, small hooves\n- Tail: medium tail with tuft at end\n- Accessory: blue artist beret (hex #1D3557) sitting tilted on head between horns\n- Proportions: artistic, gentle, creative\n\nPERSONALITY VISUAL:\n- Posture: standing confidently, artistic pose\n- Expression: creative, artistic, thoughtful, inspired\n- Head: slight tilt showing artistic contemplation\n- Body language: gentle, creative spirit\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted\n- Spot pattern MUST be fixed organic shapes\n- Pure white base with gray spots\n- Blue beret visible and tilted artistically\n\nNEGATIVE PROMPTS:\n- Realistic cow, photographic\n- Black spots (must be gray)\n- Random or changing spot patterns\n- Without beret (beret REQUIRED)\n- Small normal eyes"
+}
+```
+
+---
+
+### 32. MONO ACRÓBATA
+```json
+{
+  "nombre": "mono acróbata",
+  "species": "mono pequeño",
+  "height_ratio": "0.75x altura de Kira",
+  "fur_color": "#A47148",
+  "face_color": "#F1C27D",
+  "tail_shape": "larga en curva fija",
+  "accessory": "cinta roja #D00000",
+  "forbidden_changes": "no acortar cola",
+  
+  "prompt": "A single cute 3D cartoon monkey character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: warm brown fur, hex code #A47148, soft appearance\n- Face color: tan peach, hex code #F1C27D, covering face, ears inside, chest, palms\n- Body shape: slender agile acrobatic build\n- Head: rounded, 1.3x body width\n- Face: flat friendly primate face\n- Eyes: large round dark eyes, occupying 40% of face, three white highlights, playful mischievous expression\n- Ears: large rounded ears protruding from sides, tan inside\n- Mouth: wide playful smile\n- Body: lean athletic torso, flexible\n- Arms: long slender arms, 1.2x body length, agile\n- Hands: tan palms, visible fingers\n- Legs: medium legs bent for agility\n- Tail: VERY LONG prehensile tail, 2.5x body length, can curl and grip, signature feature, elegant curve, brown matching body\n- Accessory: red ribbon (hex #D00000) tied around tail or wrist\n- Proportions: acrobatic, agile, playful\n\nPERSONALITY VISUAL:\n- Posture: dynamic playful pose, maybe hanging or balancing\n- Expression: mischievous, playful, energetic, fun\n- Tail: prominently curved showing prehensile ability\n- Body language: acrobatic, energetic\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fur\n- Tail MUST be very long and curved\n- Warm brown and tan contrast\n- Red ribbon visible\n- Playful dynamic energy\n\nNEGATIVE PROMPTS:\n- Realistic monkey, photographic\n- Short or normal tail (tail must be long)\n- Sitting still pose (needs dynamic energy)\n- Dark brown or black coloring\n- Detailed fur texture"
+}
+```
+
+---
+
+### 33. FLAMENCO BAILARÍN
+```json
+{
+  "nombre": "flamenco bailarín",
+  "species": "flamenco",
+  "height_ratio": "1.0x altura de Kira",
+  "feather_color": "#FF99C8",
+  "beak_color": "#212529 negro con punta blanca",
+  "accessory": "lazo pequeño turquesa #48CAE4",
+  "forbidden_changes": "no variar tono rosa",
+  
+  "prompt": "A single cute 3D cartoon flamingo character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Feather color: soft pink, hex code #FF99C8, fluffy appearance\n- Body shape: rounded plump body, elegant bird proportions\n- Neck: VERY LONG elegant S-curved neck, 1.8x body height, signature feature\n- Head: small rounded head on top of long neck, 0.6x body width\n- Eyes: large round dark eyes, occupying 40% of head, three white highlights, graceful artistic expression\n- Beak: distinctive flamingo beak, downward curved, black (hex #212529) with white tip, large and characteristic\n- Wings: two rounded wings tucked at sides, darker pink #FF85B3 tips\n- Legs: VERY LONG thin stick legs, 1.5x body height, bright pink matching body\n- Knees: distinctive backward-bending knee joints visible\n- Feet: webbed feet, three toes\n- Tail: short rounded tail feathers\n- Accessory: small turquoise bow (hex #48CAE4) on neck or head\n- Proportions: elegant dancer, graceful\n\nPERSONALITY VISUAL:\n- Posture: standing on one leg OR both legs in graceful pose\n- Expression: elegant, artistic, dancer spirit\n- Neck: graceful S-curve showing elegance\n- Body language: poised, refined, dancer\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted fluffy feathers\n- Pink MUST be #FF99C8, soft pastel\n- Long neck and legs essential features\n- Curved downward beak characteristic\n- Turquoise bow visible\n\nNEGATIVE PROMPTS:\n- Realistic flamingo, photographic\n- Hot pink or neon colors\n- Short neck or legs\n- Straight beak\n- Detailed feather texture"
+}
+```
+
+---
+
+### 34. CABRITO MONTAÑÉS
+```json
+{
+  "nombre": "cabrito montañés",
+  "species": "cabra joven",
+  "height_ratio": "0.75x altura de Kira",
+  "fur_color": "#DDB892",
+  "horns": "pequeños curvos suaves",
+  "accessory": "campanita dorada #FFD166",
+  "forbidden_changes": "no agrandar cuernos",
+  
+  "prompt": "A single cute 3D cartoon young goat character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: tan beige fur, hex code #DDB892, fluffy soft appearance\n- Body shape: compact sturdy mountain goat build\n- Head: rectangular-rounded with gentle face, 1.2x body width\n- Eyes: large rectangular pupils (horizontal), amber color, occupying 40% of face, three white highlights, cheerful adventurous expression\n- Snout: short with small pink nose\n- Ears: medium floppy ears pointing slightly outward\n- Horns: SMALL curved horns, 0.4x head height, smooth gentle curve backward, gray-brown, NOT large or sharp\n- Beard: small fluffy beard tuft under chin (optional)\n- Body: fluffy rounded torso\n- Legs: four sturdy legs, small hooves\n- Tail: small upward-pointing fluffy tail\n- Accessory: small golden bell (hex #FFD166) on collar around neck, visible\n- Proportions: mountain climber, sturdy, cheerful\n\nPERSONALITY VISUAL:\n- Posture: standing confidently on all fours or on hind legs\n- Expression: cheerful, adventurous, mountain spirit\n- Horns: small and friendly, not intimidating\n- Body language: energetic, mountaineer\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: fluffy fur appearance\n- Horns MUST be small and curved gently\n- Tan beige color warm\n- Golden bell visible and shiny\n\nNEGATIVE PROMPTS:\n- Realistic goat, photographic\n- Large pointed horns (must be small curved)\n- Adult goat proportions\n- White or dark coloring\n- Detailed fur strands"
+}
+```
+
+---
+
+### 35. DELFÍN JUGUETÓN
+```json
+{
+  "nombre": "delfín juguetón",
+  "species": "delfín",
+  "height_ratio": "0.8x altura de Kira",
+  "skin_color": "#90E0EF",
+  "belly_color": "#CAF0F8",
+  "accessory": "pulsera coral #FF6B6B",
+  "forbidden_changes": "no cambiar tono azul",
+  
+  "prompt": "A single cute 3D cartoon dolphin character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible in jumping pose.\n\nPHYSICAL DESCRIPTION:\n- Body color: bright sky blue, hex code #90E0EF, smooth glossy finish\n- Belly color: very light blue, hex code #CAF0F8, covering underside from chin to tail\n- Body shape: streamlined torpedo-shaped, curved dolphin silhouette\n- Head: rounded with distinctive dolphin beak/rostrum\n- Eyes: large round friendly eyes, dark blue, occupying 40% of head, three white highlights, joyful playful expression, positioned on sides\n- Beak: short rounded snout with gentle smile\n- Mouth: permanent smile shape, signature dolphin feature\n- Dorsal fin: single curved fin on back, 0.4x body height\n- Pectoral fins: two side fins, rounded paddle shape\n- Tail fluke: horizontal tail fin, two lobes, graceful\n- Skin: smooth sleek appearance, slightly glossy\n- Accessory: coral pink bracelet (hex #FF6B6B) on pectoral fin base\n- Proportions: playful jumper, joyful swimmer\n\nPERSONALITY VISUAL:\n- Posture: jumping arc pose OR swimming forward\n- Expression: joyful, playful, friendly, intelligent\n- Body: curved in playful jump motion\n- Smile: wide permanent dolphin smile\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft with slight glossy shine\n- Texture: smooth sleek skin, slight reflection\n- Blue MUST be bright #90E0EF\n- Permanent smile essential feature\n- Coral bracelet visible\n- Dynamic jumping energy\n\nNEGATIVE PROMPTS:\n- Realistic dolphin, photographic\n- Dark blue or gray tones\n- Without smile (smile REQUIRED)\n- Static standing pose (needs movement)\n- Detailed skin texture"
+}
+```
+
+---
+
+### 36. CAMALEÓN CURIOSO
+```json
+{
+  "nombre": "camaleón curioso",
+  "species": "camaleón",
+  "height_ratio": "0.5x altura de Kira",
+  "skin_color_base": "#52B788",
+  "stripe_color": "#74C69D",
+  "tail_shape": "espiral fija",
+  "forbidden_changes": "no cambiar patrón de rayas",
+  
+  "prompt": "A single cute 3D cartoon chameleon character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: green, hex code #52B788, smooth skin\n- Stripe pattern: lighter green stripes (hex #74C69D), horizontal bands along body, FIXED pattern, evenly spaced\n- Body shape: rounded lizard body, slightly compressed\n- Head: triangular rounded, 1.2x body width, distinctive chameleon shape\n- Eyes: HUGE bulging eyes, independent rotation ability, yellow-green, occupying 50% of head, positioned on sides, three white highlights, curious investigating expression\n- Mouth: small line mouth, can show tiny smile\n- Crest: small rounded crest ridge on head\n- Body: compact rounded torso with slight hump\n- Legs: four short legs, splayed position\n- Feet: mitten-like gripping feet with two toes visible each\n- Tail: LONG curled spiral tail, 1.5x body length, permanently curled (prehensile), signature feature\n- Proportions: curious investigator, quirky\n\nPERSONALITY VISUAL:\n- Posture: alert investigating, maybe on branch position\n- Expression: curious, observant, quirky, investigating\n- Eyes: looking in slightly different directions (chameleon trait)\n- Tail: tightly curled spiral\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth skin with slight bumpy suggestion\n- Green base #52B788 with lighter stripes\n- Huge independently moving eyes essential\n- Spiral tail MUST be curled\n\nNEGATIVE PROMPTS:\n- Realistic chameleon, photographic\n- Color-changing (should be fixed green)\n- Straight uncurled tail\n- Normal-sized eyes\n- Detailed scale texture"
+}
+```
+
+---
+
+### 37. ZORRILLO PERFUMISTA
+```json
+{
+  "nombre": "zorrillo perfumista",
+  "species": "zorrillo",
+  "height_ratio": "0.6x altura de Kira",
+  "fur_pattern": "negro #000000 con franja blanca fija",
+  "accessory": "flor rosa #FF70A6",
+  "forbidden_changes": "no cambiar patrón blanco",
+  
+  "prompt": "A single cute 3D cartoon skunk character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: black fur, hex code #000000, fluffy soft appearance\n- Stripe pattern: WHITE stripe (hex #FFFFFF), starting at head, splitting into Y-shape down back, continuing on bushy tail, FIXED pattern, clean edges\n- Body shape: small compact rounded build\n- Head: rounded with pointed snout, 1.3x body width\n- Eyes: large round sparkling eyes, dark with highlights, occupying 40% of face, three white highlights, friendly confident expression\n- Nose: small pink triangular nose\n- Ears: small rounded ears\n- Tail: VERY LARGE fluffy plume tail, 1.8x body size, held high, white stripe continues on tail, signature feature\n- Body: compact rounded torso\n- Legs: four short legs, small paws\n- Accessory: pink flower (hex #FF70A6) worn behind ear or held in paw\n- Proportions: perfumer, confident, charming\n\nPERSONALITY VISUAL:\n- Posture: confident standing, tail held high proudly\n- Expression: confident, charming, sophisticated, friendly\n- Tail: prominently displayed, fluffy and high\n- Body language: self-assured, elegant\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: very fluffy especially tail\n- White stripe MUST be clean and Y-shaped\n- Black base with pure white stripe\n- Large fluffy tail essential\n- Pink flower visible\n\nNEGATIVE PROMPTS:\n- Realistic skunk, photographic\n- Small or normal tail (tail must be huge)\n- Gray instead of pure black/white\n- Multiple or irregular stripes\n- Detailed fur strands"
+}
+```
+
+---
+
+### 38. PINGÜINO VIAJERO
+```json
+{
+  "nombre": "pingüino viajero",
+  "species": "pingüino",
+  "height_ratio": "0.65x altura de Kira",
+  "body_color": "#1B263B",
+  "belly_color": "#FFFFFF",
+  "beak_color": "#FCA311",
+  "accessory": "bufanda roja #E63946",
+  "forbidden_changes": "no cambiar patrón blanco/negro",
+  
+  "prompt": "A single cute 3D cartoon penguin character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: dark blue-black, hex code #1B263B, smooth feather appearance\n- Belly color: pure white, hex code #FFFFFF, oval patch covering chest and belly, classic penguin tuxedo pattern\n- Body shape: rounded egg-shaped, upright posture\n- Head: round integrated with body, 1.1x body width\n- Eyes: large round friendly black eyes, occupying 40% of head, three white highlights, adventurous cheerful expression\n- Beak: short orange beak (hex #FCA311), triangular\n- Cheeks: white patches on sides of face\n- Wings: two small flippers at sides, dark blue-black, cannot fly but flap\n- Feet: large orange webbed feet (matching beak), waddling stance\n- Tail: short stubby tail\n- Accessory: red scarf (hex #E63946) wrapped around neck, ends flowing\n- Proportions: waddling traveler, cheerful\n\nPERSONALITY VISUAL:\n- Posture: upright waddling stance or arms/flippers spread\n- Expression: cheerful, adventurous, brave, friendly\n- Feet: slightly pigeon-toed penguin stance\n- Body language: determined traveler\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft even studio lighting\n- Texture: smooth painted feathers\n- Black and white tuxedo pattern MUST be clear\n- Orange beak and feet matching\n- Red scarf visible and flowing\n\nNEGATIVE PROMPTS:\n- Realistic penguin, photographic\n- Gray instead of black/white\n- Yellow or other beak colors\n- Thin or non-egg-shaped body\n- Detailed feather texture"
+}
+```
+
+---
+
+### 39. ABEJA INGENIERA
+```json
+{
+  "nombre": "abeja ingeniera",
+  "species": "abeja",
+  "height_ratio": "0.45x altura de Kira",
+  "body_pattern": "rayas negras y amarillas uniformes",
+  "yellow_color": "#FFD60A",
+  "black_color": "#1F1F1F",
+  "wing_color": "#E0FBFC translúcido",
+  "accessory": "mini casco naranja #F77F00",
+  "forbidden_changes": "no alterar patrón de rayas, no cambiar transparencia alas",
+  
+  "prompt": "A single cute 3D cartoon bee character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible in hovering position.\n\nPHYSICAL DESCRIPTION:\n- Body pattern: alternating stripes, bright yellow (hex #FFD60A) and black (hex #1F1F1F), perfectly horizontal, 5-6 visible stripes, uniform width\n- Body shape: rounded fuzzy oval, bee proportions\n- Head: round fuzzy, 1.2x body width, yellow with black details\n- Eyes: HUGE black eyes, occupying 50% of head, three white highlights, focused intelligent expression\n- Antennae: two thin black antennae with rounded tips\n- Mouth: tiny smile\n- Wings: four translucent wings, very light blue (hex #E0FBFC), rounded oval shape, slightly blurred motion effect, delicate veins visible\n- Legs: six thin black stick legs, small feet\n- Stinger: small black rounded stinger at back (not sharp, cute)\n- Fuzz: suggestion of soft fuzz on body, especially yellow stripes\n- Accessory: tiny orange construction helmet (hex #F77F00) on head between antennae\n- Proportions: engineer, focused, capable\n\nPERSONALITY VISUAL:\n- Posture: hovering in air, wings blurred motion\n- Expression: focused, industrious, intelligent, working\n- Body: slight tilt showing active flight\n- Wings: motion blur showing hovering\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft studio lighting, wings translucent\n- Texture: fuzzy body, smooth stripes\n- Stripe pattern MUST be perfect horizontal bands\n- Wings translucent with motion blur\n- Tiny orange helmet visible\n\nNEGATIVE PROMPTS:\n- Realistic bee, photographic\n- Irregular or vertical stripes\n- Solid opaque wings\n- Sharp dangerous stinger\n- Detailed wing veins"
+}
+```
+
+---
+
+### 40. PULPO ARTISTA
+```json
+{
+  "nombre": "pulpo artista",
+  "species": "pulpo pequeño",
+  "height_ratio": "0.6x altura de Kira",
+  "skin_color": "#CDB4DB",
+  "suction_color": "#FFC8DD",
+  "accessory": "boina roja #E63946",
+  "forbidden_changes": "no cambiar número de tentáculos",
+  
+  "prompt": "A single cute 3D cartoon octopus character, rendered in Pixar/Disney CGI animation style, clean white studio background, centered composition, full body visible.\n\nPHYSICAL DESCRIPTION:\n- Body color: soft lavender purple, hex code #CDB4DB, smooth gradient finish\n- Body shape: rounded bulbous head/mantle\n- Head: large rounded dome, main body section\n- Eyes: VERY LARGE round expressive eyes, occupying 45% of head, dark purple with sparkle, three white highlights, creative artistic expression\n- Suction cups: light pink (hex #FFC8DD), circular, evenly spaced along tentacles\n- Tentacles: EIGHT tentacles (MUST be exactly 8), long flexible, 1.5x body length each, gracefully curved in different directions, some curled\n- Tentacle tips: tapered rounded ends\n- Skin: smooth with slight translucent quality\n- Accessory: red artist beret (hex #E63946) sitting on top of head dome\n- Proportions: artistic, graceful, creative\n\nPERSONALITY VISUAL:\n- Posture: floating with tentacles flowing gracefully\n- Expression: creative, artistic, inspired, thoughtful\n- Tentacles: curved in artistic flowing shapes\n- Body language: elegant, creative spirit\n\nTECHNICAL SPECIFICATIONS:\n- Lighting: soft with slight glow\n- Texture: smooth slightly translucent skin\n- MUST have exactly 8 tentacles (count carefully)\n- Lavender purple consistent\n- Pink suction cups visible\n- Red beret on head\n\nNEGATIVE PROMPTS:\n- Realistic octopus, photographic\n- Wrong number of tentacles (must be 8)\n- Dark or saturated colors\n- Stiff straight tentacles\n- Detailed skin texture"
+}
+```
+
+---
+
+## 📊 RESUMEN COMPLETO
+
+### Estadísticas Finales:
+
+- **Total de personajes:** 40
+- **Categorías de tamaño:**
+  - Pequeños (0.4x-0.6x): 17 personajes
+  - Medianos (0.6x-0.8x): 13 personajes  
+  - Grandes (0.8x-1.2x): 10 personajes
+
+### Características comunes en todos los prompts:
+
+✅ Estilo Pixar/Disney 3D consistente  
+✅ Proporciones chibi (cabeza grande, cuerpo pequeño)  
+✅ Ojos grandes expresivos (35-50% del rostro)  
+✅ Colores exactos con códigos HEX  
+✅ Accesorios distintivos obligatorios  
+✅ Personalidad visual clara  
+✅ Sin realismo, texturas suaves  
+✅ Negative prompts incluidos  
+✅ Especificaciones técnicas detalladas  
+
+---
+
+## 🎯 PRÓXIMOS PASOS
+
+1. **Validación de consistencia:** Generar los 40 personajes
+2. **Ajuste de prompts:** Refinar según resultados
+3. **Biblioteca visual:** Crear documento con todos los renders
+4. **Integración con historias:** Conectar personajes con sistema de generación aleatoria
+5. **Producción:** Comenzar a generar historias usando estos personajes
+
+---
+
+**¡Base de datos completa de 40 personajes secundarios lista para producción!**
