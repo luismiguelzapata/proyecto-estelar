@@ -30,28 +30,28 @@ POSES_PERSONAJE = {
     },
     "side": {
         "nombre": "Perfil Derecho",
-        "descripcion": "right side profile, full body visible",
+        "descripcion": "left side profile view, full body visible from nose to tail tip",
         "archivo": "side.png"
-    },
-    "back": {
-        "nombre": "Vista Trasera",
-        "descripcion": "full body back view, character facing away from camera",
-        "archivo": "back.png"
     },
     "quarter": {
         "nombre": "Vista 3/4",
-        "descripcion": "three-quarter view at 45-degree angle",
+        "descripcion": "three-quarter view at 45-degree angle, full body visible",
         "archivo": "quarter.png"
-    },
-    "pose_happy": {
-        "nombre": "Pose Feliz",
-        "descripcion": "jumping happily with arms raised",
-        "archivo": "happy.png"
-    },
-    "pose_running": {
-        "nombre": "Pose Corriendo",
-        "descripcion": "running forward, dynamic pose",
-        "archivo": "running.png"
+    # },
+    # "back": {
+    #     "nombre": "Vista Trasera",
+    #     "descripcion": "full body back view, character facing away from camera",
+    #     "archivo": "back.png"
+    # },
+    # "pose_happy": {
+    #     "nombre": "Pose Feliz",
+    #     "descripcion": "jumping happily with arms raised",
+    #     "archivo": "happy.png"
+    # },
+    # "pose_running": {
+    #     "nombre": "Pose Corriendo",
+    #     "descripcion": "running forward, dynamic pose",
+    #     "archivo": "running.png"
     }
 }
 
