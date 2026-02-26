@@ -1,2 +1,4 @@
 .env
 ./outputs/*
+./config/_py*
+./modules/_py*
