@@ -30,12 +30,12 @@ POSES_PERSONAJE = {
     },
     "side": {
         "nombre": "Perfil Derecho",
-        "descripcion": "right side profile, full body visible",
+        "descripcion": "left side profile view, full body visible from nose to tail tip",
         "archivo": "side.png"
     },
     "quarter": {
         "nombre": "Vista 3/4",
-        "descripcion": "three-quarter view at 45-degree angle",
+        "descripcion": "three-quarter view at 45-degree angle, full body visible",
         "archivo": "quarter.png"
     # },
     # "back": {
