@@ -1,173 +1,78 @@
-"""
-Módulo de almacenamiento de historias
-Maneja la guardación de historias y escenas en archivos
-"""
-
 from pathlib import Path
-from datetime import datetime
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
+from config.personajes import PERSONAJES
+from modules.image_generator import generar_imagenes_escena
 
-from config.config import (
-    OUTPUTS_HISTORIAS_DIR,
-    TIMESTAMP_FORMAT,
-    DATETIME_FORMAT
-)
-from .utils import extraer_titulo_historia, extraer_escenas_historia, generar_prompt_imagen_escena, generar_prompt_video_escena
+# ----------------------
+# Funciones auxiliares
+# ----------------------
+def agregar_descripciones_principales(prompt_base: str) -> str:
+    kira_desc = PERSONAJES.get("kira", "")
+    toby_desc = PERSONAJES.get("toby", "")
+    return f"{prompt_base}\n\n--- DESCRIPCIÓN DE PERSONAJES PRINCIPALES ---\n{kira_desc}\n{toby_desc}"
 
+def construir_prompt_imagen_escena(descripcion_escena: str,
+                                   locacion: str,
+                                   personaje_secundario_desc: str,
+                                   elemento_destacado: Optional[str] = None) -> str:
+    prompt_base = f"Escena: {descripcion_escena}\nLocación: {locacion}\nPersonaje secundario: {personaje_secundario_desc}\n"
+    if elemento_destacado:
+        prompt_base += f"Elemento destacado: {elemento_destacado}\n"
+    return agregar_descripciones_principales(prompt_base)
 
-def guardar_escenas_markdown(titulo: str, escenas: List[str], historia_dict: Dict[str, Any]) -> List[Path]:
-    """
-    Crea archivos markdown para cada escena con prompts de imagen y video.
-    
-    Args:
-        titulo (str): Título formateado de la historia
-        escenas (list): Lista de descripciones de escenas
-        historia_dict (dict): Diccionario con información de la historia
-        
-    Returns:
-        list: Lista de rutas de archivos creados
-    """
-    rutas_creadas = []
-    
-    try:
-        # Crear carpeta prompts-scenas
-        ruta_prompts = historia_dict["ruta_historia_dir"] / "prompts-scenas"
-        ruta_prompts.mkdir(parents=True, exist_ok=True)
-        
-        # Crear archivo para cada escena
-        for num_escena, descripcion_escena in enumerate(escenas, 1):
-            nombre_archivo = f"escena{num_escena}.md"
-            ruta_archivo = ruta_prompts / nombre_archivo
-            
-            # Generar prompts
-            prompt_imagen = generar_prompt_imagen_escena(num_escena, descripcion_escena, historia_dict)
-            prompt_video = generar_prompt_video_escena(num_escena, descripcion_escena, historia_dict)
-            
-            # Contenido del archivo markdown
-            contenido_md = f"""# Escena {num_escena}
+def construir_prompt_video_escena(descripcion_escena: str,
+                                  locacion: str,
+                                  personaje_secundario_desc: str,
+                                  acciones: Optional[List[str]] = None,
+                                  elemento_destacado: Optional[str] = None,
+                                  duracion: str = "15-30 segundos") -> str:
+    prompt_base = f"VIDEO ANIMADO - Escena\nDescripción: {descripcion_escena}\nDuración: {duracion}\nLocación: {locacion}\nPersonaje secundario: {personaje_secundario_desc}\n"
+    if acciones:
+        prompt_base += "Acciones dinámicas:\n" + "\n".join([f"- {a}" for a in acciones]) + "\n"
+    if elemento_destacado:
+        prompt_base += f"Elemento destacado: {elemento_destacado}\n"
+    prompt_base += "\nEstilo: Película animada 3D de alta calidad, dirigida a audiencia infantil\nIluminación: cálida, dorada, mágica, con profundidad y realismo\nMúsica: orquestal suave, caprichosa y aventurera\nCalidad: 4K, animación suave y emotiva\n"
+    return agregar_descripciones_principales(prompt_base)
 
-## Descripción de la Escena
-{descripcion_escena}
+# ----------------------
+# Funciones principales
+# ----------------------
+def guardar_historia(historia: Dict[str, Any], ruta_markdown: Path):
+    """Guarda la historia completa en un markdown estructurado"""
+    ruta_markdown.parent.mkdir(parents=True, exist_ok=True)
+    with open(ruta_markdown, 'w', encoding='utf-8') as f:
+        for idx, escena in enumerate(historia.get("escenas", []), start=1):
+            f.write(f"# Escena {idx}\n\n")
+            f.write(f"## Descripción de la Escena\n{escena['descripcion']}\n\n")
+            # Prompt imagen
+            f.write("---\n\n## 🎬 Prompt para Generar Imagen\n")
+            f.write(construir_prompt_imagen_escena(
+                escena['descripcion'],
+                escena.get('locacion', 'Lugar indefinido'),
+                escena.get('personaje_secundario_desc', ''),
+                escena.get('elemento_destacado')
+            ))
+            # Prompt video
+            f.write("\n\n---\n\n## 🎥 Prompt para Generar Video\n")
+            f.write(construir_prompt_video_escena(
+                escena['descripcion'],
+                escena.get('locacion', 'Lugar indefinido'),
+                escena.get('personaje_secundario_desc', ''),
+                acciones=escena.get('acciones'),
+                elemento_destacado=escena.get('elemento_destacado'),
+                duracion=escena.get('duracion', '15-30 segundos')
+            ))
+            f.write("\n\n---\n\n")
 
----
-
-## 🎬 Prompt para Generar Imagen
-
-{prompt_imagen}
-
----
-
-## 🎥 Prompt para Generar Video
-
-{prompt_video}
-
----
-
-"""
-            
-            # Guardar archivo
-            with open(ruta_archivo, 'w', encoding='utf-8') as f:
-                f.write(contenido_md)
-            
-            rutas_creadas.append(ruta_archivo)
-            print(f"  ✅ {nombre_archivo} creado")
-        
-        return rutas_creadas
-        
-    except Exception as e:
-        print(f"❌ Error al guardar escenas markdown: {e}")
-        return []
-
-
-def guardar_historia(
-    historia_dict: Dict[str, Any],
-    carpeta_salida: str = "outputs/historias/revision"
-) -> Dict[str, str]:
-    """
-    Guarda la historia generada en una estructura de carpetas organizada.
-    Crea: TITULO/TITULO-YYYYMMDD-HHMMSS.txt y TITULO/prompts-scenas/escenaN.md
-    
-    Args:
-        historia_dict (dict): Diccionario con la historia generada
-        carpeta_salida (str): Ruta de salida relativa o absoluta
-        
-    Returns:
-        dict: Información sobre archivos guardados
-    """
-    try:
-        # Extraer el contenido
-        contenido = historia_dict.get("historia", "")
-        
-        # Extraer título y generar timestamp
-        titulo = extraer_titulo_historia(contenido)
-        timestamp = datetime.now().strftime(TIMESTAMP_FORMAT)
-        
-        # Crear ruta de carpeta por título
-        if Path(carpeta_salida).is_absolute():
-            ruta_base = Path(carpeta_salida)
-        else:
-            # Ruta relativa desde el directorio del proyecto
-            ruta_base = Path(__file__).parent.parent.parent / carpeta_salida
-        
-        ruta_historia_dir = ruta_base / titulo
-        ruta_historia_dir.mkdir(parents=True, exist_ok=True)
-        
-        # Crear nombre de archivo
-        nombre_archivo = f"{titulo}-{timestamp}.txt"
-        ruta_archivo = ruta_historia_dir / nombre_archivo
-        
-        # Preparar contenido a guardar
-        contenido_final = f"""{'='*80}
-HISTORIA GENERADA - KIRA Y TOBY
-{'='*80}
-Fecha y hora: {datetime.now().strftime(DATETIME_FORMAT)}
-{'='*80}
-
-{contenido}
-
-{'='*80}
-ELEMENTOS UTILIZADOS:
-{'='*80}
-"""
-        
-        # Agregar elementos
-        elementos = historia_dict.get("elementos", {})
-        for key, value in elementos.items():
-            if key == "personaje_secundario" and isinstance(value, dict):
-                contenido_final += f"  {key}: {value.get('nombre', 'desconocido')}\n"
-            else:
-                contenido_final += f"  {key}: {value}\n"
-        
-        # Agregar tokens si está disponible
-        if "tokens" in historia_dict:
-            contenido_final += f"\n📊 Tokens utilizados: {historia_dict['tokens']}"
-        
-        # Guardar archivo principal
-        with open(ruta_archivo, 'w', encoding='utf-8') as f:
-            f.write(contenido_final)
-        
-        print(f"\n✅ Historia guardada en: {ruta_archivo}")
-        
-        # Extraer escenas y guardar archivos markdown
-        escenas = extraer_escenas_historia(contenido)
-        
-        if escenas:
-            print(f"\n📝 Generando {len(escenas)} archivos de escenas...")
-            historia_dict["ruta_historia_dir"] = ruta_historia_dir
-            rutas_escenas = guardar_escenas_markdown(titulo, escenas, historia_dict)
-            print(f"\n✅ Carpeta de escenas creada en: {ruta_historia_dir}/prompts-scenas")
-        else:
-            print("⚠️ No se extrajeron escenas")
-        
-        return {
-            "ruta_historia": str(ruta_archivo),
-            "ruta_directorio": str(ruta_historia_dir),
-            "titulo": titulo,
-            "timestamp": timestamp,
-            "elementos": elementos,  # ✅ Retornar elementos para generar imágenes
-            "historia": contenido  # ✅ Retornar historia también
-        }
-        
-    except Exception as e:
-        print(f"\n❌ Error al guardar la historia: {e}")
-        return None
+def generar_imagenes_escenas(historia: Dict[str, Any], generar_tres_vistas: bool = True):
+    """Genera imágenes para cada escena usando image_generator"""
+    resultados = []
+    for escena in historia.get("escenas", []):
+        personaje_secundario_dict = escena.get("personaje_secundario_dict")
+        if personaje_secundario_dict:
+            resultado = generar_imagenes_escena({"elementos": {
+                "personaje_secundario_nombre": personaje_secundario_dict.get("nombre"),
+                "personaje_secundario": personaje_secundario_dict
+            }}, generar_tres_vistas=generar_tres_vistas)
+            resultados.append(resultado)
+    return resultados

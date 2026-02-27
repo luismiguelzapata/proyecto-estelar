@@ -1,0 +1,19 @@
+{
+  "personajes_principales": {
+    "kira": "kira",
+    "toby": "toby"
+  },
+  "personajes_secundarios": [
+    {
+      "nombre": "flamenco bailarín",
+      "species": "flamenco",
+      "height_ratio": "1.0x altura de Kira",
+      "feather_color": "#FF99C8",
+      "beak_color": "#212529",
+      "beak_tip_color": "#FFFFFF",
+      "accessory": "lazo pequeño turquesa #48CAE4",
+      "forbidden_changes": "no variar tono rosa",
+      "prompt-3D": "A single cute 3D cartoon flamingo character, rendered in Pixar/Disney CGI style, soft matte textures, full body visible, friendly and playful posture, wearing small turquoise bow on neck, vibrant pink feathers"
+    }
+  ]
+}

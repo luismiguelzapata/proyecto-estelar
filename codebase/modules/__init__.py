@@ -10,7 +10,7 @@ from .story_generator import (
     generar_multiples_historias,
     inicializar_generador
 )
-from .story_storage import guardar_historia, guardar_escenas_markdown
+from .story_storage import guardar_historia, generar_imagenes_escenas
 from .image_generator import (
     generar_imagen_personaje,
     generar_imagen_personaje_con_prompt,
