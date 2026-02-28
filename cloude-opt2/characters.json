@@ -1,0 +1,63 @@
+{
+  "personajesPrincipales": [
+    {
+      "nombre": "Kira",
+      "species": "perro",
+      "height_ratio": "1.0x (referencia base)",
+      "body_shape": "cuerpo redondo y compacto, proporciones infantiles",
+      "head_ratio": "1.4x el cuerpo",
+      "fur_color": "#F5C542",
+      "belly_color": "#FFF5CC",
+      "eye_color": "#1E90FF",
+      "accessory": "lazo rojo #E63946 en la oreja derecha",
+      "personality_visual": "valiente, expresiva, siempre en movimiento",
+      "forbidden_changes": "no cambiar color dorado, no quitar lazo rojo, ojos siempre azul brillante"
+    },
+    {
+      "nombre": "Toby",
+      "species": "perro",
+      "height_ratio": "1.1x altura de Kira",
+      "body_shape": "cuerpo ligeramente más alto y delgado que Kira",
+      "head_ratio": "1.35x el cuerpo",
+      "fur_color": "#8B6914",
+      "belly_color": "#D4A96A",
+      "eye_color": "#2E8B57",
+      "accessory": "collar azul marino #003366",
+      "personality_visual": "pensativo, observador, siempre con expresión reflexiva",
+      "forbidden_changes": "no cambiar color café oscuro, collar siempre azul marino, ojos verde bosque"
+    }
+  ],
+  "personajesSecundarios": [
+    {
+      "nombre": "hurón explorador",
+      "species": "hurón",
+      "height_ratio": "0.5x altura de Kira",
+      "body_shape": "cuerpo largo y flexible tipo ferret",
+      "head_ratio": "1.35x el cuerpo",
+      "fur_color": "#FFF8E1",
+      "mask_color": "#4E342E",
+      "eye_color": "#F44336",
+      "accessory": "libro antiguo verde #2E7D32 sostenido con ambas manos",
+      "forbidden_changes": "no cambiar pelaje crema ni máscara marrón oscura, ojos siempre rojos",
+      "prompt-3D": "A single cute 3D cartoon ferret character, rendered in Pixar/Disney CGI animation style, clean white studio background, full body visible. Body: cream white fur #FFF8E1. Dark brown mask #4E342E across eyes. Red eyes #F44336. Holds a dark green old book #2E7D32. Shy and nervous expression."
+    }
+  ],
+  "objectosImportantes": [
+    {
+      "nombre": "cometa roja",
+      "color": "#C0392B",
+      "cola_color": "#FF6B6B",
+      "shape": "forma de rombo clásico, cola con tres listones",
+      "special": "se mueve sola con magia, brilla ligeramente",
+      "forbidden_changes": "siempre roja, siempre con cola de listones, nunca cambia de forma"
+    },
+    {
+      "nombre": "corona de nubes",
+      "color": "#FFFDE7",
+      "glow": "#FFD700",
+      "shape": "corona circular de nubes esponjosas con brillo dorado",
+      "special": "brilla suavemente, aparece en el cielo señalando dirección",
+      "forbidden_changes": "siempre circular, siempre con brillo dorado"
+    }
+  ]
+}

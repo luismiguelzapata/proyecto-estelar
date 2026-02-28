@@ -145,36 +145,36 @@ def generar_historia_aleatoria() -> Dict[str, Any]:
         }
 
 
-def generar_multiples_historias(cantidad: int = 5) -> list:
-    """
-    Genera múltiples historias aleatorias.
+# def generar_multiples_historias(cantidad: int = 5) -> list:
+#     """
+#     Genera múltiples historias aleatorias.
     
-    Args:
-        cantidad (int): Número de historias a generar (1-10)
+#     Args:
+#         cantidad (int): Número de historias a generar (1-10)
         
-    Returns:
-        list: Lista de historias generadas
-    """
+#     Returns:
+#         list: Lista de historias generadas
+#     """
     
-    if cantidad < 1 or cantidad > 10:
-        raise ValueError("❌ La cantidad debe estar entre 1 y 10")
+#     if cantidad < 1 or cantidad > 10:
+#         raise ValueError("❌ La cantidad debe estar entre 1 y 10")
     
-    historias = []
+#     historias = []
     
-    for i in range(1, cantidad + 1):
-        print(f"\n{'='*60}")
-        print(f"📖 GENERANDO HISTORIA {i}/{cantidad}")
-        print(f"{'='*60}\n")
+#     for i in range(1, cantidad + 1):
+#         print(f"\n{'='*60}")
+#         print(f"📖 GENERANDO HISTORIA {i}/{cantidad}")
+#         print(f"{'='*60}\n")
         
-        resultado = generar_historia_aleatoria()
-        historias.append(resultado)
+#         resultado = generar_historia_aleatoria()
+#         historias.append(resultado)
         
-        if "historia" in resultado:
-            print("\n" + resultado["historia"])
-            print(f"\n📊 Tokens usados: {resultado['tokens']}")
-        else:
-            print(f"\n❌ Error: {resultado['error']}")
+#         if "historia" in resultado:
+#             print("\n" + resultado["historia"])
+#             print(f"\n📊 Tokens usados: {resultado['tokens']}")
+#         else:
+#             print(f"\n❌ Error: {resultado['error']}")
         
-        print("\n" + "="*60)
+#         print("\n" + "="*60)
     
-    return historias
+#     return historias

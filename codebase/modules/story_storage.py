@@ -17,7 +17,7 @@ from .utils import extraer_titulo_historia, extraer_escenas_historia, generar_pr
 
 def guardar_escenas_markdown(titulo: str, escenas: List[str], historia_dict: Dict[str, Any]) -> List[Path]:
     """
-    Crea archivos markdown para cada escena con prompts de imagen y video.
+    Crea archivos pdf para cada escena con prompts de imagen y video.
     
     Args:
         titulo (str): Título formateado de la historia

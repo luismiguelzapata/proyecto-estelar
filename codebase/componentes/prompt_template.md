@@ -48,6 +48,10 @@ IMPORTANTE - LO QUE NO DEBES HACER:
 
 ### 🌟 KIRA BRILLANTE (La Perrita Líder)
 
+### PHYSICAL DESCRIPTION:
+
+**ShortDescription**: A single cute 3D cartoon puppy character, female Shiba Inu inspired
+
 **Arquetipo:** La Líder Aventurera - Energía Solar
 
 **Esencia:** Kira es la chispa que enciende cada aventura. Ve el mundo como un lugar lleno de posibilidades emocionantes esperando ser descubiertas. Su optimismo es contagioso y su valentía inspira a quienes la rodean. No es impulsiva por irresponsabilidad, sino por un genuino entusiasmo por la vida y una confianza natural en que las cosas saldrán bien.
@@ -57,53 +61,36 @@ IMPORTANTE - LO QUE NO DEBES HACER:
 - **Proactiva:** Siempre es la primera en moverse hacia una solución o meta
 - **Dinámica:** Su energía física se refleja en cada movimiento - corre, salta, explora
 - **Decidida:** Una vez que decide algo, se compromete completamente
-- **Resiliente:** Los obstáculos la motivan en lugar de desanimarla
-- **Audaz:** No teme probar cosas nuevas o entrar en terreno desconocido
-
 
 **FRASES FAVORITAS**
 - "¡Vamos!"
 - "¡Sígueme!"
 - "¡Ya casi llegamos!"
-- "¡Dale, dale!"
-- "¡Podemos hacerlo!"
-- "¡Juntos somos más fuertes!"
-- "¡Tú puedes!"
-- "¡No te rindas!"
-- "¡Yo voy primero!"
-- "¡Dividámonos!"
-
 
 ---
 
 ### 🌙 TOBY CÓSMICO (El Perrito Soñador)
 
+### PHYSICAL DESCRIPTION:
+
+**ShortDescription**: A single cute 3D cartoon puppy character, male Husky inspired.
+
 **Arquetipo:** El Estratega Creativo - Energía Lunar
 
-**Esencia:** Toby es el observador silencioso que ve lo que otros pasan por alto. Su mundo interior es tan rico como el mundo exterior, lleno de conexiones, patrones y posibilidades. No es lento o tímido; su pausa es estratégica, su silencio es pensamiento activo. Ve la magia en los detalles y encuentra soluciones donde otros ven solo problemas.
+**Esencia:** Toby es el observador silencioso que ve lo que otros pasan por alto. No es lento o tímido; su pausa es estratégica, su silencio es pensamiento activo. Ve la magia en los detalles y encuentra soluciones donde otros ven solo problemas.
 
 
 **NÚCLEO REFLEXIVO (Pensamiento):**
 
 - **Observador:** Nota detalles que otros pasan por alto - colores, patrones, cambios sutiles
 - **Analítico:** Procesa información antes de actuar, busca entender el "por qué"
-- **Estratégico:** Ve varios pasos adelante, anticipa consecuencias
-- **Meticuloso:** Presta atención a los pequeños detalles que importan
 - **Creativo:** Ve soluciones no convencionales y conexiones inesperadas
-- **Soñador:** Su imaginación construye puentes entre lo real y lo posible
-
+- **Estratégico:** Ve varios pasos adelante, anticipa consecuencias
 
 **FRASES FAVORITAS:**
 - "Espera... mira esto..."
 - "Hay algo diferente aquí..."
 - "¿Notaste que...?"
-- "Observa esto con atención..."
-- "Algo cambió..."
-- "¿Y si...?"
-- "Tal vez..."
-- "Podría ser que..."
-- "¿Y si intentamos...?"
-- "Tengo una idea diferente..."
 
 
 ## 💫 SINERGIA PERFECTA
@@ -111,7 +98,6 @@ IMPORTANTE - LO QUE NO DEBES HACER:
 **FILOSOFÍA DEL DÚSMO:**
 "Kira es el viento que mueve el barco; Toby es el timón que lo dirige."
 Valentía de Kira + Sabiduría de Toby = Solución Completa
-
 
 # ELEMENTOS DE LA HISTORIA
 
@@ -172,12 +158,12 @@ Valentía de Kira + Sabiduría de Toby = Solución Completa
 
 REQUISITOS:
 
-1. Duración: (5-10 minutos lectura)
+1. Duración: (15-20 minutos lectura)
 2. Tono: Activo, simple, dinámico, divertido, no muy literario, enganchante, facil de entender, sin tanto adornos a las palabras, con lenguaje sencillo y directo, ideal para niños pequeños, con diálogos y escenas visuales claras.
 3. Estructura: Inicio rápido → Desafío → Colaboración → Éxito → Moraleja
 4. Incorporar TODOS los elementos listados de manera natural
 5. Diálogos entendibles y claros (máximo 20 palabras)
-6. Máximo 12 escenas visuales diferenciadas
+6. Máximo 15 escenas visuales diferenciadas y bien detalladas
 
 ---
 
@@ -194,7 +180,7 @@ FORMATO DE ENTREGA:
 **ESCENAS:**
 1. [Descripción escena 1]
 2. [Descripción escena 2]
-[...hasta 12]
+[...hasta 15]
 
 ---
 

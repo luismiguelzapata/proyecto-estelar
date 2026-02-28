@@ -12,7 +12,7 @@ from pathlib import Path
 from modules import (
     cargar_datos_historias,
     generar_historia_aleatoria,
-    generar_multiples_historias,
+    # generar_multiples_historias,
     guardar_historia,
     generar_imagen_personaje,
     generar_imagenes_escena,
@@ -108,32 +108,32 @@ def ejecutar_historia_unica():
         return None
 
 
-def ejecutar_multiples_historias(cantidad: int):
-    """Genera múltiples historias aleatorias"""
+# def ejecutar_multiples_historias(cantidad: int):
+#     """Genera múltiples historias aleatorias"""
     
-    if cantidad < 1 or cantidad > 10:
-        print("⚠️ Cantidad debe estar entre 1 y 10. Usando 5.")
-        cantidad = 5
+#     if cantidad < 1 or cantidad > 10:
+#         print("⚠️ Cantidad debe estar entre 1 y 10. Usando 5.")
+#         cantidad = 5
     
-    print(f"📚 Generando {cantidad} historias...\n")
+#     print(f"📚 Generando {cantidad} historias...\n")
     
-    historias = generar_multiples_historias(cantidad)
+#     historias = generar_multiples_historias(cantidad)
     
-    # Guardar cada historia
-    print(f"\n💾 Guardando {len(historias)} historias...\n")
+#     # Guardar cada historia
+#     print(f"\n💾 Guardando {len(historias)} historias...\n")
     
-    resultados_guardado = []
-    for i, historia in enumerate(historias, 1):
-        if "historia" in historia:
-            resultado = guardar_historia(historia)
-            if resultado:
-                resultados_guardado.append(resultado)
-                print(f"✅ Historia {i}/{cantidad} guardada")
-        else:
-            print(f"❌ Historia {i}/{cantidad} falló: {historia.get('error')}")
+#     resultados_guardado = []
+#     for i, historia in enumerate(historias, 1):
+#         if "historia" in historia:
+#             resultado = guardar_historia(historia)
+#             if resultado:
+#                 resultados_guardado.append(resultado)
+#                 print(f"✅ Historia {i}/{cantidad} guardada")
+#         else:
+#             print(f"❌ Historia {i}/{cantidad} falló: {historia.get('error')}")
     
-    print(f"\n✅ {len(resultados_guardado)}/{cantidad} historias guardadas exitosamente")
-    return resultados_guardado
+#     print(f"\n✅ {len(resultados_guardado)}/{cantidad} historias guardadas exitosamente")
+#     return resultados_guardado
 
 
 def ejecutar_generador_imagenes(usar_placeholder: bool = False):

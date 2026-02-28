@@ -7,7 +7,7 @@ from .data_loader import cargar_datos_historias, cargar_archivo_externo
 from .story_generator import (
     generar_elementos_historia,
     generar_historia_aleatoria,
-    generar_multiples_historias,
+    # generar_multiples_historias,
     inicializar_generador
 )
 from .story_storage import guardar_historia, guardar_escenas_markdown
@@ -33,7 +33,7 @@ __all__ = [
     # Story generator
     'generar_elementos_historia',
     'generar_historia_aleatoria',
-    'generar_multiples_historias',
+    # 'generar_multiples_historias',
     'inicializar_generador',
     # Story storage
     'guardar_historia',

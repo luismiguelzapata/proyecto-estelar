@@ -536,36 +536,36 @@ def generar_historia_aleatoria():
         }
 
 
-def generar_multiples_historias(cantidad=5):
-    """
-    Genera múltiples historias aleatorias.
+# def generar_multiples_historias(cantidad=5):
+#     """
+#     Genera múltiples historias aleatorias.
     
-    Args:
-        cantidad (int): Número de historias a generar
+#     Args:
+#         cantidad (int): Número de historias a generar
         
-    Returns:
-        list: Lista de historias generadas
-    """
+#     Returns:
+#         list: Lista de historias generadas
+#     """
     
-    historias = []
+#     historias = []
     
-    for i in range(1, cantidad + 1):
-        print(f"\n{'='*60}")
-        print(f"📖 GENERANDO HISTORIA {i}/{cantidad}")
-        print(f"{'='*60}\n")
+#     for i in range(1, cantidad + 1):
+#         print(f"\n{'='*60}")
+#         print(f"📖 GENERANDO HISTORIA {i}/{cantidad}")
+#         print(f"{'='*60}\n")
         
-        resultado = generar_historia_aleatoria()
-        historias.append(resultado)
+#         resultado = generar_historia_aleatoria()
+#         historias.append(resultado)
         
-        if "historia" in resultado:
-            print("\n" + resultado["historia"])
-            print(f"\n📊 Tokens usados: {resultado['tokens']}")
-        else:
-            print(f"\n❌ Error: {resultado['error']}")
+#         if "historia" in resultado:
+#             print("\n" + resultado["historia"])
+#             print(f"\n📊 Tokens usados: {resultado['tokens']}")
+#         else:
+#             print(f"\n❌ Error: {resultado['error']}")
         
-        print("\n" + "="*60)
+#         print("\n" + "="*60)
     
-    return historias
+#     return historias
 
 
 # ========================================
