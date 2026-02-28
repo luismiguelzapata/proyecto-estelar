@@ -1,369 +1,762 @@
 """
-Módulo generador de imágenes
-Maneja la generación de imágenes usando Gemini Flash 2.0
+IMAGE_GENERATOR.PY - Generador de imágenes con Google Imagen
+
+Funcionalidades:
+  1. Generar 3 vistas de personaje (front / side / quarter)
+       → assets/personajes/{nombre-con-guiones}/front.png  side.png  quarter.png
+       → SKIP automático si ya existen
+
+  2. Generar ilustración de cuento para una escena específica
+       → prompts-scenas/ilustracion_{N}.png
+       → SKIP automático si ya existe
+       → Prompt estilo libro ilustrado (sin ACTION, sin CAMERA, sin duración)
+       → Incluye referencia visual completa de Kira, Toby y personaje secundario
+
+Regla de normalización de nombres de personaje:
+  El nombre en disco se obtiene con:  nombre.lower().replace(" ", "-")
+  Ej: "hurón explorador" → "hurón-explorador"
+  Misma lógica que get_personaje_dir() en config.py.
 """
 
+import io
 from pathlib import Path
-from typing import Dict, Any, Optional, List
-import base64
-import requests
+from typing import Dict, Any, Optional
 
 from config.config import (
     GOOGLE_API_KEY,
-    GEMINI_MODEL,
+    IMAGE_MODEL,
     ASSETS_PERSONAJES_DIR,
     get_personaje_dir,
-    get_personaje_image_path
+    get_personaje_image_path,
 )
 from .utils import obtener_nombre_personaje, normalizar_nombre_archivo
+from .token_tracker import tracker
 
 
-# ========================================
-# CONFIGURACIÓN DE POSES
-# ========================================
+# ════════════════════════════════════════════════════════════════════════
+# CONSTANTES
+# ════════════════════════════════════════════════════════════════════════
 
 POSES_PERSONAJE = {
     "front": {
-        "nombre": "Vista Frontal",
-        "descripcion": "full body front view, centered composition",
-        "archivo": "front.png"
+        "nombre":      "Vista Frontal",
+        "descripcion": "full body front view, centered composition, facing camera directly",
+        "archivo":     "front.png",
     },
     "side": {
-        "nombre": "Perfil Derecho",
+        "nombre":      "Perfil Derecho",
         "descripcion": "left side profile view, full body visible from nose to tail tip",
-        "archivo": "side.png"
+        "archivo":     "side.png",
     },
     "quarter": {
-        "nombre": "Vista 3/4",
+        "nombre":      "Vista 3/4",
         "descripcion": "three-quarter view at 45-degree angle, full body visible",
-        "archivo": "quarter.png"
-    # },
-    # "back": {
-    #     "nombre": "Vista Trasera",
-    #     "descripcion": "full body back view, character facing away from camera",
-    #     "archivo": "back.png"
-    # },
-    # "pose_happy": {
-    #     "nombre": "Pose Feliz",
-    #     "descripcion": "jumping happily with arms raised",
-    #     "archivo": "happy.png"
-    # },
-    # "pose_running": {
-    #     "nombre": "Pose Corriendo",
-    #     "descripcion": "running forward, dynamic pose",
-    #     "archivo": "running.png"
-    }
+        "archivo":     "quarter.png",
+    },
 }
 
 
-def construir_prompt_vista(prompt_base: str, descripcion_pose: str) -> str:
-    """
-    Construye un prompt estructurado y consistente para cada pose
-    """
-    return f"""
-    {prompt_base}
+# ════════════════════════════════════════════════════════════════════════
+# NORMALIZACIÓN — función única usada en todo el módulo
+# ════════════════════════════════════════════════════════════════════════
 
-    STYLE REQUIREMENTS:
-    - Pure white background
-    - Studio lighting
-    - No shadows on background
-    - Same character proportions
-    - Same clothing and colors
-    - Same facial expression
-    - No new accessories
-    - Character turnaround consistency
-    - High detail 3D cartoon render
-    - Pixar-style rendering
-    - Full body visible
-
-    POSE REQUIREMENT:
-    The pose MUST be: {descripcion_pose}
+def _nombre_a_carpeta(nombre_personaje: str) -> str:
     """
+    Convierte el nombre de un personaje al nombre de carpeta en disco.
+    Debe coincidir EXACTAMENTE con la lógica de get_personaje_dir() en config.py.
+
+    Ejemplos:
+      "hurón explorador"  → "hurón-explorador"
+      "Conejito Blanco"   → "conejito-blanco"
+      "León Mágico"       → "león-mágico"
+    """
+    return nombre_personaje.lower().replace(" ", "-")
 
 
-def generar_imagen_personaje_con_prompt(nombre_personaje: str, prompt_3d: str) -> Optional[Path]:
+# ════════════════════════════════════════════════════════════════════════
+# PUNTO 1 — VALIDACIÓN: ¿YA EXISTE?
+# ════════════════════════════════════════════════════════════════════════
+
+def personaje_ya_generado(nombre_personaje: str, tres_vistas: bool = True) -> bool:
     """
-    Genera UNA imagen de un personaje usando el prompt 3D proporcionado.
-    Nota: Para generar 3 vistas, usa generar_tres_vistas_personaje()
-    
-    Args:
-        nombre_personaje (str): Nombre del personaje
-        prompt_3d (str): Prompt detallado para generar la imagen 3D
-        
+    Comprueba si las imágenes del personaje ya existen en disco.
+
+    Lógica:
+      tres_vistas=True  → necesita front.png + side.png + quarter.png
+      tres_vistas=False → necesita {nombre-con-guiones}.png
+
     Returns:
-        Path: Ruta donde se guardó la imagen, o None si hubo error
+      True  → ya existen todas → SKIP (no regenerar)
+      False → falta alguna    → hay que generar
     """
-    
-    if not GOOGLE_API_KEY:
-        print("❌ GOOGLE_API_KEY no configurada. Agrega tu clave de API de Google.")
-        return None
-    
-    try:
-        # Normalizar nombre del personaje
-        nombre_normalizado = normalizar_nombre_archivo(nombre_personaje)
-        
-        # Obtener directorio
-        personaje_dir = get_personaje_dir(nombre_personaje)
-        
-        print(f"\n🎨 Generando imagen para: {nombre_personaje}")
-        print(f"📂 Directorio: {personaje_dir}")
-        
-        # Llamar a la API de Gemini
-        imagen_bytes = _llamar_gemini_imagen(prompt_3d)
-        
-        if imagen_bytes is None:
-            print(f"❌ No se pudo generar imagen para {nombre_personaje}")
-            return None
-        
-        # Guardar imagen (single image)
-        imagen_path = personaje_dir / f"{nombre_normalizado}.png"
-        with open(imagen_path, 'wb') as f:
-            f.write(imagen_bytes)
-        
-        print(f"✅ Imagen guardada en: {imagen_path}")
-        return imagen_path
-        
-    except Exception as e:
-        print(f"❌ Error al generar imagen de {nombre_personaje}: {str(e)}")
-        return None
+    carpeta_nombre = _nombre_a_carpeta(nombre_personaje)
+    personaje_dir  = ASSETS_PERSONAJES_DIR / carpeta_nombre
 
+    if not personaje_dir.exists():
+        return False
 
-def generar_tres_vistas_personaje(nombre_personaje: str, prompt_3d: str) -> Dict[str, Optional[Path]]:
-    """
-    Genera TRES vistas (front, side, quarter) de un personaje con poses específicas.
-    Guarda las imágenes en: /assets/personajes/{nombre}/{front|side|quarter}.png
-    
-    Args:
-        nombre_personaje (str): Nombre del personaje
-        prompt_3d (str): Prompt detallado base para generar la imagen 3D
-        
-    Returns:
-        dict: Diccionario con rutas de las 3 imágenes generadas
-              Ejemplo: {"front": Path(...), "side": Path(...), "quarter": Path(...)}
-    """
-    
-    if not GOOGLE_API_KEY:
-        print("❌ GOOGLE_API_KEY no configurada. Agrega tu clave de API de Google.")
-        return {}
-    
-    try:
-        # Obtener directorio
-        personaje_dir = get_personaje_dir(nombre_personaje)
-        
-        print(f"\n🎨 Generando 3 vistas para: {nombre_personaje}")
-        print(f"📂 Directorio: {personaje_dir}")
-        
-        imagenes_generadas = {}
-        
-        # Generar cada vista
-        for pose_key, pose_info in POSES_PERSONAJE.items():
-            print(f"\n  📸 Vista: {pose_info['nombre']}...")
-            
-            # Agregar instrucción de pose al prompt
-            prompt_con_pose = construir_prompt_vista(
-                prompt_3d,
-                pose_info["descripcion"]
-            )
-            
-            # Llamar a Gemini
-            imagen_bytes = _llamar_gemini_imagen(prompt_con_pose)
-            
-            if imagen_bytes is None:
-                print(f"  ❌ No se pudo generar vista {pose_key}")
-                imagenes_generadas[pose_key] = None
-                continue
-            
-            # Guardar imagen con nombre específico
-            imagen_path = personaje_dir / pose_info['archivo']
-            with open(imagen_path, 'wb') as f:
-                f.write(imagen_bytes)
-            
-            imagenes_generadas[pose_key] = imagen_path
-            print(f"  ✅ {pose_info['nombre']} guardada en: {imagen_path}")
-        
-        return imagenes_generadas
-        
-    except Exception as e:
-        print(f"❌ Error al generar vistas de {nombre_personaje}: {str(e)}")
-        return {}
-
-
-def generar_imagen_personaje(personaje_dict: Dict[str, Any], generar_tres_vistas: bool = True) -> Optional[Dict[str, Optional[Path]]]:
-    """
-    Genera imagen(s) de un personaje usando los datos del diccionario.
-    Por defecto genera 3 vistas (front, side, quarter).
-    
-    Si generar_tres_vistas=False, genera solo una imagen.
-    Si el personaje tiene campo 'prompt-3D', lo usa directamente.
-    
-    Args:
-        personaje_dict (dict): Diccionario con datos del personaje
-        generar_tres_vistas (bool): Si True genera 3 vistas, si False genera 1
-        
-    Returns:
-        Dict o Path: 
-            - Si generar_tres_vistas=True: Dict con rutas de las 3 imágenes
-            - Si generar_tres_vistas=False: Path de la imagen única
-            - None si hubo error
-    """
-    
-    # Obtener nombre del personaje
-    nombre = obtener_nombre_personaje(personaje_dict)
-    
-    # Si es string, no tiene prompt detallado
-    if isinstance(personaje_dict, str):
-        print(f"⚠️ {nombre} no tiene especificaciones 3D disponibles")
-        return None
-    
-    # Verificar si tiene prompt 3D
-    if 'prompt-3D' not in personaje_dict:
-        print(f"⚠️ {nombre} no tiene campo 'prompt-3D'")
-        return None
-    
-    prompt_3d = personaje_dict['prompt-3D']
-    
-    # Generar 3 vistas o 1 sola
-    if generar_tres_vistas:
-        return generar_tres_vistas_personaje(nombre, prompt_3d)
+    if tres_vistas:
+        return all(
+            (personaje_dir / pose["archivo"]).exists()
+            for pose in POSES_PERSONAJE.values()
+        )
     else:
-        return generar_imagen_personaje_con_prompt(nombre, prompt_3d)
+        return (personaje_dir / f"{carpeta_nombre}.png").exists()
 
 
-def _llamar_gemini_imagen(prompt: str, output_format: str = "PNG") -> Optional[bytes]:
+def listar_personajes_generados() -> list:
     """
-    Llamada interna a Gemini usando el SDK moderno google-genai.
-    Devuelve los bytes de la imagen generada listos para guardar en disco.
-
-    Args:
-        prompt (str): Prompt detallado para la generación de la imagen
-        output_format (str): "PNG" o "JPEG" (por defecto PNG)
-
-    Returns:
-        bytes | None: Bytes de la imagen, o None si hubo error
+    Devuelve la lista de nombres de carpeta de personajes que ya tienen
+    imágenes en assets/personajes/.
+    Útil para mostrar un resumen antes de iniciar un lote.
     """
+    if not ASSETS_PERSONAJES_DIR.exists():
+        return []
+    return [
+        d.name for d in sorted(ASSETS_PERSONAJES_DIR.iterdir())
+        if d.is_dir() and (list(d.glob("*.png")) or list(d.glob("*.jpg")))
+    ]
+
+
+# ════════════════════════════════════════════════════════════════════════
+# LLAMADA A LA API DE GOOGLE IMAGEN
+# ════════════════════════════════════════════════════════════════════════
+
+def _llamar_imagen_api(prompt: str) -> Optional[bytes]:
+    """
+    Llama a Google Imagen 4 y devuelve los bytes PNG de la imagen.
+    Soporta los distintos formatos de respuesta del SDK de Google.
+    """
+    if not GOOGLE_API_KEY:
+        print("  ❌ GOOGLE_API_KEY no configurada en .env")
+        return None
+
     try:
         from google import genai
         import base64
-        import io
-        from PIL import Image
 
-        client = genai.Client(api_key=GOOGLE_API_KEY)
-        IMAGE_MODEL = "imagen-4.0-fast-generate-001"
-
-        response = client.models.generate_images(
-            model=IMAGE_MODEL,
-            prompt=prompt
-        )
+        client   = genai.Client(api_key=GOOGLE_API_KEY)
+        response = client.models.generate_images(model=IMAGE_MODEL, prompt=prompt)
 
         if not response.generated_images:
-            print("⚠️ No se generaron imágenes")
+            print("  ⚠️  La API no devolvió imágenes.")
             return None
 
-        image_obj = response.generated_images[0].image
+        img_obj = response.generated_images[0].image
 
-        # =====> SDK moderno puede devolver la imagen en bytes o base64
-        if hasattr(image_obj, "image_bytes") and image_obj.image_bytes:
-            # Ya son bytes listos
-            return image_obj.image_bytes
-        elif hasattr(image_obj, "b64_json") and image_obj.b64_json:
-            # Decodificar base64
-            return base64.b64decode(image_obj.b64_json)
-        elif hasattr(image_obj, "as_pil"):
-            # Si tiene método as_pil(), convertir a bytes
-            pil_img = image_obj.as_pil()
-        else:
-            # Intentar asumir que es PIL.Image
-            pil_img = image_obj
+        if hasattr(img_obj, "image_bytes") and img_obj.image_bytes:
+            return img_obj.image_bytes
+        if hasattr(img_obj, "b64_json") and img_obj.b64_json:
+            return base64.b64decode(img_obj.b64_json)
 
-        # Convertir PIL.Image a bytes
-        buffer = io.BytesIO()
-        pil_img.save(buffer, format=output_format.upper())
-        return buffer.getvalue()
+        # Fallback PIL
+        from PIL import Image
+        pil = img_obj.as_pil() if hasattr(img_obj, "as_pil") else img_obj
+        buf = io.BytesIO()
+        pil.save(buf, format="PNG")
+        return buf.getvalue()
 
-    except ImportError:
-        print("⚠️ Pillow no está instalado. Ejecuta: pip install Pillow")
+    except ImportError as e:
+        print(f"  ⚠️  Dependencia no instalada: {e}")
         return None
     except Exception as e:
-        print(f"❌ Error al llamar Gemini: {e}")
+        print(f"  ❌ Error en Imagen API: {e}")
         return None
 
-def generar_imagenes_escena(historia_dict: Dict[str, Any], generar_tres_vistas: bool = True) -> Dict[str, Any]:
+
+# ════════════════════════════════════════════════════════════════════════
+# PUNTO 1 — GENERACIÓN DE VISTAS DE PERSONAJE (con skip automático)
+# ════════════════════════════════════════════════════════════════════════
+
+def _prompt_con_pose(prompt_base: str, descripcion_pose: str) -> str:
+    """Añade los requisitos de pose y estilo al prompt base del personaje."""
+    return (
+        f"{prompt_base}\n\n"
+        "STYLE REQUIREMENTS:\n"
+        "- Pure white background, studio lighting, no shadows on background\n"
+        "- Exact same character proportions, colors and accessories as described above\n"
+        "- Do NOT add new accessories or change any design element\n"
+        "- Character turnaround sheet consistency\n"
+        "- High detail 3D cartoon render, Pixar-style\n"
+        "- Full body visible from head to toe\n\n"
+        f"MANDATORY POSE:\n{descripcion_pose}"
+    )
+
+
+def generar_imagen_personaje_con_prompt(
+    nombre_personaje: str,
+    prompt_3d: str,
+    forzar: bool = False,
+) -> Optional[Path]:
     """
-    Genera imágenes de los personajes secundarios en una escena
+    Genera UNA imagen frontal de un personaje.
+
+    Args:
+        nombre_personaje: nombre del personaje (ej: "hurón explorador")
+        prompt_3d:        prompt visual completo del personaje
+        forzar:           si True, regenera aunque ya exista en disco
+
+    Returns:
+        Path de la imagen guardada, o None si falló
     """
-    try:
-        elementos = historia_dict.get("elementos", {})
-        
-        # ✅ CORRECCIÓN: Usar el nombre del personaje, no el dict completo
-        nombre_personaje = elementos.get("personaje_secundario_nombre")
-        personaje_dict = elementos.get("personaje_secundario")
-        
-        if not nombre_personaje or not personaje_dict:
-            print("❌ No se encontró personaje secundario")
-            return {}
-        
-        # Obtener prompt 3D del personaje
-        prompt_3d = personaje_dict.get("prompt-3D")
-        if not prompt_3d:
-            print(f"⚠️ El personaje '{nombre_personaje}' no tiene prompt-3D definido")
-            return {}
-        
-        print(f"🎨 Generando imágenes para: {nombre_personaje}")
-        
-        # Generar las 3 vistas
-        if generar_tres_vistas:
-            vistas = generar_tres_vistas_personaje(nombre_personaje, prompt_3d)
-            return {
-                "personaje": nombre_personaje,
-                "vistas": vistas,
-                "total_imagenes": 3
-            }
-        else:
-            imagen = generar_imagen_personaje_con_prompt(nombre_personaje, prompt_3d)
-            return {
-                "personaje": nombre_personaje,
-                "imagen": imagen,
-                "total_imagenes": 1
-            }
-    
-    except Exception as e:
-        print(f"❌ Error generando imágenes de escena: {e}")
+    carpeta_nombre = _nombre_a_carpeta(nombre_personaje)
+    personaje_dir  = get_personaje_dir(nombre_personaje)
+    ruta           = personaje_dir / f"{carpeta_nombre}.png"
+
+    if not forzar and ruta.exists():
+        print(f"  ⏭️  {nombre_personaje}: imagen ya existe → {ruta.name}  (pasa forzar=True para regenerar)")
+        return ruta
+
+    print(f"\n  🎨 Generando imagen: {nombre_personaje}")
+    imagen_bytes = _llamar_imagen_api(
+        _prompt_con_pose(prompt_3d, POSES_PERSONAJE["front"]["descripcion"])
+    )
+
+    if imagen_bytes is None:
+        return None
+
+    ruta.write_bytes(imagen_bytes)
+    entry = tracker.register_image(
+        operation="generar_imagen_personaje", model=IMAGE_MODEL, images_count=1,
+        metadata={"personaje": nombre_personaje, "pose": "front"},
+    )
+    tracker.print_entry(entry)
+    print(f"  ✅ Guardada: {ruta}")
+    return ruta
+
+
+def generar_tres_vistas_personaje(
+    nombre_personaje: str,
+    prompt_3d: str,
+    forzar: bool = False,
+) -> Dict[str, Optional[Path]]:
+    """
+    Genera las 3 vistas (front / side / quarter) de un personaje.
+
+    Comportamiento del skip:
+      - Si las 3 existen y forzar=False → devuelve las rutas existentes sin llamar a la API.
+      - Si falta alguna vista → solo genera las que faltan (skip selectivo).
+      - Si forzar=True → regenera todas.
+
+    Args:
+        nombre_personaje: nombre del personaje
+        prompt_3d:        prompt visual completo
+        forzar:           si True regenera todo aunque ya exista
+
+    Returns:
+        {"front": Path|None, "side": Path|None, "quarter": Path|None}
+    """
+    carpeta_nombre = _nombre_a_carpeta(nombre_personaje)
+    personaje_dir  = get_personaje_dir(nombre_personaje)
+
+    # Skip total: las 3 ya existen
+    if not forzar and personaje_ya_generado(nombre_personaje, tres_vistas=True):
+        print(
+            f"  ⏭️  {nombre_personaje}: las 3 vistas ya existen en assets/personajes/{carpeta_nombre}/\n"
+            f"      (pasa forzar=True para regenerar)"
+        )
+        return {k: personaje_dir / v["archivo"] for k, v in POSES_PERSONAJE.items()}
+
+    print(f"\n  🎨 Generando vistas: {nombre_personaje}")
+    print(f"  📂 {personaje_dir}")
+
+    imagenes: Dict[str, Optional[Path]] = {}
+
+    for pose_key, pose_info in POSES_PERSONAJE.items():
+        ruta_pose = personaje_dir / pose_info["archivo"]
+
+        # Skip selectivo: esta vista concreta ya existe
+        if not forzar and ruta_pose.exists():
+            print(f"  ⏭️  {pose_info['nombre']}: ya existe → saltando")
+            imagenes[pose_key] = ruta_pose
+            continue
+
+        print(f"  📸 Generando {pose_info['nombre']}...")
+        imagen_bytes = _llamar_imagen_api(_prompt_con_pose(prompt_3d, pose_info["descripcion"]))
+
+        if imagen_bytes is None:
+            print(f"  ❌ No se pudo generar {pose_key}")
+            imagenes[pose_key] = None
+            continue
+
+        ruta_pose.write_bytes(imagen_bytes)
+        entry = tracker.register_image(
+            operation="generar_vista_personaje", model=IMAGE_MODEL, images_count=1,
+            metadata={"personaje": nombre_personaje, "pose": pose_key},
+        )
+        tracker.print_entry(entry)
+        imagenes[pose_key] = ruta_pose
+        print(f"  ✅ {pose_info['nombre']} → {ruta_pose.name}")
+
+    generadas = sum(1 for v in imagenes.values() if v)
+    print(f"  📊 {generadas}/3 vistas completadas para: {nombre_personaje}")
+    return imagenes
+
+
+def generar_imagen_personaje(
+    personaje_dict: Dict[str, Any],
+    tres_vistas: bool = True,
+    forzar: bool = False,
+) -> Optional[Any]:
+    """
+    Punto de entrada principal para generar imágenes de un personaje.
+
+    Args:
+        personaje_dict: dict del personaje (debe tener clave 'prompt-3D')
+        tres_vistas:    True → genera front/side/quarter, False → solo frontal
+        forzar:         True → regenera aunque ya exista en disco
+
+    Returns:
+        dict de Paths si tres_vistas=True, Path si tres_vistas=False, None si error
+    """
+    nombre = obtener_nombre_personaje(personaje_dict)
+
+    if isinstance(personaje_dict, str):
+        print(f"  ⚠️  {nombre}: formato string, sin especificaciones 3D")
+        return None
+    if "prompt-3D" not in personaje_dict:
+        print(f"  ⚠️  {nombre}: no tiene campo 'prompt-3D'")
+        return None
+
+    prompt = personaje_dict["prompt-3D"]
+    if tres_vistas:
+        return generar_tres_vistas_personaje(nombre, prompt, forzar=forzar)
+    else:
+        return generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar)
+
+
+def generar_imagenes_escena(
+    historia_dict: Dict[str, Any],
+    tres_vistas: bool = True,
+    forzar: bool = False,
+) -> Dict[str, Any]:
+    """
+    Genera imágenes del personaje secundario de una historia.
+    Respeta el skip automático.
+    """
+    elementos      = historia_dict.get("elementos", {})
+    nombre         = elementos.get("personaje_secundario_nombre")
+    personaje_dict = elementos.get("personaje_secundario")
+
+    if not nombre or not personaje_dict:
+        print("  ❌ No se encontró personaje secundario en la historia")
         return {}
 
+    prompt = personaje_dict.get("prompt-3D") if isinstance(personaje_dict, dict) else None
+    if not prompt:
+        print(f"  ⚠️  '{nombre}' no tiene prompt-3D")
+        return {}
 
-# Función auxiliar para crear imagen placeholder (para testing)
+    if tres_vistas:
+        vistas = generar_tres_vistas_personaje(nombre, prompt, forzar=forzar)
+        return {"personaje": nombre, "vistas": vistas, "total_imagenes": sum(1 for v in vistas.values() if v)}
+    else:
+        imagen = generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar)
+        return {"personaje": nombre, "imagen": imagen, "total_imagenes": 1 if imagen else 0}
+
+
+# ════════════════════════════════════════════════════════════════════════
+# PUNTO 2 — ILUSTRACIÓN DE CUENTO POR ESCENA
+# ════════════════════════════════════════════════════════════════════════
+
+def _bloque_referencia_personajes(characters_data: dict) -> str:
+    """
+    Construye el bloque de REFERENCIA VISUAL COMPLETA de todos los personajes.
+
+    Este bloque va al inicio del prompt de ilustración para que la IA
+    tenga contexto completo de Kira, Toby, el personaje secundario
+    y los objetos importantes de la historia.
+
+    Incluye:
+      - Especie, proporciones, colores hex exactos
+      - Accesorios y elementos identificativos
+      - Restricciones absolutas (NEVER CHANGE)
+    """
+    campos_visuales = [
+        ("height_ratio",       "height"),
+        ("body_shape",         "body shape"),
+        ("head_ratio",         "head size"),
+        ("fur_color",          "fur color"),
+        ("belly_color",        "belly color"),
+        ("mask_color",         "mask color"),
+        ("eye_color",          "eye color"),
+        ("accessory",          "accessory"),
+        ("personality_visual", "visual personality"),
+    ]
+
+    secciones = []
+
+    # ── Protagonistas ──────────────────────────────────────────────────
+    for p in characters_data.get("personajesPrincipales", []):
+        nombre  = p.get("nombre", "?")
+        species = p.get("species", "?")
+        lineas  = [f"[ {nombre.upper()} — {species} — MAIN CHARACTER ]"]
+        for campo, label in campos_visuales:
+            if campo in p:
+                lineas.append(f"  {label}: {p[campo]}")
+        if "forbidden_changes" in p:
+            lineas.append(f"  *** NEVER CHANGE: {p['forbidden_changes']}")
+        secciones.append("\n".join(lineas))
+
+    # ── Personaje secundario ───────────────────────────────────────────
+    for p in characters_data.get("personajesSecundarios", []):
+        nombre  = p.get("nombre", "?")
+        species = p.get("species", "?")
+        lineas  = [f"[ {nombre.upper()} — {species} — SECONDARY CHARACTER ]"]
+        skip    = {"nombre", "species", "prompt-3D", "forbidden_changes"}
+        for campo, label in campos_visuales:
+            if campo in p:
+                lineas.append(f"  {label}: {p[campo]}")
+        # Campos extra que no están en campos_visuales
+        for k, v in p.items():
+            if k not in skip and k not in dict(campos_visuales):
+                lineas.append(f"  {k.replace('_', ' ')}: {v}")
+        if "forbidden_changes" in p:
+            lineas.append(f"  *** NEVER CHANGE: {p['forbidden_changes']}")
+        secciones.append("\n".join(lineas))
+
+    # ── Objetos importantes ────────────────────────────────────────────
+    for obj in characters_data.get("objectosImportantes", []):
+        nombre = obj.get("nombre", "?")
+        lineas = [f"[ OBJECT: {nombre.upper()} ]"]
+        skip   = {"nombre", "forbidden_changes"}
+        for k, v in obj.items():
+            if k not in skip:
+                lineas.append(f"  {k}: {v}")
+        if "forbidden_changes" in obj:
+            lineas.append(f"  *** NEVER CHANGE: {obj['forbidden_changes']}")
+        secciones.append("\n".join(lineas))
+
+    return "\n\n".join(secciones)
+
+
+def construir_prompt_ilustracion(
+    scene_number: int,
+    paragraph: str,
+    characters_data: dict,
+    scene_context: Optional[Dict[str, str]] = None,
+) -> str:
+    """
+    Construye el prompt completo para generar una ilustración de cuento infantil.
+
+    DIFERENCIAS respecto al prompt de VIDEO (escenaN.md):
+      ✗ Sin "ACTION & MOVEMENT"  (las ilustraciones son estáticas)
+      ✗ Sin "CAMERA"             (no hay movimiento de cámara)
+      ✗ Sin duración de clip
+      ✓ Con "CHARACTER VISUAL REFERENCE" completa al inicio (hex, proporciones, restricciones)
+      ✓ Con "ILLUSTRATION STYLE" específico para libros infantiles
+      ✓ CONTINUITY NOTES adaptadas a ilustración (no a animación)
+
+    Args:
+        scene_number:    número de escena
+        paragraph:       párrafo narrativo de la historia para esta escena
+        characters_data: dict completo del characters.json
+        scene_context:   dict opcional con contexto adicional de la escena:
+                           "environment"  → descripción del entorno (puede venir del escenaN.md)
+                           "mood"         → estado emocional / atmósfera
+                           "continuity"   → CONTINUITY NOTES de la escena anterior
+                           "objects"      → objetos presentes en escena
+
+    Returns:
+        str: prompt listo para enviar a Google Imagen / DALL-E 3 / Midjourney
+    """
+    ctx        = scene_context or {}
+    env        = ctx.get("environment", "").strip()
+    mood       = ctx.get("mood", "").strip()
+    continuity = ctx.get("continuity", "").strip()
+    objects    = ctx.get("objects", "").strip()
+
+    ref_personajes = _bloque_referencia_personajes(characters_data)
+
+    # Extraer datos de Kira y Toby para las CONTINUITY NOTES finales
+    kira = next((p for p in characters_data.get("personajesPrincipales", []) if p.get("nombre") == "Kira"), {})
+    toby = next((p for p in characters_data.get("personajesPrincipales", []) if p.get("nombre") == "Toby"), {})
+
+    kira_cont = (
+        f"Kira: fur {kira.get('fur_color','#F5C542')}, "
+        f"eyes {kira.get('eye_color','#1E90FF')}, "
+        f"red bow on RIGHT ear only"
+    )
+    toby_cont = (
+        f"Toby: fur {toby.get('fur_color','#8B6914')}, "
+        f"eyes {toby.get('eye_color','#2E8B57')}, "
+        f"navy collar {toby.get('accessory','#003366')}"
+    )
+    sec_cont_lines = [
+        f"{p.get('nombre','?')}: fur {p.get('fur_color','')}, eyes {p.get('eye_color','')}, {p.get('accessory','')}"
+        for p in characters_data.get("personajesSecundarios", [])
+    ]
+    obj_cont_lines = [
+        f"{obj.get('nombre','?')}: {obj.get('forbidden_changes','maintain visual consistency')}"
+        for obj in characters_data.get("objectosImportantes", [])
+    ]
+
+    # Personajes secundarios presentes (para CHARACTERS PRESENT)
+    sec_present = []
+    for p in characters_data.get("personajesSecundarios", []):
+        nombre  = p.get("nombre", "?")
+        species = p.get("species", "?")
+        fur     = p.get("fur_color", "")
+        eye     = p.get("eye_color", "")
+        acc     = p.get("accessory", "")
+        desc    = f"{nombre} ({species}"
+        if fur: desc += f", fur {fur}"
+        if eye: desc += f", eyes {eye}"
+        if acc: desc += f", {acc}"
+        desc += ")"
+        sec_present.append(desc)
+
+    lines = [
+        f"STORYBOOK ILLUSTRATION — Scene {scene_number}",
+        "=" * 65,
+        "",
+        "STORY PARAGRAPH (this illustration depicts):",
+        f'"{paragraph}"',
+        "",
+        "─" * 65,
+        "CHARACTER VISUAL REFERENCE",
+        "(STRICT — use EXACT hex colors and proportions, never invent new traits)",
+        "─" * 65,
+        ref_personajes,
+        "",
+        "─" * 65,
+        "",
+        "ENVIRONMENT:",
+        env if env else (
+            "Infer carefully from the story paragraph above.\n"
+            "Describe: location, time of day, weather, dominant color palette, "
+            "textures, ambient details that enrich the scene."
+        ),
+        "",
+        "CHARACTERS PRESENT:",
+        f"- Kira (main, {kira.get('personality_visual','brave and expressive')})",
+        f"- Toby (main, {toby.get('personality_visual','thoughtful and observant')})",
+    ]
+
+    for sp in sec_present:
+        lines.append(f"- {sp}")
+
+    if objects:
+        lines.append(f"- Objects present: {objects}")
+
+    lines += [
+        "",
+        "LIGHTING & MOOD:",
+        mood if mood else (
+            "Warm, magical, inviting. Soft golden ambient light with gentle shadows.\n"
+            "Cozy and safe atmosphere — enchanting but never scary. Perfect for ages 3-6."
+        ),
+    ]
+
+    if continuity:
+        lines += [
+            "",
+            "CONTINUITY FROM PREVIOUS ILLUSTRATION (maintain these visual elements):",
+            continuity,
+        ]
+
+    lines += [
+        "",
+        "─" * 65,
+        "",
+        "ILLUSTRATION STYLE (MANDATORY):",
+        "- Medium: children's storybook illustration — warm digital art, soft brushwork,",
+        "  blending hand-painted textures with Pixar CGI quality finish",
+        "- Characters: big expressive eyes, rounded cute proportions, soft fur textures,",
+        "  full of personality and emotion",
+        "- Background: richly detailed with storytelling depth — plants, light rays,",
+        "  ambient particles, reflections, textures that reward close looking",
+        "- Colors: vibrant and harmonious palette, warm dominant tones,",
+        "  complementary accents, no harsh or cold contrasts",
+        "- Composition: cinematic framing, characters at center or rule-of-thirds,",
+        "  full scene always visible, depth layers (foreground / midground / background)",
+        "- Light: warm directional light source, soft cast shadows, optional magical glow",
+        "  on special objects, ambient subsurface scattering on fur",
+        "- Strictly NO text, NO speech bubbles, NO watermarks, NO UI elements",
+        "- Single complete illustration (NOT a comic strip, NOT a sequence of panels)",
+        "",
+        "TECHNICAL:",
+        "- 3D CGI animation style with storybook illustration warmth",
+        "- Pixar/Disney rendering quality",
+        "- 8K resolution, ultra-detailed, crisp clean edges",
+        "- Soft studio lighting combined with environment color grade",
+        "- Single static image optimized for children's book page layout",
+        "",
+        "CONTINUITY NOTES (maintain in all subsequent illustrations):",
+        f"- {kira_cont}",
+        f"- {toby_cont}",
+    ]
+
+    for sec in sec_cont_lines:
+        lines.append(f"- {sec}")
+
+    for obj in obj_cont_lines:
+        lines.append(f"- {obj}")
+
+    lines.append("- Preserve dominant color palette and lighting mood established in this scene")
+
+    return "\n".join(lines)
+
+
+def generar_ilustracion_escena(
+    scene_number: int,
+    paragraph: str,
+    characters_data: dict,
+    output_dir: Path,
+    scene_context: Optional[Dict[str, str]] = None,
+    forzar: bool = False,
+) -> Optional[Path]:
+    """
+    Genera UNA ilustración de cuento para una escena y la guarda en disco.
+
+    Archivos generados:
+      {output_dir}/ilustracion_{N}.png          ← la imagen
+      {output_dir}/ilustracion_{N}_prompt.md    ← el prompt usado (para referencia y auditoría)
+
+    Args:
+        scene_number:    número de la escena (1, 2, 3...)
+        paragraph:       párrafo narrativo de la historia para esta escena
+        characters_data: dict completo del characters.json
+        output_dir:      carpeta de salida (normalmente prompts-scenas/)
+        scene_context:   dict opcional con contexto adicional:
+                           "environment"  → descripción del entorno
+                           "mood"         → atmósfera emocional
+                           "continuity"   → CONTINUITY NOTES de la escena anterior
+                           "objects"      → objetos presentes
+        forzar:          si True regenera aunque ya exista
+
+    Returns:
+        Path de la imagen guardada, o None si falló
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+    ruta_imagen  = output_dir / f"ilustracion_{scene_number}.png"
+    ruta_prompt  = output_dir / f"ilustracion_{scene_number}_prompt.md"
+
+    # ── Skip automático ────────────────────────────────────────────────
+    if not forzar and ruta_imagen.exists():
+        print(f"  ⏭️  ilustracion_{scene_number}.png ya existe → saltando  (pasa forzar=True para regenerar)")
+        return ruta_imagen
+
+    print(f"\n  🖼️  Generando ilustración escena {scene_number}...")
+
+    # Construir prompt
+    prompt = construir_prompt_ilustracion(
+        scene_number=scene_number,
+        paragraph=paragraph,
+        characters_data=characters_data,
+        scene_context=scene_context,
+    )
+
+    # Guardar prompt como referencia (siempre, aunque falle la imagen)
+    ruta_prompt.write_text(
+        f"# Prompt Ilustración — Escena {scene_number}\n\n```\n{prompt}\n```\n",
+        encoding="utf-8",
+    )
+
+    imagen_bytes = _llamar_imagen_api(prompt)
+
+    if imagen_bytes is None:
+        print(f"  ❌ No se pudo generar ilustración de escena {scene_number}")
+        return None
+
+    ruta_imagen.write_bytes(imagen_bytes)
+    entry = tracker.register_image(
+        operation=f"ilustracion_escena_{scene_number}",
+        model=IMAGE_MODEL,
+        images_count=1,
+        metadata={"escena": scene_number, "tipo": "ilustracion_cuento"},
+    )
+    tracker.print_entry(entry)
+    print(f"  ✅ Guardada: {ruta_imagen}")
+    return ruta_imagen
+
+
+def generar_ilustraciones_historia(
+    paragraphs: list,
+    characters_data: dict,
+    output_dir: Path,
+    scenes_context: Optional[Dict[int, Dict[str, str]]] = None,
+    forzar: bool = False,
+) -> Dict[int, Optional[Path]]:
+    """
+    Genera ilustraciones para TODAS las escenas de una historia.
+    Salta automáticamente las que ya existen (skip por escena).
+
+    El scenes_context puede construirse leyendo los escenaN.md ya generados
+    por scene_generator.py — así el prompt de ilustración aprovecha el ambiente
+    y continuidad ya calculados por el agente Director Creativo.
+
+    Args:
+        paragraphs:      lista de párrafos (un párrafo = una escena)
+        characters_data: dict completo del characters.json
+        output_dir:      carpeta de salida (normalmente prompts-scenas/)
+        scenes_context:  dict {num_escena: {"environment": ..., "mood": ..., ...}}
+                         Si es None la IA infiere todo desde el párrafo.
+        forzar:          si True regenera todas aunque existan
+
+    Returns:
+        {num_escena: Path_o_None}
+    """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    ya_hechas = sum(1 for i in range(1, len(paragraphs)+1) if (output_dir / f"ilustracion_{i}.png").exists())
+    pendientes = len(paragraphs) - ya_hechas if not forzar else len(paragraphs)
+
+    print(f"\n{'═'*62}")
+    print(f"   🖼️  GENERADOR DE ILUSTRACIONES DE CUENTO")
+    print(f"{'═'*62}")
+    print(f"  Total escenas  : {len(paragraphs)}")
+    print(f"  Ya generadas   : {ya_hechas}")
+    print(f"  Por generar    : {pendientes}{' (nada que hacer)' if pendientes == 0 and not forzar else ''}")
+    if forzar:
+        print(f"  ⚠️  Modo forzar: regenerando todo")
+    print()
+
+    resultados = {}
+    for i, paragraph in enumerate(paragraphs, start=1):
+        ctx  = (scenes_context or {}).get(i, {})
+        ruta = generar_ilustracion_escena(
+            scene_number=i,
+            paragraph=paragraph,
+            characters_data=characters_data,
+            output_dir=output_dir,
+            scene_context=ctx,
+            forzar=forzar,
+        )
+        resultados[i] = ruta
+
+    ok = sum(1 for r in resultados.values() if r)
+    print(f"\n  📊 Ilustraciones completadas: {ok}/{len(paragraphs)}")
+    print(f"  📁 Ubicación: {output_dir.resolve()}\n")
+    return resultados
+
+
+# ════════════════════════════════════════════════════════════════════════
+# UTILIDADES
+# ════════════════════════════════════════════════════════════════════════
+
 def crear_imagen_placeholder(nombre_personaje: str) -> Optional[Path]:
     """
-    Crea una imagen placeholder para testing sin usar API.
-    
-    Args:
-        nombre_personaje (str): Nombre del personaje
-        
-    Returns:
-        Path: Ruta de la imagen creada
+    Crea un placeholder simple para testing (sin API).
+    Salta si ya existe. Requiere: pip install Pillow
     """
-    
+    ruta = get_personaje_image_path(nombre_personaje)
+
+    if ruta.exists():
+        print(f"  ⏭️  Placeholder ya existe: {ruta}")
+        return ruta
+
     try:
         from PIL import Image, ImageDraw
-        
-        imagen_path = get_personaje_image_path(nombre_personaje)
-        
-        # Crear imagen simple
-        img = Image.new('RGB', (400, 400), color='lightblue')
+        img  = Image.new("RGB", (400, 400), color="lightblue")
         draw = ImageDraw.Draw(img)
-        
-        # Dibujar texto
-        nombre_normalizado = normalizar_nombre_archivo(nombre_personaje)
-        draw.text((50, 180), f"{nombre_normalizado}", fill='black')
-        
-        img.save(imagen_path)
-        print(f"✅ Imagen placeholder guardada: {imagen_path}")
-        
-        return imagen_path
-        
+        draw.text((50, 180), normalizar_nombre_archivo(nombre_personaje), fill="black")
+        img.save(ruta)
+        print(f"  ✅ Placeholder creado: {ruta}")
+        return ruta
     except ImportError:
-        print("⚠️ Pillow no esta instalado. Usa: pip install Pillow")
+        print("  ⚠️  Pillow no instalado: pip install Pillow")
         return None
     except Exception as e:
-        print(f"❌ Error al crear imagen placeholder: {str(e)}")
+        print(f"  ❌ Error: {e}")
         return None

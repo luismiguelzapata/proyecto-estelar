@@ -1,6 +1,8 @@
 """
-Módulo generador de historias
-Maneja la generación de historias usando OpenAI
+STORY_GENERATOR.PY - Generador de historias con OpenAI
+
+Genera historias infantiles usando GPT-4o.
+Registra cada llamada en el TokenTracker para control de consumo.
 """
 
 import random
@@ -12,169 +14,153 @@ from config.config import (
     OPENAI_TEMPERATURE,
     OPENAI_MAX_TOKENS,
     HISTORY_TELLER_FILE,
-    PROMPT_TEMPLATE_FILE
+    PROMPT_TEMPLATE_FILE,
+    LOGS_DIR,
 )
 from .data_loader import cargar_datos_historias, cargar_prompts
 from .utils import obtener_nombre_personaje
+from .token_tracker import tracker
 
-# Cliente OpenAI (se inicializa cuando sea necesario)
-client = None
+# ── Estado global del módulo ─────────────────────────────────────────────────
 
-# Cargar datos globales
-DATOS_HISTORIAS = None
-SYSTEM_PROMPT = None
-PROMPT_TEMPLATE = None
+_client:          OpenAI | None = None
+DATOS_HISTORIAS:  dict  | None  = None
+SYSTEM_PROMPT:    str   | None  = None
+PROMPT_TEMPLATE:  str   | None  = None
 
 
-def _get_client():
-    """Obtiene o inicializa el cliente OpenAI"""
-    global client
-    if client is None:
-        client = OpenAI()
-    return client
+def _get_client() -> OpenAI:
+    global _client
+    if _client is None:
+        _client = OpenAI()
+    return _client
 
 
 def inicializar_generador():
     """
-    Inicializa el generador cargando los datos necesarios.
-    Debe llamarse antes de generar historias.
+    Inicializa el generador: carga JSON + prompts + configura el token tracker.
+    Debe llamarse UNA vez antes de generar historias.
     """
     global DATOS_HISTORIAS, SYSTEM_PROMPT, PROMPT_TEMPLATE
-    
-    try:
-        DATOS_HISTORIAS = cargar_datos_historias()
-        SYSTEM_PROMPT, PROMPT_TEMPLATE = cargar_prompts(
-            HISTORY_TELLER_FILE,
-            PROMPT_TEMPLATE_FILE
-        )
-        print("✅ Generador de historias inicializado correctamente\n")
-    except Exception as e:
-        print(f"❌ Error al inicializar generador: {str(e)}")
-        raise
+
+    # Configurar tracker con directorio de logs
+    tracker.set_log_path(LOGS_DIR)
+
+    DATOS_HISTORIAS = cargar_datos_historias()
+    SYSTEM_PROMPT, PROMPT_TEMPLATE = cargar_prompts(
+        HISTORY_TELLER_FILE,
+        PROMPT_TEMPLATE_FILE,
+    )
+    print("✅ Generador de historias listo\n")
 
 
 def generar_elementos_historia() -> Dict[str, Any]:
     """
-    Genera una combinación aleatoria de elementos para una historia.
-    Ahora maneja personajesSecundarios como dict con características.
-    
+    Selecciona una combinación aleatoria de elementos del JSON.
+
     Returns:
-        dict: Diccionario con elementos seleccionados
-        
+        dict con todos los elementos seleccionados
+
     Raises:
-        RuntimeError: Si el generador no ha sido inicializado
+        RuntimeError: si el generador no fue inicializado
     """
-    
     if DATOS_HISTORIAS is None:
-        raise RuntimeError("❌ Generador no inicializado. Llama a inicializar_generador()")
-    
-    personaje_secundario = random.choice(DATOS_HISTORIAS['personajesSecundarios'])
-    personaje_nombre = obtener_nombre_personaje(personaje_secundario)
-    
-    elementos = {
-        "lugar": random.choice(DATOS_HISTORIAS['lugares']),
-        "objeto_principal": random.choice(DATOS_HISTORIAS['objetosCotidianos']),
-        "color_objeto": random.choice(DATOS_HISTORIAS['colores']),
-        "objeto_magico": random.choice(DATOS_HISTORIAS['objetosMagicos']),
-        "personaje_secundario": personaje_secundario,  # Dict completo con características
-        "personaje_secundario_nombre": personaje_nombre,  # Solo el nombre para template
-        "sentimiento_kira": random.choice(DATOS_HISTORIAS['sentimientos']),
-        "sentimiento_toby": random.choice(DATOS_HISTORIAS['sentimientos']),
-        "fenomeno": random.choice(DATOS_HISTORIAS['fenomenosNaturales']),
-        "desafio": random.choice(DATOS_HISTORIAS['desafios']),
-        "accion_kira": random.choice(DATOS_HISTORIAS['accionesClaves']),
-        "accion_toby": random.choice(DATOS_HISTORIAS['accionesClaves']),
-        "moraleja": random.choice(DATOS_HISTORIAS['moralejas'])
+        raise RuntimeError("❌ Llama primero a inicializar_generador()")
+
+    personaje_secundario = random.choice(DATOS_HISTORIAS["personajesSecundarios"])
+    personaje_nombre     = obtener_nombre_personaje(personaje_secundario)
+
+    return {
+        "lugar":                    random.choice(DATOS_HISTORIAS["lugares"]),
+        "objeto_principal":         random.choice(DATOS_HISTORIAS["objetosCotidianos"]),
+        "color_objeto":             random.choice(DATOS_HISTORIAS["colores"]),
+        "objeto_magico":            random.choice(DATOS_HISTORIAS["objetosMagicos"]),
+        "personaje_secundario":     personaje_secundario,   # dict completo
+        "personaje_secundario_nombre": personaje_nombre,   # solo nombre para el template
+        "sentimiento_kira":         random.choice(DATOS_HISTORIAS["sentimientos"]),
+        "sentimiento_toby":         random.choice(DATOS_HISTORIAS["sentimientos"]),
+        "fenomeno":                 random.choice(DATOS_HISTORIAS["fenomenosNaturales"]),
+        "desafio":                  random.choice(DATOS_HISTORIAS["desafios"]),
+        "accion_kira":              random.choice(DATOS_HISTORIAS["accionesClaves"]),
+        "accion_toby":              random.choice(DATOS_HISTORIAS["accionesClaves"]),
+        "moraleja":                 random.choice(DATOS_HISTORIAS["moralejas"]),
     }
-    
-    return elementos
 
 
 def generar_historia_aleatoria() -> Dict[str, Any]:
     """
-    Genera una historia completamente aleatoria combinando elementos del JSON.
-    
+    Genera una historia completa con GPT-4o usando elementos aleatorios.
+
     Returns:
-        dict: Historia generada + elementos usados + tokens utilizados
-        
+        dict con:
+          - historia (str): texto completo
+          - elementos (dict): elementos usados
+          - tokens (dict): desglose de tokens consumidos
+          - costo_estimado_usd (float): costo estimado de la llamada
+
     Raises:
-        RuntimeError: Si el generador no ha sido inicializado
+        RuntimeError: si el generador no fue inicializado
     """
-    
     if PROMPT_TEMPLATE is None or SYSTEM_PROMPT is None:
-        raise RuntimeError("❌ Generador no inicializado. Llama a inicializar_generador()")
-    
-    # Generar elementos aleatorios
+        raise RuntimeError("❌ Llama primero a inicializar_generador()")
+
     elementos = generar_elementos_historia()
-    
+
     # Mostrar elementos seleccionados
     print("🎲 ELEMENTOS SELECCIONADOS:")
-    print("=" * 60)
-    for key, value in elementos.items():
-        if key == "personaje_secundario" and isinstance(value, dict):
-            print(f"  {key}: {value.get('nombre', 'desconocido')}")
+    print("─" * 50)
+    for k, v in elementos.items():
+        if k == "personaje_secundario" and isinstance(v, dict):
+            print(f"  {k}: {v.get('nombre', '?')}")
         else:
-            print(f"  {key}: {value}")
-    print("=" * 60)
-    print("\n⏳ Generando historia con GPT-4...\n")
-    
+            print(f"  {k}: {v}")
+    print("─" * 50)
+    print(f"\n⏳ Generando historia con {OPENAI_MODEL}...\n")
+
     try:
         openai_client = _get_client()
         response = openai_client.chat.completions.create(
             model=OPENAI_MODEL,
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": PROMPT_TEMPLATE.format(**elementos)}
+                {"role": "user",   "content": PROMPT_TEMPLATE.format(**elementos)},
             ],
             temperature=OPENAI_TEMPERATURE,
-            max_tokens=OPENAI_MAX_TOKENS
+            max_tokens=OPENAI_MAX_TOKENS,
         )
-        
+
         historia = response.choices[0].message.content
-        
+        uso      = response.usage
+
+        # ── Registrar tokens ──────────────────────────────────────────────
+        entry = tracker.register_openai(
+            operation="generar_historia",
+            model=OPENAI_MODEL,
+            prompt_tokens=uso.prompt_tokens,
+            completion_tokens=uso.completion_tokens,
+            total_tokens=uso.total_tokens,
+            metadata={
+                "personaje": elementos["personaje_secundario_nombre"],
+                "lugar":     elementos["lugar"],
+                "moraleja":  elementos["moraleja"],
+            },
+        )
+        tracker.print_entry(entry)
+        # ─────────────────────────────────────────────────────────────────
+
         return {
             "historia": historia,
             "elementos": elementos,
-            "tokens": response.usage.total_tokens
+            "tokens": {
+                "prompt":     uso.prompt_tokens,
+                "completion": uso.completion_tokens,
+                "total":      uso.total_tokens,
+            },
+            "costo_estimado_usd": entry["estimated_cost_usd"],
         }
-        
+
     except Exception as e:
         return {
-            "error": str(e),
-            "elementos": elementos
+            "error":    str(e),
+            "elementos": elementos,
         }
-
-
-# def generar_multiples_historias(cantidad: int = 5) -> list:
-#     """
-#     Genera múltiples historias aleatorias.
-    
-#     Args:
-#         cantidad (int): Número de historias a generar (1-10)
-        
-#     Returns:
-#         list: Lista de historias generadas
-#     """
-    
-#     if cantidad < 1 or cantidad > 10:
-#         raise ValueError("❌ La cantidad debe estar entre 1 y 10")
-    
-#     historias = []
-    
-#     for i in range(1, cantidad + 1):
-#         print(f"\n{'='*60}")
-#         print(f"📖 GENERANDO HISTORIA {i}/{cantidad}")
-#         print(f"{'='*60}\n")
-        
-#         resultado = generar_historia_aleatoria()
-#         historias.append(resultado)
-        
-#         if "historia" in resultado:
-#             print("\n" + resultado["historia"])
-#             print(f"\n📊 Tokens usados: {resultado['tokens']}")
-#         else:
-#             print(f"\n❌ Error: {resultado['error']}")
-        
-#         print("\n" + "="*60)
-    
-#     return historias

@@ -1,0 +1,719 @@
+{
+  "sessions": [
+    {
+      "session_start": "2026-02-28T17:24:00.584424",
+      "session_end": "2026-02-28T17:27:19.416553",
+      "totals": {
+        "prompt_tokens": 32499,
+        "completion_tokens": 10164,
+        "total_tokens": 42663,
+        "images_generated": 0,
+        "estimated_cost_usd": 0.182891
+      },
+      "entries": [
+        {
+          "timestamp": "2026-02-28T17:24:16.622469",
+          "provider": "openai",
+          "operation": "generar_historia",
+          "model": "gpt-4o",
+          "prompt_tokens": 1945,
+          "completion_tokens": 738,
+          "total_tokens": 2683,
+          "estimated_cost_usd": 0.012242,
+          "metadata": {
+            "personaje": "búho sabio",
+            "lugar": "campo de amapolas",
+            "moraleja": "la calma ayuda a resolver"
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:24:24.228736",
+          "provider": "openai",
+          "operation": "escena_1_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 866,
+          "completion_tokens": 404,
+          "total_tokens": 1270,
+          "estimated_cost_usd": 0.006205,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 1
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:24:31.468741",
+          "provider": "openai",
+          "operation": "escena_2_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 915,
+          "completion_tokens": 444,
+          "total_tokens": 1359,
+          "estimated_cost_usd": 0.006728,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 2
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:24:39.431028",
+          "provider": "openai",
+          "operation": "escena_3_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 950,
+          "completion_tokens": 405,
+          "total_tokens": 1355,
+          "estimated_cost_usd": 0.006425,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 3
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:24:56.095261",
+          "provider": "openai",
+          "operation": "escena_4_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1004,
+          "completion_tokens": 468,
+          "total_tokens": 1472,
+          "estimated_cost_usd": 0.00719,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 4
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:05.148699",
+          "provider": "openai",
+          "operation": "escena_5_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1034,
+          "completion_tokens": 435,
+          "total_tokens": 1469,
+          "estimated_cost_usd": 0.006935,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 5
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:14.852511",
+          "provider": "openai",
+          "operation": "escena_6_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1010,
+          "completion_tokens": 455,
+          "total_tokens": 1465,
+          "estimated_cost_usd": 0.007075,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 6
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:21.652028",
+          "provider": "openai",
+          "operation": "escena_7_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1016,
+          "completion_tokens": 414,
+          "total_tokens": 1430,
+          "estimated_cost_usd": 0.00668,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 7
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:30.397471",
+          "provider": "openai",
+          "operation": "escena_8_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1008,
+          "completion_tokens": 411,
+          "total_tokens": 1419,
+          "estimated_cost_usd": 0.00663,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 8
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:40.210749",
+          "provider": "openai",
+          "operation": "escena_9_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1022,
+          "completion_tokens": 472,
+          "total_tokens": 1494,
+          "estimated_cost_usd": 0.007275,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 9
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:49.626440",
+          "provider": "openai",
+          "operation": "escena_10_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1014,
+          "completion_tokens": 469,
+          "total_tokens": 1483,
+          "estimated_cost_usd": 0.007225,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 10
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:25:55.711195",
+          "provider": "openai",
+          "operation": "escena_11_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1010,
+          "completion_tokens": 408,
+          "total_tokens": 1418,
+          "estimated_cost_usd": 0.006605,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 11
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:02.910149",
+          "provider": "openai",
+          "operation": "escena_12_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1017,
+          "completion_tokens": 408,
+          "total_tokens": 1425,
+          "estimated_cost_usd": 0.006622,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 12
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:11.444596",
+          "provider": "openai",
+          "operation": "escena_13_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 970,
+          "completion_tokens": 441,
+          "total_tokens": 1411,
+          "estimated_cost_usd": 0.006835,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 13
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:17.931854",
+          "provider": "openai",
+          "operation": "escena_14_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 937,
+          "completion_tokens": 389,
+          "total_tokens": 1326,
+          "estimated_cost_usd": 0.006233,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 14
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:24.679364",
+          "provider": "openai",
+          "operation": "escena_15_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 933,
+          "completion_tokens": 390,
+          "total_tokens": 1323,
+          "estimated_cost_usd": 0.006233,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 15
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:33.354601",
+          "provider": "openai",
+          "operation": "escena_16_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 929,
+          "completion_tokens": 421,
+          "total_tokens": 1350,
+          "estimated_cost_usd": 0.006533,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 16
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:43.571127",
+          "provider": "openai",
+          "operation": "escena_17_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 921,
+          "completion_tokens": 496,
+          "total_tokens": 1417,
+          "estimated_cost_usd": 0.007262,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 17
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:26:52.466697",
+          "provider": "openai",
+          "operation": "escena_18_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1209,
+          "completion_tokens": 483,
+          "total_tokens": 1692,
+          "estimated_cost_usd": 0.007853,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 18
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:27:04.603085",
+          "provider": "openai",
+          "operation": "escena_19_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 1186,
+          "completion_tokens": 692,
+          "total_tokens": 1878,
+          "estimated_cost_usd": 0.009885,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 19
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:27:12.509866",
+          "provider": "openai",
+          "operation": "escena_20_de_20",
+          "model": "gpt-4o",
+          "prompt_tokens": 905,
+          "completion_tokens": 428,
+          "total_tokens": 1333,
+          "estimated_cost_usd": 0.006542,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "escena": 20
+          }
+        },
+        {
+          "timestamp": "2026-02-28T17:27:19.411629",
+          "provider": "openai",
+          "operation": "editor_iteracion_1",
+          "model": "gpt-4o",
+          "prompt_tokens": 10698,
+          "completion_tokens": 493,
+          "total_tokens": 11191,
+          "estimated_cost_usd": 0.031675,
+          "metadata": {
+            "historia": "Historia_Sin_Titulo",
+            "iteracion": 1
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-02-28T23:56:05.757853",
+      "session_end": "2026-02-28T23:59:21.296913",
+      "totals": {
+        "prompt_tokens": 44277,
+        "completion_tokens": 12113,
+        "total_tokens": 56390,
+        "images_generated": 3,
+        "estimated_cost_usd": 0.351821
+      },
+      "entries": [
+        {
+          "timestamp": "2026-02-28T23:56:17.642118",
+          "provider": "openai",
+          "operation": "generar_historia",
+          "model": "gpt-4o",
+          "prompt_tokens": 1943,
+          "completion_tokens": 630,
+          "total_tokens": 2573,
+          "estimated_cost_usd": 0.011158,
+          "metadata": {
+            "personaje": "zorrillo chef",
+            "lugar": "orilla del lago",
+            "moraleja": "pensar diferente resuelve problemas difíciles"
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:22.896264",
+          "provider": "openai",
+          "operation": "escena_1_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 951,
+          "completion_tokens": 419,
+          "total_tokens": 1370,
+          "estimated_cost_usd": 0.006568,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 1
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:28.543774",
+          "provider": "openai",
+          "operation": "escena_2_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1019,
+          "completion_tokens": 458,
+          "total_tokens": 1477,
+          "estimated_cost_usd": 0.007128,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 2
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:33.533878",
+          "provider": "openai",
+          "operation": "escena_3_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1014,
+          "completion_tokens": 432,
+          "total_tokens": 1446,
+          "estimated_cost_usd": 0.006855,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 3
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:39.979285",
+          "provider": "openai",
+          "operation": "escena_4_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1005,
+          "completion_tokens": 461,
+          "total_tokens": 1466,
+          "estimated_cost_usd": 0.007122,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 4
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:46.749920",
+          "provider": "openai",
+          "operation": "escena_5_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 995,
+          "completion_tokens": 426,
+          "total_tokens": 1421,
+          "estimated_cost_usd": 0.006748,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 5
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:52.311079",
+          "provider": "openai",
+          "operation": "escena_6_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 985,
+          "completion_tokens": 439,
+          "total_tokens": 1424,
+          "estimated_cost_usd": 0.006852,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 6
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:56:57.902914",
+          "provider": "openai",
+          "operation": "escena_7_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 974,
+          "completion_tokens": 377,
+          "total_tokens": 1351,
+          "estimated_cost_usd": 0.006205,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 7
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:03.162488",
+          "provider": "openai",
+          "operation": "escena_8_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 982,
+          "completion_tokens": 412,
+          "total_tokens": 1394,
+          "estimated_cost_usd": 0.006575,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 8
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:08.813704",
+          "provider": "openai",
+          "operation": "escena_9_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 983,
+          "completion_tokens": 461,
+          "total_tokens": 1444,
+          "estimated_cost_usd": 0.007067,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 9
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:14.374316",
+          "provider": "openai",
+          "operation": "escena_10_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 944,
+          "completion_tokens": 476,
+          "total_tokens": 1420,
+          "estimated_cost_usd": 0.00712,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "escena": 10
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:22.187407",
+          "provider": "openai",
+          "operation": "editor_iteracion_1",
+          "model": "gpt-4o",
+          "prompt_tokens": 5666,
+          "completion_tokens": 660,
+          "total_tokens": 6326,
+          "estimated_cost_usd": 0.020765,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "iteracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:27.131283",
+          "provider": "openai",
+          "operation": "editor_iteracion_2",
+          "model": "gpt-4o",
+          "prompt_tokens": 5693,
+          "completion_tokens": 526,
+          "total_tokens": 6219,
+          "estimated_cost_usd": 0.019492,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "iteracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:32.977603",
+          "provider": "openai",
+          "operation": "editor_iteracion_3",
+          "model": "gpt-4o",
+          "prompt_tokens": 5703,
+          "completion_tokens": 565,
+          "total_tokens": 6268,
+          "estimated_cost_usd": 0.019907,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "iteracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:43.053533",
+          "provider": "openai",
+          "operation": "ilustracion_1_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1570,
+          "completion_tokens": 478,
+          "total_tokens": 2048,
+          "estimated_cost_usd": 0.008705,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:57:49.613651",
+          "provider": "openai",
+          "operation": "ilustracion_2_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1560,
+          "completion_tokens": 528,
+          "total_tokens": 2088,
+          "estimated_cost_usd": 0.00918,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:02.062238",
+          "provider": "openai",
+          "operation": "ilustracion_3_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1569,
+          "completion_tokens": 525,
+          "total_tokens": 2094,
+          "estimated_cost_usd": 0.009173,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:10.407221",
+          "provider": "openai",
+          "operation": "ilustracion_4_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1557,
+          "completion_tokens": 599,
+          "total_tokens": 2156,
+          "estimated_cost_usd": 0.009883,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 4
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:19.087991",
+          "provider": "openai",
+          "operation": "ilustracion_5_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1538,
+          "completion_tokens": 534,
+          "total_tokens": 2072,
+          "estimated_cost_usd": 0.009185,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 5
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:27.790087",
+          "provider": "openai",
+          "operation": "ilustracion_6_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1534,
+          "completion_tokens": 541,
+          "total_tokens": 2075,
+          "estimated_cost_usd": 0.009245,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 6
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:37.780703",
+          "provider": "openai",
+          "operation": "ilustracion_7_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1534,
+          "completion_tokens": 588,
+          "total_tokens": 2122,
+          "estimated_cost_usd": 0.009715,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 7
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:44.571531",
+          "provider": "openai",
+          "operation": "ilustracion_8_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1539,
+          "completion_tokens": 449,
+          "total_tokens": 1988,
+          "estimated_cost_usd": 0.008338,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 8
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:51.458678",
+          "provider": "openai",
+          "operation": "ilustracion_9_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1532,
+          "completion_tokens": 570,
+          "total_tokens": 2102,
+          "estimated_cost_usd": 0.00953,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 9
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:58:59.280551",
+          "provider": "openai",
+          "operation": "ilustracion_10_de_10",
+          "model": "gpt-4o",
+          "prompt_tokens": 1487,
+          "completion_tokens": 559,
+          "total_tokens": 2046,
+          "estimated_cost_usd": 0.009307,
+          "metadata": {
+            "historia": "La_Cinta_Secreta_del_Lago",
+            "ilustracion": 10
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:59:08.776030",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "zorrillo chef",
+            "pose": "front"
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:59:14.332437",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "zorrillo chef",
+            "pose": "side"
+          }
+        },
+        {
+          "timestamp": "2026-02-28T23:59:21.291756",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "zorrillo chef",
+            "pose": "quarter"
+          }
+        }
+      ]
+    }
+  ],
+  "last_updated": "2026-02-28T23:59:21.296923",
+  "cumulative": {
+    "total_tokens": 99053,
+    "images_generated": 3,
+    "estimated_cost_usd": 0.5347,
+    "total_sessions": 2
+  }
+}

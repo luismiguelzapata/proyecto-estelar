@@ -1,216 +1,134 @@
 """
-Funciones auxiliares del proyecto Estelar
+UTILS.PY - Funciones auxiliares del proyecto Estelar
 """
 
 import re
 from typing import Dict, List, Any, Union
 
 
-def obtener_nombre_personaje(personaje_dict: Union[Dict, str]) -> str:
-    """
-    Extrae el nombre del personaje desde el dict.
-    Si recibe un string (compatibilidad), lo devuelve directamente.
-    
-    Args:
-        personaje_dict: dict o str con datos del personaje
-        
-    Returns:
-        str: Nombre del personaje
-    """
-    if isinstance(personaje_dict, dict):
-        return personaje_dict.get("nombre", "personaje desconocido")
-    else:
-        return str(personaje_dict)
-
-
-def extraer_titulo_historia(contenido_historia: str) -> str:
-    """
-    Extrae el título de la historia desde el contenido generado.
-    Busca el patrón: **TÍTULO:** [Nombre]
-    
-    Args:
-        contenido_historia (str): Contenido completo de la historia
-        
-    Returns:
-        str: Título limpio y formateado para usar en nombre de archivo
-    """
-    # Buscar el patrón **TÍTULO:** seguido del nombre
-    match = re.search(r'\*\*TÍTULO:\*\*\s*(.+?)(?:\n|\*\*)', contenido_historia)
-    if match:
-        titulo = match.group(1).strip()
-        # Reemplazar espacios y caracteres especiales por guiones bajos
-        titulo = re.sub(r'[^a-záéíóúñA-ZÁÉÍÓÚÑ0-9]', '_', titulo)
-        # Limpiar múltiples guiones bajos consecutivos
-        titulo = re.sub(r'_+', '_', titulo)
-        # Eliminar guiones bajos del inicio y final
-        titulo = titulo.strip('_')
-        return titulo
-    return "Historia_Sin_Titulo"
-
-
-def extraer_escenas_historia(contenido_historia: str) -> List[str]:
-    """
-    Extrae las descripciones de escenas del contenido generado.
-    Busca la sección **ESCENAS:** y extrae cada línea numerada.
-    
-    Args:
-        contenido_historia (str): Contenido completo de la historia
-        
-    Returns:
-        list: Lista de descripciones de escenas
-    """
-    escenas = []
-    # Buscar la sección ESCENAS: y extraer cada línea
-    match = re.search(r'\*\*ESCENAS:\*\*(.+?)(?:\n\n|$)', contenido_historia, re.DOTALL)
-    if match:
-        texto_escenas = match.group(1)
-        # Extraer líneas numeradas
-        lineas = re.findall(r'\d+\.\s*(.+?)(?=\n\d+\.|$)', texto_escenas, re.DOTALL)
-        escenas = [linea.strip() for linea in lineas if linea.strip()]
-    return escenas
+def obtener_nombre_personaje(personaje: Union[Dict, str]) -> str:
+    """Extrae el nombre de un personaje (dict o string)."""
+    if isinstance(personaje, dict):
+        return personaje.get("nombre", "personaje desconocido")
+    return str(personaje)
 
 
 def normalizar_nombre_archivo(texto: str) -> str:
-    """
-    Normaliza texto para usarlo como nombre de archivo.
-    Reemplaza caracteres especiales y múltiples espacios.
-    
-    Args:
-        texto (str): Texto a normalizar
-        
-    Returns:
-        str: Texto normalizado
-    """
-    # Reemplazar caracteres especiales por guiones bajos
-    normalizado = re.sub(r'[^a-záéíóúñA-ZÁÉÍÓÚÑ0-9]', '_', texto)
-    # Eliminar guiones bajos múltiples
-    normalizado = re.sub(r'_+', '_', normalizado)
-    # Eliminar guiones bajos del inicio y final
-    normalizado = normalizado.strip('_')
-    return normalizado
+    """Convierte texto en nombre de archivo seguro."""
+    n = re.sub(r"[^a-záéíóúñA-ZÁÉÍÓÚÑ0-9]", "_", texto)
+    n = re.sub(r"_+", "_", n)
+    return n.strip("_")
 
 
-def generar_prompt_imagen_escena(num_escena: int, descripcion_escena: str, historia_dict: Dict[str, Any]) -> str:
+def extraer_titulo_historia(contenido: str) -> str:
     """
-    Genera un prompt en español para generar una imagen de la escena.
-    Sigue el estilo de película animada cinématica para audiencia infantil.
-    Incluye características del personaje secundario para consistencia visual.
-    
-    Args:
-        num_escena (int): Número de la escena
-        descripcion_escena (str): Descripción de la escena
-        historia_dict (dict): Diccionario con información de la historia
-        
-    Returns:
-        str: Prompt para generar imagen
+    Extrae el título de la historia.
+    Soporta dos formatos que GPT puede generar:
+      - **TÍTULO:** El nombre        (negrita, formato pedido en el prompt)
+      - ### TÍTULO: El nombre        (heading markdown, formato alternativo)
     """
-    lugar = historia_dict.get("elementos", {}).get("lugar", "escena mágica")
-    color_obj = historia_dict.get("elementos", {}).get("color_objeto", "mágico")
-    objeto = historia_dict.get("elementos", {}).get("objeto_principal", "objeto")
-    
-    # Extraer características del personaje secundario
-    personaje_sec = historia_dict.get("elementos", {}).get("personaje_secundario", {})
-    nombre_personaje = obtener_nombre_personaje(personaje_sec)
-    
-    # Construir descripción del personaje secundario
-    caracteristicas_personaje = ""
+    match = re.search(
+        r"(?:\*\*TÍTULO:\*\*|#{1,3}\s*TÍTULO:)\s*(.+?)(?:\n|$|\*\*)",
+        contenido,
+    )
+    if match:
+        titulo = match.group(1).strip()
+        return normalizar_nombre_archivo(titulo) or "Historia_Sin_Titulo"
+    return "Historia_Sin_Titulo"
+
+
+def extraer_escenas_historia(contenido: str) -> List[str]:
+    """
+    Extrae las escenas de la sección ESCENAS.
+    Soporta **ESCENAS:** y ### ESCENAS: (con o sin línea en blanco tras el header).
+    Captura hasta el primer separador --- o bloque === o fin de texto.
+    """
+    match = re.search(
+        r"(?:\*\*ESCENAS:\*\*|#{1,3}\s*ESCENAS:)\s*\n+(.*?)(?=\n---|\n={10,}|\Z)",
+        contenido,
+        re.DOTALL,
+    )
+    if not match:
+        return []
+    texto = match.group(1)
+    lineas = re.findall(r"\d+\.\s*(.+?)(?=\n\d+\.|$)", texto, re.DOTALL)
+    return [l.strip() for l in lineas if l.strip()]
+
+
+def generar_prompt_imagen_escena(
+    num_escena: int,
+    descripcion: str,
+    historia_dict: Dict[str, Any],
+) -> str:
+    """Genera prompt de imagen para una escena específica."""
+    elementos       = historia_dict.get("elementos", {})
+    lugar           = elementos.get("lugar", "escena mágica")
+    color_obj       = elementos.get("color_objeto", "mágico")
+    objeto          = elementos.get("objeto_principal", "objeto")
+    personaje_sec   = elementos.get("personaje_secundario", {})
+    nombre_p        = obtener_nombre_personaje(personaje_sec)
+
+    # Construir descripción del personaje
+    caract = ""
     if isinstance(personaje_sec, dict):
-        species = personaje_sec.get("species", "")
-        body_shape = personaje_sec.get("body_shape", "")
-        height_ratio = personaje_sec.get("height_ratio", "")
-        accessory = personaje_sec.get("accessory", "")
-        forbidden = personaje_sec.get("forbidden_changes", "")
-        
-        # Agrupar colores por tipo
-        colores_dict = {}
-        for key in personaje_sec.keys():
-            if "_color" in key or "color" in key:
-                color_key = key.replace("_color", "").replace("color", "").strip("_")
-                colores_dict[color_key] = personaje_sec[key]
-        
-        colores_str = ", ".join([f"{k}: {v}" for k, v in colores_dict.items()])
-        
-        caracteristicas_personaje = f"""
-PERSONAJE SECUNDARIO - {nombre_personaje.upper()}:
-- Especie: {species}
-- Altura: {height_ratio}
-- Forma del cuerpo: {body_shape}
-- Colores: {colores_str}
-- Accesorios: {accessory}
-- PROHIBIDO (para consistencia visual): {forbidden}"""
+        species     = personaje_sec.get("species", "")
+        body_shape  = personaje_sec.get("body_shape", "")
+        height      = personaje_sec.get("height_ratio", "")
+        accessory   = personaje_sec.get("accessory", "")
+        forbidden   = personaje_sec.get("forbidden_changes", "")
+        colores     = {
+            k.replace("_color", "").strip("_"): v
+            for k, v in personaje_sec.items()
+            if "color" in k
+        }
+        colores_str = ", ".join(f"{k}: {v}" for k, v in colores.items())
+
+        caract = (
+            f"\nPERSONAJE SECUNDARIO — {nombre_p.upper()}:\n"
+            f"- Especie: {species}\n"
+            f"- Altura relativa: {height}\n"
+            f"- Forma: {body_shape}\n"
+            f"- Colores: {colores_str}\n"
+            f"- Accesorio: {accessory}\n"
+            f"- ⚠️ PROHIBIDO cambiar: {forbidden}"
+        )
     else:
-        caracteristicas_personaje = f"PERSONAJE SECUNDARIO: {nombre_personaje}"
-    
-    prompt = f"""Escena cinematográfica de película animada.
+        caract = f"PERSONAJE SECUNDARIO: {nombre_p}"
 
-Estilo: Similar a una película de animación 3D de alta calidad, mágica y acogedora.
-
-Escena {num_escena}: {descripcion_escena}
-
-Lugar: {lugar} con iluminación cálida de hora dorada, luz suave y soñadora.
-
-{caracteristicas_personaje}
-
-ELEMENTO DESTACADO: {objeto} de color {color_obj}
-
-Atmósfera: Calorosa, mágica y envolvente. Música orquestal suave, tono caprichoso y aventurero.
-
-Calidad técnica: Cinemática, animación altamente detallada, 4K, atmósfera emotiva y edificante.
-
-Perfecto para una audiencia infantil."""
-    
-    return prompt
+    return (
+        f"Escena cinematográfica de película animada 3D.\n\n"
+        f"Escena {num_escena}: {descripcion}\n\n"
+        f"Lugar: {lugar}, iluminación cálida de hora dorada.\n"
+        f"{caract}\n\n"
+        f"Elemento destacado: {objeto} de color {color_obj}\n\n"
+        f"Estilo: Pixar/Disney 3D CGI, 4K, atmósfera mágica y acogedora, "
+        f"perfecta para audiencia infantil 3-6 años."
+    )
 
 
-def generar_prompt_video_escena(num_escena: int, descripcion_escena: str, historia_dict: Dict[str, Any]) -> str:
-    """
-    Genera un prompt en español para generar un video de la escena.
-    Incluye características del personaje secundario para consistencia visual.
-    
-    Args:
-        num_escena (int): Número de la escena
-        descripcion_escena (str): Descripción de la escena
-        historia_dict (dict): Diccionario con información de la historia
-        
-    Returns:
-        str: Prompt para generar video
-    """
-    lugar = historia_dict.get("elementos", {}).get("lugar", "escena mágica")
-    
-    # Extraer características del personaje secundario
-    personaje_sec = historia_dict.get("elementos", {}).get("personaje_secundario", {})
-    nombre_personaje = obtener_nombre_personaje(personaje_sec)
-    
-    # Extraer accesorios y detalles del personaje
-    accessory = ""
-    if isinstance(personaje_sec, dict):
-        accessory = personaje_sec.get("accessory", "")
-    
-    prompt = f"""VIDEO ANIMADO - Escena {num_escena}
+def generar_prompt_video_escena(
+    num_escena: int,
+    descripcion: str,
+    historia_dict: Dict[str, Any],
+) -> str:
+    """Genera prompt de video para una escena específica."""
+    elementos     = historia_dict.get("elementos", {})
+    lugar         = elementos.get("lugar", "escena mágica")
+    personaje_sec = elementos.get("personaje_secundario", {})
+    nombre_p      = obtener_nombre_personaje(personaje_sec)
+    accessory     = personaje_sec.get("accessory", "") if isinstance(personaje_sec, dict) else ""
 
-Descripción: {descripcion_escena}
-
-Duración: 15-30 segundos
-
-Estilo: Película animada 3D de alta calidad, dirigida a audiencia infantil.
-
-Locación: {lugar}
-
-PERSONAJES EN PANTALLA:
-- Kira y Toby interactuando de forma dinámica y expresiva
-- {nombre_personaje} (con {accessory if accessory else 'características visuales consistentes'})
-
-Elementos de cámara:
-- Transiciones suaves
-- Zoom progresivo cuando es necesario
-- Movimiento de cámara envolvente
-
-Sonido:
-- Música de fondo: orquestal, suave y aventurera
-- Efectos de sonido: subtiles y mágicos
-
-Iluminación: Cálida, dorada, mágica. Profundidad y realismo.
-
-Qualidad: 4K, animación suave, atmósfera emotiva y edificante."""
-    
-    return prompt
+    return (
+        f"VIDEO ANIMADO — Escena {num_escena}\n\n"
+        f"Descripción: {descripcion}\n\n"
+        f"Duración: 15-30 segundos\n"
+        f"Estilo: Película animada 3D Pixar/Disney, audiencia infantil 3-6 años.\n"
+        f"Locación: {lugar}\n\n"
+        f"PERSONAJES:\n"
+        f"- Kira y Toby interactuando de forma dinámica y expresiva\n"
+        f"- {nombre_p}"
+        + (f" (con {accessory})" if accessory else "") + "\n\n"
+        f"Cámara: transiciones suaves, zoom progresivo, movimiento envolvente.\n"
+        f"Sonido: orquestal suave, efectos mágicos sutiles.\n"
+        f"Iluminación: cálida, dorada, mágica. 4K, atmósfera emotiva."
+    )

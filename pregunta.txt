@@ -1,0 +1,6 @@
+yo quiero que se genere tanto la parte de las ilustraciones como las escenas para videos cuando ponga modo --completo.
+Que las carpeta outputs/historias/revision/[nombre_historia]/prompt-scenas contodo su contenido  se generen en outputs/historias/revision/[nombre_historia]/escenas/* con esto lo tengo mas ordenado y las ilustraciones se generen en outputs/historias/revision/[nombre_historia]/ilustraciones/prompt-ilustraciones/ contodo su contenido
+
+por otra parte no vi que se hayan generado las imágenes de los personajes. ¿Esta funcion sigue disponible?
+
+puedo hacer que se generen tanto las historias, como los personajes y las ilustraciones en --modo completo?
