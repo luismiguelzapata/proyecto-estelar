@@ -25,7 +25,7 @@ from typing import Optional
 
 from openai import OpenAI
 
-from config.config import OPENAI_MODEL, LOGS_DIR
+from config.config import OPENAI_MODEL, LOGS_DIR, IMAGE_MODEL
 from .token_tracker import tracker
 
 # ── Constantes configurables ─────────────────────────────────────────────────
@@ -211,6 +211,148 @@ def _limpiar_prompt_3d(prompt: str) -> str:
     resultado = re.sub(r"\s{2,}", " ", resultado)
     resultado = resultado.strip().strip(",").strip()
     return resultado
+
+
+# ── Helpers exclusivos de ilustraciones ──────────────────────────────────────
+
+def _build_secondary_block_for_md(characters_data: dict) -> str:
+    """
+    Construye el bloque del personaje secundario para el .md de ilustración.
+    Solo incluye el secundario — Kira y Toby se omiten del .md porque sus
+    prompts completos se inyectan directamente en el prompt de Google Imagen.
+    """
+    lines = []
+    for p in characters_data.get("personajesSecundarios", []):
+        nombre   = p.get("nombre", "personaje secundario")
+        prompt3d = p.get("prompt-3D", "")
+        if prompt3d:
+            lines.append(f'"{nombre}": """{_limpiar_prompt_3d(prompt3d)}"""')
+        else:
+            skip   = {"nombre", "species", "prompt-3D", "forbidden_changes"}
+            campos = [f"{k}: {v}" for k, v in p.items() if k not in skip]
+            desc   = f"{p.get('species', 'character')}, {nombre}. " + ". ".join(campos)
+            if "forbidden_changes" in p:
+                desc += f". *** NEVER CHANGE: {p['forbidden_changes']}"
+            lines.append(f'"{nombre}": """{desc}"""')
+
+    if not lines:
+        return ""
+    return "PERSONAJE SECUNDARIO\n" + "\n".join(lines)
+
+
+def _extract_illustration_section(text: str, section_name: str) -> str:
+    """
+    Extrae el contenido de una sección nombrada del texto generado por OpenAI.
+    Funciona con: ENVIRONMENT, CHARACTERS PRESENT, LIGHTING & MOOD,
+                  COMPOSITION & STYLE, CONTINUITY NOTES.
+    """
+    pattern = re.compile(
+        rf"{re.escape(section_name)}[^:]*:\s*\n(.*?)(?=\n[A-Z]{{2,}}[^:\n]*:|\Z)",
+        re.DOTALL | re.IGNORECASE,
+    )
+    match = pattern.search(text)
+    return match.group(1).strip() if match else ""
+
+
+def _build_imagen_prompt_from_illustration(
+    illustration_text: str,
+    characters_data: dict,
+) -> str:
+    """
+    Construye el prompt completo para Google Imagen combinando:
+      - Prompts de Kira y Toby desde config/personajes.py  (referencia visual exacta)
+      - Personaje secundario desde characters_data
+      - Contexto de escena generado por OpenAI: ENVIRONMENT, CHARACTERS PRESENT,
+        LIGHTING & MOOD, COMPOSITION & STYLE
+
+    El .md guarda el contexto limpio; este prompt va directo a la API de imagen.
+    """
+    from config.personajes import PERSONAJES
+
+    kira_prompt = _limpiar_prompt_3d(PERSONAJES.get("kira", ""))
+    toby_prompt = _limpiar_prompt_3d(PERSONAJES.get("toby", ""))
+
+    # Personaje(s) secundario(s)
+    secondary_lines = []
+    for p in characters_data.get("personajesSecundarios", []):
+        nombre   = p.get("nombre", "personaje secundario")
+        prompt3d = p.get("prompt-3D", "")
+        if prompt3d:
+            secondary_lines.append(f'"{nombre}": """{_limpiar_prompt_3d(prompt3d)}"""')
+
+    # Secciones de contexto generadas por OpenAI
+    env         = _extract_illustration_section(illustration_text, "ENVIRONMENT")
+    chars       = _extract_illustration_section(illustration_text, "CHARACTERS PRESENT")
+    lighting    = _extract_illustration_section(illustration_text, "LIGHTING & MOOD")
+    composition = _extract_illustration_section(illustration_text, "COMPOSITION & STYLE")
+
+    parts = [
+        "CHARACTER REFERENCES (STRICT — use EXACT hex colors and proportions, never invent new traits):",
+        "",
+        f'kira: """{kira_prompt}"""',
+        "",
+        f'toby: """{toby_prompt}"""',
+    ]
+    if secondary_lines:
+        parts += [""] + secondary_lines
+
+    if env:
+        parts += ["", "ENVIRONMENT:", env]
+    if chars:
+        parts += ["", "CHARACTERS PRESENT:", chars]
+    if lighting:
+        parts += ["", "LIGHTING & MOOD:", lighting]
+    if composition:
+        parts += ["", "COMPOSITION & STYLE:", composition]
+
+    parts += [
+        "",
+        "ILLUSTRATION STYLE (MANDATORY):",
+        "- 3D CGI children's storybook illustration, Pixar/Disney quality",
+        "- Big expressive eyes, rounded cute proportions, soft fur textures",
+        "- Richly detailed background with storytelling depth",
+        "- Warm, harmonious color palette — no harsh or cold contrasts",
+        "- 8K resolution, ultra-detailed, crisp clean edges",
+        "- Strictly NO text, NO speech bubbles, NO watermarks, NO UI elements",
+        "- Single complete illustration, NOT a comic strip or panel sequence",
+    ]
+    return "\n".join(parts)
+
+
+def _save_illustration_slim(
+    text: str,
+    n: int,
+    output_dir: Path,
+    secondary_block: str = "",
+) -> Path:
+    """
+    Guarda el prompt de ilustración en ilustracionN.md, versión limpia:
+      - Sin el bloque largo de Kira y Toby (eso va en el prompt de imagen)
+      - Con una referencia compacta a personajes.py + personaje secundario
+      - Mantiene ENVIRONMENT, CHARACTERS PRESENT, LIGHTING & MOOD,
+        COMPOSITION & STYLE y CONTINUITY NOTES generados por OpenAI
+    """
+    # Eliminar la sección CHARACTERS DESCRIPTION (Kira/Toby full block)
+    text_clean = re.sub(
+        r"\nCHARACTERS DESCRIPTION:.*?(?=\nENVIRONMENT:|\nCHARACTERS PRESENT:|\Z)",
+        "",
+        text,
+        count=1,
+        flags=re.DOTALL | re.IGNORECASE,
+    ).strip()
+
+    # Cabecera de referencia
+    ref_lines = [
+        "# PERSONAJES — REFERENCIA",
+        "> **Kira** y **Toby**: descripción visual completa en `config/personajes.py`",
+    ]
+    if secondary_block:
+        ref_lines += ["", secondary_block]
+
+    contenido = "\n".join(ref_lines) + "\n\n---\n\n" + text_clean
+    path      = output_dir / f"ilustracion{n}.md"
+    path.write_text(contenido, encoding="utf-8")
+    return path
 
 
 def build_characters_description(characters_data: dict) -> str:
@@ -1030,8 +1172,10 @@ def generar_ilustraciones_desde_historia(
     print(f"   🖼️  GENERADOR DE ILUSTRACIONES{label}")
     print(f"{'═'*62}\n")
 
+    # characters_desc → contexto compacto para que OpenAI genere buenos ENVIRONMENT etc.
+    # secondary_block → bloque slim solo con el secundario, para el encabezado del .md
     characters_desc  = build_characters_description(characters_data)
-    characters_block = build_characters_block_for_scene(characters_data)
+    secondary_block  = _build_secondary_block_for_md(characters_data)
 
     story_clean = _extract_story_text(story_text)
     paragraphs  = [p.strip() for p in re.split(r"\n\s*\n", story_clean.strip()) if p.strip()]
@@ -1040,13 +1184,22 @@ def generar_ilustraciones_desde_historia(
 
     token_summary = {
         "illus_tokens": 0, "illus_cost": 0.0,
+        "img_count":    0, "img_cost":   0.0,
         "total_tokens": 0, "total_cost": 0.0,
     }
 
     illustrations: dict[int, str] = {}
     continuity = None
 
-    print(f"🖊️  Generando {total} prompts de ilustración...\n")
+    print(f"🖊️  Generando {total} ilustraciones (prompt .md + imagen PNG)...\n")
+
+    # Import lazy para no requerir google-genai si solo se generan .md
+    try:
+        from .image_generator import _llamar_imagen_api
+        _imagen_disponible = True
+    except Exception:
+        _imagen_disponible = False
+        print("  ⚠️  image_generator no disponible — solo se generarán los .md\n")
 
     for i, paragraph in enumerate(paragraphs, start=1):
         print(f"  🎨 Generando ilustración {i}/{total}...")
@@ -1064,7 +1217,9 @@ def generar_ilustraciones_desde_historia(
         )
 
         illustrations[i] = prompt_text
-        _save_illustration(prompt_text, i, output_dir, characters_block)
+
+        # ── 1. Guardar .md limpio (sin Kira/Toby extendidos) ──────────────
+        _save_illustration_slim(prompt_text, i, output_dir, secondary_block)
         continuity = _extract_continuity_notes(prompt_text)
 
         entry = tracker.register_openai(
@@ -1078,20 +1233,47 @@ def generar_ilustraciones_desde_historia(
         token_summary["illus_tokens"] += usage["total"]
         token_summary["illus_cost"]   += entry["estimated_cost_usd"]
         tracker.print_entry(entry)
-
         print(f"    ✅ ilustracion{i}.md guardada")
+
+        # ── 2. Generar PNG con Google Imagen ──────────────────────────────
+        if _imagen_disponible:
+            imagen_prompt = _build_imagen_prompt_from_illustration(
+                prompt_text, characters_data
+            )
+            imagen_bytes = _llamar_imagen_api(imagen_prompt)
+            if imagen_bytes:
+                ruta_png = output_dir / f"ilustracion{i}.png"
+                ruta_png.write_bytes(imagen_bytes)
+                img_entry = tracker.register_image(
+                    operation=f"ilustracion_png_{i}_de_{total}",
+                    model=IMAGE_MODEL,
+                    images_count=1,
+                    metadata={"historia": historia_titulo, "ilustracion": i},
+                )
+                token_summary["img_count"] += 1
+                token_summary["img_cost"]  += img_entry.get("estimated_cost_usd", 0.0)
+                tracker.print_entry(img_entry)
+                print(f"    🖼️  ilustracion{i}.png generada")
+            else:
+                print(f"    ⚠️  PNG no generado para ilustración {i} (fallo de API)")
+
         time.sleep(0.3)
 
     token_summary["total_tokens"] = token_summary["illus_tokens"]
-    token_summary["total_cost"]   = round(token_summary["illus_cost"], 6)
+    token_summary["total_cost"]   = round(
+        token_summary["illus_cost"] + token_summary["img_cost"], 6
+    )
 
+    imgs_ok = token_summary["img_count"]
     print(f"\n{'═'*62}")
     print(f"   🏁  ILUSTRACIONES COMPLETADAS")
     print(f"{'═'*62}")
     print(f"\n  📁 Salida: {output_dir.resolve()}")
     for n in sorted(illustrations.keys()):
-        print(f"     • ilustracion{n}.md")
-    print(f"\n  📊 Tokens usados: {token_summary['total_tokens']:,}")
+        png_ok = (output_dir / f"ilustracion{n}.png").exists()
+        print(f"     • ilustracion{n}.md {'+ ilustracion' + str(n) + '.png' if png_ok else '(solo .md)'}")
+    print(f"\n  📊 Tokens texto:   {token_summary['illus_tokens']:,}")
+    print(f"  🖼️  Imágenes PNG:   {imgs_ok}/{total}")
     print(f"  💰 Costo estimado: ${token_summary['total_cost']:.4f} USD\n")
 
     return {

@@ -80,9 +80,8 @@ Ejemplos:
     python main.py --modo escenas --historia "ruta.txt" --characters "characters.json" --threshold 90
     python main.py --modo escenas --historia "ruta.txt" --solo-validar
 
-  Prompts de ILUSTRACIÓN de cuento (imagen estática):
+  Ilustraciones de cuento (.md + PNG automático con Google Imagen):
     python main.py --modo ilustracion --historia "outputs/historias/revision/TITULO/TITULO-xxx.txt"
-    python main.py --modo ilustracion --historia "ruta.txt" --con-imagenes   # genera PNG con Google Imagen
 
   Solo imágenes de personajes del JSON:
     python main.py --modo imagen
@@ -146,12 +145,6 @@ Estructura de salida:
         help="[modo imagen] Crear imágenes placeholder para testing (sin API)",
     )
     parser.add_argument(
-        "--con-imagenes",
-        action="store_true",
-        dest="con_imagenes",
-        help="[modo ilustracion] Genera también las imágenes PNG con Google Imagen (requiere GOOGLE_API_KEY)",
-    )
-    parser.add_argument(
         "--tokens",
         action="store_true",
         help="Mostrar historial acumulado de tokens y salir",
@@ -191,7 +184,6 @@ Estructura de salida:
             ejecutar_ilustraciones_historia_existente(
                 historia_path=args.historia,
                 characters_path=args.characters,
-                con_imagenes=args.con_imagenes,
             )
 
         elif args.modo == "imagen":
@@ -290,7 +282,6 @@ def ejecutar_escenas_historia_existente(
 def ejecutar_ilustraciones_historia_existente(
     historia_path: str | None,
     characters_path: str | None,
-    con_imagenes: bool = False,
 ):
     """
     Genera prompts de ilustración de cuento (ilustracionN.md) para una
@@ -326,12 +317,12 @@ def ejecutar_ilustraciones_historia_existente(
     titulo          = historia_file.parent.name
 
     print(f"📁 Salida:     {output_dir.resolve()}")
-    print(f"🖼️  Modo:       ilustración de cuento{' + imágenes PNG' if con_imagenes else ''}\n")
+    print(f"🖼️  Modo:       ilustración de cuento (.md + PNG automático)\n")
 
     tracker.set_log_path(LOGS_DIR)
     story_text = historia_file.read_text(encoding="utf-8")
 
-    # ── 1. Generar prompts .md con OpenAI ──────────────────────────────
+    # Pipeline integrado: genera ilustracionN.md (slim) + ilustracionN.png por cada párrafo
     resultado = generar_ilustraciones_desde_historia(
         story_text=story_text,
         characters_data=characters_data,
@@ -341,29 +332,9 @@ def ejecutar_ilustraciones_historia_existente(
 
     n_ilus = resultado.get("scenes_count", 0)
     print(f"\n{'─'*70}")
-    print(f"  🖼️  PROMPTS DE ILUSTRACIÓN: {n_ilus}")
+    print(f"  🖼️  ILUSTRACIONES GENERADAS: {n_ilus}  (.md + PNG por cada una)")
     print(f"  📁 Ubicación: {output_dir.resolve()}")
     print(f"{'─'*70}\n")
-
-    # ── 2. Generar imágenes PNG con Google Imagen (opcional) ───────────
-    if con_imagenes:
-        from modules.image_generator import generar_ilustraciones_historia
-        from modules.scene_generator import _extract_story_text
-        import re
-
-        story_clean = _extract_story_text(story_text)
-        paragraphs  = [p.strip() for p in re.split(r"\n\s*\n", story_clean.strip()) if p.strip()]
-
-        print(f"{'─'*70}")
-        print(f"  🎨 Generando {len(paragraphs)} imágenes PNG con Google Imagen...")
-        print(f"{'─'*70}\n")
-
-        generar_ilustraciones_historia(
-            paragraphs=paragraphs,
-            characters_data=characters_data,
-            output_dir=output_dir,
-        )
-
     return resultado
 
 

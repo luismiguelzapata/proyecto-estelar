@@ -5,8 +5,8 @@ Descripción visual completa y consistente para generar imágenes 3D.
 """
 
 PERSONAJES = {
-    "kira": """A single cute 3D cartoon puppy character, female Shiba Inu inspired,
-rendered in Pixar/Disney CGI animation style, clean white studio background,
+    "kira": """A single cute 2D cartoon puppy character, female Shiba Inu inspired,
+estilo infantil adorable, clean white studio background,
 centered composition, full body visible from head to paws.
 
 PHYSICAL DESCRIPTION:
@@ -33,16 +33,16 @@ NEGATIVE PROMPTS (DO NOT INCLUDE):
 - Saturated bright colors, neon, rainbow
 - Multiple characters, humans, other animals
 - Complex backgrounds, grass, sky, objects
-- Anime style, 2D flat art
 
 CONSISTENCIA VISUAL OBLIGATORIA:
 - Mantener proporción cabeza-cuerpo 1:1.5
 - No alterar códigos HEX
 - Textura matte sin gradientes
-- Mantener marca de corazón en mejilla DERECHA únicamente""",
+- Mantener marca de corazón en mejilla DERECHA únicamente
+- El estilo plano 2D es claro, adecuado para niños de 3 a 6 años, con una composición equilibrada y sin grandes espacios en blanco. Sin texto, sin números, sin marca de agua, sin borde.""",
 
-    "toby": """A single cute 3D cartoon puppy character, male Husky inspired,
-rendered in Pixar/Disney CGI animation style, clean white studio background,
+    "toby": """A single cute 2D cartoon puppy character, male Husky inspired,
+estilo infantil adorable, clean white studio background,
 centered composition, full body visible from head to paws.
 
 PHYSICAL DESCRIPTION:
@@ -85,5 +85,6 @@ CONSISTENCIA VISUAL OBLIGATORIA:
 - Mantener proporción cabeza-cuerpo 1:1.5
 - No alterar códigos HEX
 - Textura matte sin gradientes
-- Mantener heterocromía exacta (ojo izquierdo azul, ojo derecho marrón)"""
+- Mantener heterocromía exacta (ojo izquierdo azul, ojo derecho marrón)
+- El estilo plano 2D es claro, adecuado para niños de 3 a 6 años, con una composición equilibrada y sin grandes espacios en blanco. Sin texto, sin números, sin marca de agua, sin borde."""
 }

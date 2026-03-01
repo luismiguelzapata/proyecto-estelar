@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python enhance_prompts_2d.py)",
+      "Bash(python -c \":*)"
+    ]
+  }
+}

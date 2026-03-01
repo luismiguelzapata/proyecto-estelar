@@ -707,13 +707,451 @@
           }
         }
       ]
+    },
+    {
+      "session_start": "2026-03-01T00:46:15.429068",
+      "session_end": "2026-03-01T00:49:57.529064",
+      "totals": {
+        "prompt_tokens": 30345,
+        "completion_tokens": 9884,
+        "total_tokens": 40229,
+        "images_generated": 12,
+        "estimated_cost_usd": 0.654703
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T00:46:23.531345",
+          "provider": "openai",
+          "operation": "generar_historia",
+          "model": "gpt-4o",
+          "prompt_tokens": 1951,
+          "completion_tokens": 637,
+          "total_tokens": 2588,
+          "estimated_cost_usd": 0.011248,
+          "metadata": {
+            "personaje": "panda cocinero",
+            "lugar": "arroyo cristalino",
+            "moraleja": "el respeto hace mejores equipos"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:46:29.824944",
+          "provider": "openai",
+          "operation": "escena_1_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 998,
+          "completion_tokens": 480,
+          "total_tokens": 1478,
+          "estimated_cost_usd": 0.007295,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:46:38.034244",
+          "provider": "openai",
+          "operation": "escena_2_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1038,
+          "completion_tokens": 437,
+          "total_tokens": 1475,
+          "estimated_cost_usd": 0.006965,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:46:43.444629",
+          "provider": "openai",
+          "operation": "escena_3_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1019,
+          "completion_tokens": 386,
+          "total_tokens": 1405,
+          "estimated_cost_usd": 0.006408,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:46:49.893266",
+          "provider": "openai",
+          "operation": "escena_4_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1010,
+          "completion_tokens": 470,
+          "total_tokens": 1480,
+          "estimated_cost_usd": 0.007225,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:46:57.443030",
+          "provider": "openai",
+          "operation": "escena_5_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1015,
+          "completion_tokens": 470,
+          "total_tokens": 1485,
+          "estimated_cost_usd": 0.007238,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:03.210753",
+          "provider": "openai",
+          "operation": "escena_6_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1037,
+          "completion_tokens": 414,
+          "total_tokens": 1451,
+          "estimated_cost_usd": 0.006732,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:08.763415",
+          "provider": "openai",
+          "operation": "escena_7_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1007,
+          "completion_tokens": 404,
+          "total_tokens": 1411,
+          "estimated_cost_usd": 0.006558,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:15.364930",
+          "provider": "openai",
+          "operation": "escena_8_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 999,
+          "completion_tokens": 557,
+          "total_tokens": 1556,
+          "estimated_cost_usd": 0.008068,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 8
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:21.082397",
+          "provider": "openai",
+          "operation": "escena_9_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 983,
+          "completion_tokens": 426,
+          "total_tokens": 1409,
+          "estimated_cost_usd": 0.006717,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "escena": 9
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:25.565671",
+          "provider": "openai",
+          "operation": "editor_iteracion_1",
+          "model": "gpt-4o",
+          "prompt_tokens": 5354,
+          "completion_tokens": 386,
+          "total_tokens": 5740,
+          "estimated_cost_usd": 0.017245,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "iteracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:33.128534",
+          "provider": "openai",
+          "operation": "ilustracion_1_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1605,
+          "completion_tokens": 485,
+          "total_tokens": 2090,
+          "estimated_cost_usd": 0.008863,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:42.241439",
+          "provider": "google",
+          "operation": "ilustracion_png_1_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:50.632210",
+          "provider": "openai",
+          "operation": "ilustracion_2_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1565,
+          "completion_tokens": 623,
+          "total_tokens": 2188,
+          "estimated_cost_usd": 0.010142,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:47:57.720562",
+          "provider": "google",
+          "operation": "ilustracion_png_2_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:04.216829",
+          "provider": "openai",
+          "operation": "ilustracion_3_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1551,
+          "completion_tokens": 519,
+          "total_tokens": 2070,
+          "estimated_cost_usd": 0.009068,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:10.577814",
+          "provider": "google",
+          "operation": "ilustracion_png_3_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:16.544812",
+          "provider": "openai",
+          "operation": "ilustracion_4_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1544,
+          "completion_tokens": 474,
+          "total_tokens": 2018,
+          "estimated_cost_usd": 0.0086,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:24.230540",
+          "provider": "google",
+          "operation": "ilustracion_png_4_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:31.783889",
+          "provider": "openai",
+          "operation": "ilustracion_5_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1542,
+          "completion_tokens": 558,
+          "total_tokens": 2100,
+          "estimated_cost_usd": 0.009435,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:39.340131",
+          "provider": "google",
+          "operation": "ilustracion_png_5_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:46.977135",
+          "provider": "openai",
+          "operation": "ilustracion_6_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1551,
+          "completion_tokens": 541,
+          "total_tokens": 2092,
+          "estimated_cost_usd": 0.009288,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:48:55.529639",
+          "provider": "google",
+          "operation": "ilustracion_png_6_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:03.295123",
+          "provider": "openai",
+          "operation": "ilustracion_7_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1542,
+          "completion_tokens": 548,
+          "total_tokens": 2090,
+          "estimated_cost_usd": 0.009335,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:09.392003",
+          "provider": "google",
+          "operation": "ilustracion_png_7_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:15.830858",
+          "provider": "openai",
+          "operation": "ilustracion_8_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1536,
+          "completion_tokens": 525,
+          "total_tokens": 2061,
+          "estimated_cost_usd": 0.00909,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 8
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:22.401151",
+          "provider": "google",
+          "operation": "ilustracion_png_8_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 8
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:29.948291",
+          "provider": "openai",
+          "operation": "ilustracion_9_de_9",
+          "model": "gpt-4o",
+          "prompt_tokens": 1498,
+          "completion_tokens": 544,
+          "total_tokens": 2042,
+          "estimated_cost_usd": 0.009185,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 9
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:37.370553",
+          "provider": "google",
+          "operation": "ilustracion_png_9_de_9",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_la_Piedra_Mágica",
+            "ilustracion": 9
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:45.011621",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "panda cocinero",
+            "pose": "front"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:50.655540",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "panda cocinero",
+            "pose": "side"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T00:49:57.523149",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "panda cocinero",
+            "pose": "quarter"
+          }
+        }
+      ]
     }
   ],
-  "last_updated": "2026-02-28T23:59:21.296923",
+  "last_updated": "2026-03-01T00:49:57.529076",
   "cumulative": {
-    "total_tokens": 99053,
-    "images_generated": 3,
-    "estimated_cost_usd": 0.5347,
-    "total_sessions": 2
+    "total_tokens": 139282,
+    "images_generated": 15,
+    "estimated_cost_usd": 1.1894,
+    "total_sessions": 3
   }
 }
