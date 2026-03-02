@@ -35,6 +35,8 @@ LOGS_DIR              = PROJECT_ROOT / "logs"
 # ── Archivos de datos ─────────────────────────────────────────────────────────
 
 JSON_INPUT_FILE      = CODEBASE_DIR / "inputs.opt2.json"
+JSON_INPUT_FILE_2D   = CODEBASE_DIR / "inputs.opt2-2D.json"
+JSON_INPUT_FILE_3D   = CODEBASE_DIR / "inputs.opt2-3D.json"
 HISTORY_TELLER_FILE  = COMPONENTES_DIR / "history-teller.md"
 PROMPT_TEMPLATE_FILE = COMPONENTES_DIR / "prompt_template.md"
 
@@ -42,11 +44,12 @@ PROMPT_TEMPLATE_FILE = COMPONENTES_DIR / "prompt_template.md"
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+RUNWAY_API_KEY = os.getenv("kayroscreativeApiKey")
 
 # Modelos
 OPENAI_MODEL  = "gpt-4o"                          # Más barato y rápido que gpt-4
-GEMINI_MODEL  = "gemini-2.5-flash-image"
-IMAGE_MODEL   = "imagen-4.0-fast-generate-001"
+GEMINI_MODEL  = "gen4_image"
+IMAGE_MODEL   = "gen4_image"
 
 # Parámetros de generación de texto
 OPENAI_TEMPERATURE = 0.9

@@ -1,0 +1,75 @@
+======================================================================
+HISTORIA GENERADA — KIRA Y TOBY
+======================================================================
+Fecha y hora: 2026-03-01 15:53:55
+Modelo: gpt-4o
+======================================================================
+
+**TÍTULO:** Kira, Toby y la Bufanda Plateada
+
+**HISTORIA:**
+
+Era una mañana soleada en la orilla del lago. Kira, la perrita Shiba Inu, estaba emocionada. Toby, el husky soñador, se sentía confiado. ¡Listos para otra aventura!
+
+Y entonces, Kira vio algo brillante. "¡Mira eso, Toby!" gritó señalando. Era una bufanda de color plateado sobre una roca.
+
+"Espera... mira esto...", susurró Toby. Al tocarla, una suave lluvia de polvo de estrellas apareció. "¡Es mágica!", dijo Kira con ojos brillantes.
+
+¿Saben qué pasó? Un pingüino viajero apareció de entre las nubes. Estaba preocupado. "Perdí mi bufanda", explicó.
+
+Kira decidió ayudar. "¡Sígueme!" dijo, y corrieron buscando pistas en la orilla. Las nubes formaban formas divertidas. "¡Un barco!" exclamó Toby. "¡Sigamos esas nubes!", sugería Kira.
+
+¡De repente! Vieron todo al revés: un árbol con raíces arriba y hojas abajo. "Algo está mal aquí", comentó Toby. "Hay que arreglarlo", dijo Kira decidida.
+
+Kira tocó las raíces. Nada pasó. "Creo que esta bufanda tiene que ver", pensó Toby. Puso la bufanda en las raíces. ¡Plaf! Todo volvió a la normalidad.
+
+El pingüino sonrió al ver su bufanda en manos de Kira. "¡Gracias!", dijo alegre. Ahora podía continuar su viaje. "¡Qué aventura!", rieron Kira y Toby.
+
+**MORALEJA:** La amistad vale más que un tesoro.
+
+**ESCENAS:**
+
+1. Kira y Toby junto al lago en una mañana soleada.
+2. Kira descubre la bufanda plateada.
+3. Toby observa la bufanda y aparece el polvo de estrellas.
+4. Llega el pingüino viajero.
+5. El pingüino explica su problema.
+6. Kira y Toby deciden ayudar.
+7. Persiguen formas de nubes divertidas.
+8. Llegan al árbol al revés.
+9. Kira intenta arreglar las raíces.
+10. Toby piensa en la bufanda.
+11. La bufanda en raíces y ¡plaf!, todo normal.
+12. El pingüino recupera su bufanda.
+13. Kira y Toby celebran con el pingüino.
+14. El pingüino feliz sigue su viaje.
+15. Kira y Toby ríen satisfechos con su aventura.
+
+======================================================================
+ELEMENTOS UTILIZADOS:
+======================================================================
+  lugar: orilla del lago
+  objeto_principal: bufanda
+  color_objeto: plateado
+  objeto_magico: polvo de estrellas
+  personaje_secundario: pingüino viajero
+  personaje_secundario_nombre: pingüino viajero
+  sentimiento_kira: emocionado
+  sentimiento_toby: confiado
+  fenomeno: nubes con formas
+  desafio: algo está al revés
+  accion_kira: descubren
+  accion_toby: tocan
+  moraleja: la amistad vale más que un tesoro
+
+======================================================================
+📊 CONSUMO DE TOKENS
+======================================================================
+  Tokens de entrada   (prompt):          1,952
+  Tokens de salida    (completion):        557
+  ─────────────────────────────────────────────
+  TOTAL TOKENS:                          2,509
+  Costo estimado:                   $    0.0104 USD
+======================================================================
+  ℹ️  Los costos son estimaciones basadas en precios públicos de OpenAI.
+  ℹ️  Consulta logs/token_usage.json para el historial acumulado.

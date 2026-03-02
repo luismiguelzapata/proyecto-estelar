@@ -2,7 +2,10 @@
   "permissions": {
     "allow": [
       "Bash(python enhance_prompts_2d.py)",
-      "Bash(python -c \":*)"
+      "Bash(python -c \":*)",
+      "Bash(python main.py --help)",
+      "Bash(python -c \"from modules.image_generator import _llamar_imagen_api, _llamar_runway_api; print\\(''OK''\\)\")",
+      "Bash(python -c \"import runwayml; print\\(runwayml.__version__\\)\")"
     ]
   }
 }

@@ -24,6 +24,8 @@ from typing import Dict, Any, Optional
 
 from config.config import (
     GOOGLE_API_KEY,
+    RUNWAY_API_KEY,
+    GEMINI_MODEL,
     IMAGE_MODEL,
     ASSETS_PERSONAJES_DIR,
     get_personaje_dir,
@@ -42,16 +44,6 @@ POSES_PERSONAJE = {
         "nombre":      "Vista Frontal",
         "descripcion": "full body front view, centered composition, facing camera directly",
         "archivo":     "front.png",
-    },
-    "side": {
-        "nombre":      "Perfil Derecho",
-        "descripcion": "left side profile view, full body visible from nose to tail tip",
-        "archivo":     "side.png",
-    },
-    "quarter": {
-        "nombre":      "Vista 3/4",
-        "descripcion": "three-quarter view at 45-degree angle, full body visible",
-        "archivo":     "quarter.png",
     },
 }
 
@@ -82,7 +74,7 @@ def personaje_ya_generado(nombre_personaje: str, tres_vistas: bool = True) -> bo
     Comprueba si las imágenes del personaje ya existen en disco.
 
     Lógica:
-      tres_vistas=True  → necesita front.png + side.png + quarter.png
+      tres_vistas=True  → necesita front.png
       tres_vistas=False → necesita {nombre-con-guiones}.png
 
     Returns:
@@ -119,10 +111,10 @@ def listar_personajes_generados() -> list:
 
 
 # ════════════════════════════════════════════════════════════════════════
-# LLAMADA A LA API DE GOOGLE IMAGEN
+# BACKENDS DE GENERACIÓN DE IMÁGENES
 # ════════════════════════════════════════════════════════════════════════
 
-def _llamar_imagen_api(prompt: str) -> Optional[bytes]:
+def _llamar_gemini_api(prompt: str) -> Optional[bytes]:
     """
     Llama a Google Imagen 4 y devuelve los bytes PNG de la imagen.
     Soporta los distintos formatos de respuesta del SDK de Google.
@@ -136,7 +128,7 @@ def _llamar_imagen_api(prompt: str) -> Optional[bytes]:
         import base64
 
         client   = genai.Client(api_key=GOOGLE_API_KEY)
-        response = client.models.generate_images(model=IMAGE_MODEL, prompt=prompt)
+        response = client.models.generate_images(model=GEMINI_MODEL, prompt=prompt)
 
         if not response.generated_images:
             print("  ⚠️  La API no devolvió imágenes.")
@@ -160,8 +152,86 @@ def _llamar_imagen_api(prompt: str) -> Optional[bytes]:
         print(f"  ⚠️  Dependencia no instalada: {e}")
         return None
     except Exception as e:
-        print(f"  ❌ Error en Imagen API: {e}")
+        print(f"  ❌ Error en Imagen API (Gemini): {e}")
         return None
+
+
+def _llamar_runway_api(prompt: str) -> Optional[bytes]:
+    """
+    Llama a la API de Runway (Gen-4 Image) y devuelve los bytes PNG de la imagen.
+    Usa .wait_for_task_output() del SDK oficial (bloquea hasta completar).
+    Requiere: pip install runwayml
+    """
+    if not RUNWAY_API_KEY:
+        print("  ❌ RUNWAY_API_KEY (kayroscreativeApiKey) no configurada en .env")
+        return None
+
+    try:
+        import urllib.request
+        from runwayml import RunwayML
+
+        client = RunwayML(api_key=RUNWAY_API_KEY)
+
+        RATIO = "1024:1024"
+        print(f"    📡 Enviando a Runway Gen-4 Image ({len(prompt)} chars, ratio {RATIO})...")
+
+        # El SDK Python usa keyword args en snake_case.
+        # .wait_for_task_output() bloquea hasta que el task termina.
+        task_obj = client.text_to_image.create(
+            model="gen4_image",
+            prompt_text=prompt,
+            ratio=RATIO,
+        )
+        task_id = task_obj.id
+        print(f"    🆔 Task ID: {task_id}")
+        task = task_obj.wait_for_task_output()
+
+        if not task.output:
+            failure = getattr(task, "failure", None) or getattr(task, "error", None) or "sin detalle"
+            print(f"  ⚠️  Runway: sin output. Status={task.status}. Motivo={failure}")
+            return None
+
+        print(f"    ✅ Runway completado ({task.status}) — descargando imagen...")
+        with urllib.request.urlopen(task.output[0]) as resp:
+            return resp.read()
+
+    except ImportError as e:
+        print(f"  ⚠️  Dependencia Runway no instalada: {e}")
+        print("      Instala con: pip install runwayml")
+        return None
+    except Exception as e:
+        # TaskFailedError expone e.task_details.failure con el motivo real del backend
+        td = getattr(e, "task_details", None)
+        if td is not None:
+            code = getattr(td, "failure_code", None)
+            msg  = getattr(td, "failure", str(e))
+            print(f"  ❌ Runway task fallida [{code or 'sin código'}]: {msg}")
+        else:
+            details = []
+            for attr in ("status_code", "status", "message", "body", "response", "failure"):
+                val = getattr(e, attr, None)
+                if val is not None:
+                    details.append(f"{attr}={val}")
+            extra = f"  [{', '.join(details)}]" if details else ""
+            print(f"  ❌ Error en Runway API: {e}{extra}")
+        return None
+
+
+def _llamar_imagen_api(prompt: str, model: str = "gemini") -> Optional[bytes]:
+    """
+    Dispatcher: elige el backend de generación de imágenes.
+
+    Args:
+        prompt: texto del prompt
+        model:  "gemini" → Google Imagen 4 (default)
+                "runway" → Runway Gen-4 Image
+
+    Returns:
+        bytes PNG, o None si falló
+    """
+    if model == "runway":
+        return _llamar_runway_api(prompt)
+    return _llamar_gemini_api(prompt)
 
 
 # ════════════════════════════════════════════════════════════════════════
@@ -169,7 +239,7 @@ def _llamar_imagen_api(prompt: str) -> Optional[bytes]:
 # ════════════════════════════════════════════════════════════════════════
 
 def _prompt_con_pose(prompt_base: str, descripcion_pose: str) -> str:
-    """Añade los requisitos de pose y estilo al prompt base del personaje."""
+    """Añade los requisitos de pose y estilo al prompt base del personaje (solo 3D)."""
     return (
         f"{prompt_base}\n\n"
         "STYLE REQUIREMENTS:\n"
@@ -183,10 +253,110 @@ def _prompt_con_pose(prompt_base: str, descripcion_pose: str) -> str:
     )
 
 
+def _condensar_prompt_2D_para_runway(prompt: str) -> str:
+    """
+    Genera un prompt ≤ 990 chars para Runway Gen-4 siguiendo la plantilla:
+
+      [personaje + estilo fijo]
+
+      [descripcion fisica: items separados por coma].
+
+      Happy, joyful expression. Soft even studio lighting. Smooth painted texture.
+
+    Extrae los bullets de PHYSICAL DESCRIPTION del prompt-2D y los convierte
+    en un párrafo continuo separado por comas, incluyendo tantos como quepan.
+    """
+    import re
+
+    LIMIT = 990
+    HEADER_SUFFIX = (
+        "clean white studio background, full body visible. "
+        "Flat 2D vector cartoon illustration ONLY — bold clean black outlines on ALL shapes, "
+        "cel-shaded flat colors (no gradients, no volume), children's picture book art style."
+    )
+    FOOTER = "\nHappy, joyful expression. Soft even studio lighting. Smooth painted texture."
+
+    # 1. Apertura: extraer "A single ... character" de la primera línea
+    first_line = prompt.split("\n\n")[0].strip()
+    m = re.search(r"(A single .+?character)", first_line)
+    char_part = m.group(1) if m else first_line.split(",")[0]
+    header = f"{char_part}, {HEADER_SUFFIX}"
+
+    # 2. PHYSICAL DESCRIPTION → items sin el guión, separados por coma
+    phys_items = []
+    if "PHYSICAL DESCRIPTION:" in prompt:
+        start = prompt.index("PHYSICAL DESCRIPTION:")
+        end = next(
+            (prompt.find(sec, start) for sec in ("\n\nPERSONALITY", "\n\nTECHNICAL")
+             if sec in prompt[start:]),
+            len(prompt),
+        )
+        for line in prompt[start:end].split("\n"):
+            line = line.strip()
+            if line.startswith("- "):
+                phys_items.append(line[2:])
+
+    # 3. Construir párrafo dentro del presupuesto disponible
+    budget = LIMIT - len(header) - len(FOOTER) - 5
+    phys_text = ""
+    for item in phys_items:
+        sep = ", " if phys_text else ""
+        if len(phys_text) + len(sep) + len(item) <= budget:
+            phys_text += sep + item
+        else:
+            break
+
+    return f"{header}\n\n{phys_text}.\n{FOOTER}"
+
+
+def _condensar_prompt_3D_para_runway(prompt: str, pose_descripcion: str) -> str:
+    """
+    Condensa un prompt-3D completo (~1400+ chars) a < 950 chars para Runway.
+
+    Los prompts-3D no tienen sección STYLE MANDATE (a diferencia de los 2D).
+    La pose se añade inline en lugar de usar _prompt_con_pose (que añadiría ~200 chars más).
+
+    Estrategia:
+      1. Apertura (primera línea — define especie + estilo Pixar/CGI)
+      2. Líneas de PHYSICAL DESCRIPTION que quepan en el presupuesto
+      3. Pose compacta inline
+      4. Bloque compacto de negativas 3D
+    """
+    LIMIT = 950
+    COMPACT_POSE = f"POSE: {pose_descripcion}, pure white studio background, full body visible head to toe."
+    COMPACT_NEGATIVES = (
+        "\nNEGATIVE: photorealistic, hyperrealistic, 2D flat cartoon, sketch, watercolor, "
+        "extra limbs, anatomical errors, sad or angry expression, text, watermarks, cut-off body."
+    )
+
+    # 1. Apertura: todo antes del primer doble salto de línea
+    apertura = prompt.split("\n\n")[0].strip()
+
+    # 2. PHYSICAL DESCRIPTION: líneas que quepan en el presupuesto restante
+    presupuesto = LIMIT - len(apertura) - len(COMPACT_POSE) - len(COMPACT_NEGATIVES) - 8
+    phys_condensed = ""
+    if "PHYSICAL DESCRIPTION:" in prompt:
+        start = prompt.index("PHYSICAL DESCRIPTION:")
+        end = next(
+            (prompt.find(sec, start) for sec in ("\n\nPERSONALITY", "\n\nTECHNICAL", "\n\nNEGATIVE")
+             if prompt.find(sec, start) != -1),
+            len(prompt),
+        )
+        for line in prompt[start:end].split("\n"):
+            if len(phys_condensed) + len(line) + 1 <= presupuesto:
+                phys_condensed += line + "\n"
+            else:
+                break
+
+    return f"{apertura}\n\n{phys_condensed.strip()}\n\n{COMPACT_POSE}{COMPACT_NEGATIVES}"
+
+
 def generar_imagen_personaje_con_prompt(
     nombre_personaje: str,
     prompt_3d: str,
     forzar: bool = False,
+    model: str = "gemini",
+    estilo: str = "3D",
 ) -> Optional[Path]:
     """
     Genera UNA imagen frontal de un personaje.
@@ -195,6 +365,9 @@ def generar_imagen_personaje_con_prompt(
         nombre_personaje: nombre del personaje (ej: "hurón explorador")
         prompt_3d:        prompt visual completo del personaje
         forzar:           si True, regenera aunque ya exista en disco
+        model:            "gemini" o "runway"
+        estilo:           "3D" → aplica wrapper _prompt_con_pose (Pixar/CGI)
+                          "2D" → envía el prompt tal cual (ya es auto-contenido)
 
     Returns:
         Path de la imagen guardada, o None si falló
@@ -207,10 +380,16 @@ def generar_imagen_personaje_con_prompt(
         print(f"  ⏭️  {nombre_personaje}: imagen ya existe → {ruta.name}  (pasa forzar=True para regenerar)")
         return ruta
 
-    print(f"\n  🎨 Generando imagen: {nombre_personaje}")
-    imagen_bytes = _llamar_imagen_api(
-        _prompt_con_pose(prompt_3d, POSES_PERSONAJE["front"]["descripcion"])
-    )
+    print(f"\n  🎨 Generando imagen: {nombre_personaje}  [{model}]  [{estilo}]")
+    if estilo == "3D" and model == "runway":
+        prompt_final = _condensar_prompt_3D_para_runway(prompt_3d, POSES_PERSONAJE["front"]["descripcion"])
+    elif estilo == "3D":
+        prompt_final = _prompt_con_pose(prompt_3d, POSES_PERSONAJE["front"]["descripcion"])
+    elif model == "runway":
+        prompt_final = _condensar_prompt_2D_para_runway(prompt_3d)
+    else:
+        prompt_final = prompt_3d  # 2D + Gemini: prompt completo sin modificar
+    imagen_bytes = _llamar_imagen_api(prompt_final, model=model)
 
     if imagen_bytes is None:
         return None
@@ -218,7 +397,7 @@ def generar_imagen_personaje_con_prompt(
     ruta.write_bytes(imagen_bytes)
     entry = tracker.register_image(
         operation="generar_imagen_personaje", model=IMAGE_MODEL, images_count=1,
-        metadata={"personaje": nombre_personaje, "pose": "front"},
+        metadata={"personaje": nombre_personaje, "pose": "front", "backend": model},
     )
     tracker.print_entry(entry)
     print(f"  ✅ Guardada: {ruta}")
@@ -229,6 +408,8 @@ def generar_tres_vistas_personaje(
     nombre_personaje: str,
     prompt_3d: str,
     forzar: bool = False,
+    model: str = "gemini",
+    estilo: str = "3D",
 ) -> Dict[str, Optional[Path]]:
     """
     Genera las 3 vistas (front / side / quarter) de un personaje.
@@ -240,8 +421,11 @@ def generar_tres_vistas_personaje(
 
     Args:
         nombre_personaje: nombre del personaje
-        prompt_3d:        prompt visual completo
+        prompt_3d:        prompt visual completo (campo "prompt-3D" o "prompt-2D" del JSON)
         forzar:           si True regenera todo aunque ya exista
+        model:            "gemini" o "runway"
+        estilo:           "3D" → aplica _prompt_con_pose (añade wrapper Pixar/pose)
+                          "2D" → envía el prompt tal cual (auto-contenido, sin wrapper 3D)
 
     Returns:
         {"front": Path|None, "side": Path|None, "quarter": Path|None}
@@ -249,15 +433,15 @@ def generar_tres_vistas_personaje(
     carpeta_nombre = _nombre_a_carpeta(nombre_personaje)
     personaje_dir  = get_personaje_dir(nombre_personaje)
 
-    # Skip total: las 3 ya existen
+    # Skip: imagen ya existe
     if not forzar and personaje_ya_generado(nombre_personaje, tres_vistas=True):
         print(
-            f"  ⏭️  {nombre_personaje}: las 3 vistas ya existen en assets/personajes/{carpeta_nombre}/\n"
+            f"  ⏭️  {nombre_personaje}: imagen ya existe en assets/personajes/{carpeta_nombre}/\n"
             f"      (pasa forzar=True para regenerar)"
         )
         return {k: personaje_dir / v["archivo"] for k, v in POSES_PERSONAJE.items()}
 
-    print(f"\n  🎨 Generando vistas: {nombre_personaje}")
+    print(f"\n  🎨 Generando imagen: {nombre_personaje}  [{model}]  [{estilo}]")
     print(f"  📂 {personaje_dir}")
 
     imagenes: Dict[str, Optional[Path]] = {}
@@ -272,7 +456,15 @@ def generar_tres_vistas_personaje(
             continue
 
         print(f"  📸 Generando {pose_info['nombre']}...")
-        imagen_bytes = _llamar_imagen_api(_prompt_con_pose(prompt_3d, pose_info["descripcion"]))
+        if estilo == "3D" and model == "runway":
+            prompt_final = _condensar_prompt_3D_para_runway(prompt_3d, pose_info["descripcion"])
+        elif estilo == "3D":
+            prompt_final = _prompt_con_pose(prompt_3d, pose_info["descripcion"])
+        elif model == "runway":
+            prompt_final = _condensar_prompt_2D_para_runway(prompt_3d)
+        else:
+            prompt_final = prompt_3d  # 2D + Gemini: prompt completo sin modificar
+        imagen_bytes = _llamar_imagen_api(prompt_final, model=model)
 
         if imagen_bytes is None:
             print(f"  ❌ No se pudo generar {pose_key}")
@@ -282,14 +474,15 @@ def generar_tres_vistas_personaje(
         ruta_pose.write_bytes(imagen_bytes)
         entry = tracker.register_image(
             operation="generar_vista_personaje", model=IMAGE_MODEL, images_count=1,
-            metadata={"personaje": nombre_personaje, "pose": pose_key},
+            metadata={"personaje": nombre_personaje, "pose": pose_key, "backend": model},
         )
         tracker.print_entry(entry)
         imagenes[pose_key] = ruta_pose
         print(f"  ✅ {pose_info['nombre']} → {ruta_pose.name}")
 
     generadas = sum(1 for v in imagenes.values() if v)
-    print(f"  📊 {generadas}/3 vistas completadas para: {nombre_personaje}")
+    total = len(POSES_PERSONAJE)
+    print(f"  📊 {generadas}/{total} imagen(es) completada(s) para: {nombre_personaje}")
     return imagenes
 
 
@@ -297,6 +490,7 @@ def generar_imagen_personaje(
     personaje_dict: Dict[str, Any],
     tres_vistas: bool = True,
     forzar: bool = False,
+    model: str = "gemini",
 ) -> Optional[Any]:
     """
     Punto de entrada principal para generar imágenes de un personaje.
@@ -305,6 +499,7 @@ def generar_imagen_personaje(
         personaje_dict: dict del personaje (debe tener clave 'prompt-3D')
         tres_vistas:    True → genera front/side/quarter, False → solo frontal
         forzar:         True → regenera aunque ya exista en disco
+        model:          "gemini" o "runway"
 
     Returns:
         dict de Paths si tres_vistas=True, Path si tres_vistas=False, None si error
@@ -320,19 +515,26 @@ def generar_imagen_personaje(
 
     prompt = personaje_dict["prompt-3D"]
     if tres_vistas:
-        return generar_tres_vistas_personaje(nombre, prompt, forzar=forzar)
+        return generar_tres_vistas_personaje(nombre, prompt, forzar=forzar, model=model)
     else:
-        return generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar)
+        return generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar, model=model)
 
 
 def generar_imagenes_escena(
     historia_dict: Dict[str, Any],
     tres_vistas: bool = True,
     forzar: bool = False,
+    model: str = "gemini",
 ) -> Dict[str, Any]:
     """
     Genera imágenes del personaje secundario de una historia.
     Respeta el skip automático.
+
+    Args:
+        historia_dict: dict con "elementos" que incluye "personaje_secundario"
+        tres_vistas:   True → front/side/quarter, False → solo frontal
+        forzar:        True → regenera aunque ya exista en disco
+        model:         "gemini" o "runway"
     """
     elementos      = historia_dict.get("elementos", {})
     nombre         = elementos.get("personaje_secundario_nombre")
@@ -348,10 +550,10 @@ def generar_imagenes_escena(
         return {}
 
     if tres_vistas:
-        vistas = generar_tres_vistas_personaje(nombre, prompt, forzar=forzar)
+        vistas = generar_tres_vistas_personaje(nombre, prompt, forzar=forzar, model=model)
         return {"personaje": nombre, "vistas": vistas, "total_imagenes": sum(1 for v in vistas.values() if v)}
     else:
-        imagen = generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar)
+        imagen = generar_imagen_personaje_con_prompt(nombre, prompt, forzar=forzar, model=model)
         return {"personaje": nombre, "imagen": imagen, "total_imagenes": 1 if imagen else 0}
 
 
@@ -605,6 +807,7 @@ def generar_ilustracion_escena(
     output_dir: Path,
     scene_context: Optional[Dict[str, str]] = None,
     forzar: bool = False,
+    model: str = "gemini",
 ) -> Optional[Path]:
     """
     Genera UNA ilustración de cuento para una escena y la guarda en disco.
@@ -653,7 +856,7 @@ def generar_ilustracion_escena(
         encoding="utf-8",
     )
 
-    imagen_bytes = _llamar_imagen_api(prompt)
+    imagen_bytes = _llamar_imagen_api(prompt, model=model)
 
     if imagen_bytes is None:
         print(f"  ❌ No se pudo generar ilustración de escena {scene_number}")
@@ -664,7 +867,7 @@ def generar_ilustracion_escena(
         operation=f"ilustracion_escena_{scene_number}",
         model=IMAGE_MODEL,
         images_count=1,
-        metadata={"escena": scene_number, "tipo": "ilustracion_cuento"},
+        metadata={"escena": scene_number, "tipo": "ilustracion_cuento", "backend": model},
     )
     tracker.print_entry(entry)
     print(f"  ✅ Guardada: {ruta_imagen}")

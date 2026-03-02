@@ -1,0 +1,78 @@
+======================================================================
+HISTORIA GENERADA — KIRA Y TOBY
+======================================================================
+Fecha y hora: 2026-03-01 15:13:19
+Modelo: gpt-4o
+======================================================================
+
+**TÍTULO:** Kira y Toby y el Misterio de la Montaña Nevada
+
+**HISTORIA:**
+
+Había una vez, en una montaña nevada, dos perritos llamados Kira y Toby. Era una mañana soleada y Kira estaba preocupada. ¿Saben por qué? Porque una señal importante había desaparecido. Toby, muy optimista, decía: "No te preocupes, Kira. Encontraremos una solución."
+
+Y entonces, comenzaron su aventura. ¡Plaf! Al cruzar un charco, descubrieron una taza de color violeta a medio enterrar en la nieve. "¡Mira esto!", dijo Toby, su nariz husmeando. "Es importante." Kira asintió y dijo: "¡Vamos a investigar!"
+
+Subieron y bajaron colinas nevadas hasta llegar a un puente de arcoíris. ¡Era increíble! "Nunca había visto algo así", dijo Toby. "¡Sígueme!", exclamó Kira, entusiasmada. Al cruzar el puente, el cielo azul claro iluminó el camino.
+
+En el otro lado, encontraron al axolotl médico. Parecía preocupado. "¿Han visto una señal?", preguntó. "Desapareció esta mañana." Toby respondió: "Tal vez podamos ayudar. ¿Dónde la viste por última vez?"
+
+El axolotl señaló hacia un árbol alto. "Ahí estaba", dijo. Kira, decidida, decidió subir. "¡Ya casi llegamos!", gritó desde arriba. Desde su nueva perspectiva, observó algo brillante. "¡La encontré!", exclamó. Era la señal que buscaban, justo detrás de unas ramas.
+
+"Espera... mira esto...", dijo Toby desde abajo. Había encontrado una pista: las huellas de un conejo que habían desplazado la señal. "Alguien la movió", dedujo. Con su ayuda, colocaron la señal de nuevo en su lugar.
+
+El axolotl estaba tan agradecido que les ofreció una recompensa. Pero Kira y Toby lo rechazaron. "La bondad regresa", dijo Kira, sonriendo. "¡Sí, seguro que sí!", añadió Toby.
+
+Regresaron a casa satisfechos, sabiendo que habían ayudado. ¿Y saben qué? La montaña nevada nunca había parecido tan brillante y llena de amistad como aquel día.
+
+**MORALEJA:**
+La bondad regresa.
+
+**ESCENAS:**
+
+1. Kira y Toby en la montaña nevada, preocupación de Kira.
+2. Descubren la taza violeta en la nieve.
+3. En camino hacia el puente de arcoíris.
+4. Descubren el puente de arcoíris al cruzar.
+5. Encuentro con el axolotl médico y su preocupación.
+6. Discusión sobre la señal desaparecida.
+7. Kira sube al árbol para buscar.
+8. Toby encuentra huellas de conejo.
+9. Colocan la señal en su lugar.
+10. Axolotl ofrece recompensa, Kira y Toby rechazan.
+11. Reflexión de Kira sobre la bondad.
+12. Caminan de regreso a casa bajo el cielo azul.
+13. Ambiente lleno de amistad.
+14. La montaña nevada brilla con una nueva luz.
+15. Kira y Toby sentados, tranquilos y satisfechos.
+
+¡Y así termina nuestra aventura de hoy con Kira y Toby!
+
+======================================================================
+ELEMENTOS UTILIZADOS:
+======================================================================
+  lugar: montaña nevada
+  objeto_principal: taza
+  color_objeto: violeta
+  objeto_magico: puente de arcoíris
+  personaje_secundario: axolotl médico
+  personaje_secundario_nombre: axolotl médico
+  sentimiento_kira: preocupado
+  sentimiento_toby: optimista
+  fenomeno: cielo azul claro
+  desafio: una señal desaparece
+  accion_kira: resuelven
+  accion_toby: huelen
+  moraleja: la bondad regresa
+
+======================================================================
+📊 CONSUMO DE TOKENS
+======================================================================
+  Tokens de entrada   (prompt):          1,943
+  Tokens de salida    (completion):        710
+  ─────────────────────────────────────────────
+  TOTAL TOKENS:                          2,653
+  Costo estimado:                   $    0.0120 USD
+======================================================================
+  ℹ️  Los costos son estimaciones basadas en precios públicos de OpenAI.
+  ℹ️  Consulta logs/token_usage.json para el historial acumulado.

@@ -319,6 +319,51 @@ def _build_imagen_prompt_from_illustration(
     return "\n".join(parts)
 
 
+def _build_runway_prompt_from_illustration(
+    illustration_text: str,
+    characters_data: dict,
+) -> str:
+    """
+    Versión compacta del prompt de ilustración para Runway (límite: 1000 chars).
+    Prioriza ENVIRONMENT y CHARACTERS PRESENT sobre las descripciones largas de personajes.
+    Usa descripciones breves de Kira y Toby en lugar de los prompts completos de personajes.py.
+    """
+    # Descripciones breves de los protagonistas (caben en ~200 chars)
+    kira_brief = "Kira: female Shiba Inu puppy, pale yellow fur #FFF9D4, brown eyes #5C4033, red heart bow on right ear, cute 3D Pixar style"
+    toby_brief = "Toby: male Husky puppy, lavender fur #E8E3F0, heterochromatic eyes (left blue #6BB6D6, right brown #8B6F47), lightning bolt on left flank, cute 3D Pixar style"
+
+    # Personaje secundario breve
+    sec_brief = ""
+    for p in characters_data.get("personajesSecundarios", []):
+        nombre  = p.get("nombre", "")
+        species = p.get("species", "")
+        fur     = p.get("fur_color", "")
+        acc     = p.get("accessory", "")
+        sec_brief = f"{nombre}: {species}" + (f", {fur}" if fur else "") + (f", {acc}" if acc else "")
+        break  # solo el primero
+
+    env   = _extract_illustration_section(illustration_text, "ENVIRONMENT")
+    chars = _extract_illustration_section(illustration_text, "CHARACTERS PRESENT")
+
+    parts = [
+        "3D CGI children's storybook illustration, Pixar/Disney quality.",
+        f"CHARACTERS: {kira_brief}. {toby_brief}.",
+    ]
+    if sec_brief:
+        parts.append(f"Secondary: {sec_brief}.")
+    if env:
+        # Tomar solo las 3 primeras líneas del environment
+        env_short = " ".join(env.split("\n")[:3]).strip()
+        parts.append(f"SCENE: {env_short}")
+    if chars:
+        chars_short = chars.split("\n")[0].strip()
+        parts.append(f"CHARACTERS PRESENT: {chars_short}")
+    parts.append("Warm magical atmosphere, big expressive eyes, no text, no watermarks.")
+
+    prompt = " ".join(parts)
+    return prompt[:1000]
+
+
 def _save_illustration_slim(
     text: str,
     n: int,
@@ -1139,6 +1184,7 @@ def generar_ilustraciones_desde_historia(
     characters_data: dict,
     output_dir: Path,
     historia_titulo: str = "",
+    model: str = "gemini",
 ) -> dict:
     """
     Pipeline completo: texto de historia → prompts de ilustración de cuento.
@@ -1235,12 +1281,17 @@ def generar_ilustraciones_desde_historia(
         tracker.print_entry(entry)
         print(f"    ✅ ilustracion{i}.md guardada")
 
-        # ── 2. Generar PNG con Google Imagen ──────────────────────────────
+        # ── 2. Generar PNG ────────────────────────────────────────────────
         if _imagen_disponible:
-            imagen_prompt = _build_imagen_prompt_from_illustration(
-                prompt_text, characters_data
-            )
-            imagen_bytes = _llamar_imagen_api(imagen_prompt)
+            if model == "runway":
+                imagen_prompt = _build_runway_prompt_from_illustration(
+                    prompt_text, characters_data
+                )
+            else:
+                imagen_prompt = _build_imagen_prompt_from_illustration(
+                    prompt_text, characters_data
+                )
+            imagen_bytes = _llamar_imagen_api(imagen_prompt, model=model)
             if imagen_bytes:
                 ruta_png = output_dir / f"ilustracion{i}.png"
                 ruta_png.write_bytes(imagen_bytes)
@@ -1248,7 +1299,7 @@ def generar_ilustraciones_desde_historia(
                     operation=f"ilustracion_png_{i}_de_{total}",
                     model=IMAGE_MODEL,
                     images_count=1,
-                    metadata={"historia": historia_titulo, "ilustracion": i},
+                    metadata={"historia": historia_titulo, "ilustracion": i, "backend": model},
                 )
                 token_summary["img_count"] += 1
                 token_summary["img_cost"]  += img_entry.get("estimated_cost_usd", 0.0)

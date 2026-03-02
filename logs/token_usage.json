@@ -1145,13 +1145,1079 @@
           }
         }
       ]
+    },
+    {
+      "session_start": "2026-03-01T15:13:04.061026",
+      "session_end": "2026-03-01T15:16:03.988888",
+      "totals": {
+        "prompt_tokens": 27697,
+        "completion_tokens": 8524,
+        "total_tokens": 36221,
+        "images_generated": 0,
+        "estimated_cost_usd": 0.154483
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T15:13:19.188726",
+          "provider": "openai",
+          "operation": "generar_historia",
+          "model": "gpt-4o",
+          "prompt_tokens": 1943,
+          "completion_tokens": 710,
+          "total_tokens": 2653,
+          "estimated_cost_usd": 0.011957,
+          "metadata": {
+            "personaje": "axolotl médico",
+            "lugar": "montaña nevada",
+            "moraleja": "la bondad regresa"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:13:28.411073",
+          "provider": "openai",
+          "operation": "escena_1_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 987,
+          "completion_tokens": 392,
+          "total_tokens": 1379,
+          "estimated_cost_usd": 0.006387,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:13:36.399789",
+          "provider": "openai",
+          "operation": "escena_2_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1048,
+          "completion_tokens": 427,
+          "total_tokens": 1475,
+          "estimated_cost_usd": 0.00689,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:13:43.780792",
+          "provider": "openai",
+          "operation": "escena_3_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1049,
+          "completion_tokens": 393,
+          "total_tokens": 1442,
+          "estimated_cost_usd": 0.006553,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:13:52.120653",
+          "provider": "openai",
+          "operation": "escena_4_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1049,
+          "completion_tokens": 433,
+          "total_tokens": 1482,
+          "estimated_cost_usd": 0.006953,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:01.659443",
+          "provider": "openai",
+          "operation": "escena_5_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1053,
+          "completion_tokens": 453,
+          "total_tokens": 1506,
+          "estimated_cost_usd": 0.007163,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:12.439865",
+          "provider": "openai",
+          "operation": "escena_6_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1051,
+          "completion_tokens": 494,
+          "total_tokens": 1545,
+          "estimated_cost_usd": 0.007567,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:23.043651",
+          "provider": "openai",
+          "operation": "escena_7_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1027,
+          "completion_tokens": 435,
+          "total_tokens": 1462,
+          "estimated_cost_usd": 0.006918,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:29.615420",
+          "provider": "openai",
+          "operation": "escena_8_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 961,
+          "completion_tokens": 446,
+          "total_tokens": 1407,
+          "estimated_cost_usd": 0.006863,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "escena": 8
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:37.104256",
+          "provider": "openai",
+          "operation": "editor_iteracion_1",
+          "model": "gpt-4o",
+          "prompt_tokens": 4823,
+          "completion_tokens": 276,
+          "total_tokens": 5099,
+          "estimated_cost_usd": 0.014818,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "iteracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:47.538513",
+          "provider": "openai",
+          "operation": "ilustracion_1_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1604,
+          "completion_tokens": 505,
+          "total_tokens": 2109,
+          "estimated_cost_usd": 0.00906,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:14:58.202597",
+          "provider": "openai",
+          "operation": "ilustracion_2_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1600,
+          "completion_tokens": 478,
+          "total_tokens": 2078,
+          "estimated_cost_usd": 0.00878,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:15:09.523608",
+          "provider": "openai",
+          "operation": "ilustracion_3_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1584,
+          "completion_tokens": 544,
+          "total_tokens": 2128,
+          "estimated_cost_usd": 0.0094,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:15:19.883451",
+          "provider": "openai",
+          "operation": "ilustracion_4_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1591,
+          "completion_tokens": 511,
+          "total_tokens": 2102,
+          "estimated_cost_usd": 0.009088,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:15:29.922943",
+          "provider": "openai",
+          "operation": "ilustracion_5_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1597,
+          "completion_tokens": 499,
+          "total_tokens": 2096,
+          "estimated_cost_usd": 0.008982,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:15:39.940111",
+          "provider": "openai",
+          "operation": "ilustracion_6_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1575,
+          "completion_tokens": 515,
+          "total_tokens": 2090,
+          "estimated_cost_usd": 0.009088,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:15:52.960003",
+          "provider": "openai",
+          "operation": "ilustracion_7_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1607,
+          "completion_tokens": 528,
+          "total_tokens": 2135,
+          "estimated_cost_usd": 0.009298,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:16:03.983212",
+          "provider": "openai",
+          "operation": "ilustracion_8_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1548,
+          "completion_tokens": 485,
+          "total_tokens": 2033,
+          "estimated_cost_usd": 0.00872,
+          "metadata": {
+            "historia": "Kira_y_Toby_y_el_Misterio_de_la_Montaña_Nevada",
+            "ilustracion": 8
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T15:53:43.376548",
+      "session_end": "2026-03-01T15:57:20.629764",
+      "totals": {
+        "prompt_tokens": 31557,
+        "completion_tokens": 9342,
+        "total_tokens": 40899,
+        "images_generated": 0,
+        "estimated_cost_usd": 0.172313
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T15:53:55.234991",
+          "provider": "openai",
+          "operation": "generar_historia",
+          "model": "gpt-4o",
+          "prompt_tokens": 1952,
+          "completion_tokens": 557,
+          "total_tokens": 2509,
+          "estimated_cost_usd": 0.01045,
+          "metadata": {
+            "personaje": "pingüino viajero",
+            "lugar": "orilla del lago",
+            "moraleja": "la amistad vale más que un tesoro"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:03.753661",
+          "provider": "openai",
+          "operation": "escena_1_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 893,
+          "completion_tokens": 520,
+          "total_tokens": 1413,
+          "estimated_cost_usd": 0.007432,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:09.784823",
+          "provider": "openai",
+          "operation": "escena_2_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 968,
+          "completion_tokens": 418,
+          "total_tokens": 1386,
+          "estimated_cost_usd": 0.0066,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:18.093058",
+          "provider": "openai",
+          "operation": "escena_3_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 970,
+          "completion_tokens": 435,
+          "total_tokens": 1405,
+          "estimated_cost_usd": 0.006775,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:28.027689",
+          "provider": "openai",
+          "operation": "escena_4_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1002,
+          "completion_tokens": 420,
+          "total_tokens": 1422,
+          "estimated_cost_usd": 0.006705,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:37.697870",
+          "provider": "openai",
+          "operation": "escena_5_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 981,
+          "completion_tokens": 459,
+          "total_tokens": 1440,
+          "estimated_cost_usd": 0.007043,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:45.089808",
+          "provider": "openai",
+          "operation": "escena_6_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 974,
+          "completion_tokens": 425,
+          "total_tokens": 1399,
+          "estimated_cost_usd": 0.006685,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:54:54.843688",
+          "provider": "openai",
+          "operation": "escena_7_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 967,
+          "completion_tokens": 458,
+          "total_tokens": 1425,
+          "estimated_cost_usd": 0.006998,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:03.437677",
+          "provider": "openai",
+          "operation": "escena_8_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 919,
+          "completion_tokens": 466,
+          "total_tokens": 1385,
+          "estimated_cost_usd": 0.006958,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "escena": 8
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:12.393822",
+          "provider": "openai",
+          "operation": "editor_iteracion_1",
+          "model": "gpt-4o",
+          "prompt_tokens": 4783,
+          "completion_tokens": 595,
+          "total_tokens": 5378,
+          "estimated_cost_usd": 0.017907,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "iteracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:18.681744",
+          "provider": "openai",
+          "operation": "editor_iteracion_2",
+          "model": "gpt-4o",
+          "prompt_tokens": 4781,
+          "completion_tokens": 397,
+          "total_tokens": 5178,
+          "estimated_cost_usd": 0.015922,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "iteracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:28.295376",
+          "provider": "openai",
+          "operation": "ilustracion_1_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1550,
+          "completion_tokens": 599,
+          "total_tokens": 2149,
+          "estimated_cost_usd": 0.009865,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 1
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:43.964002",
+          "provider": "openai",
+          "operation": "ilustracion_2_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1542,
+          "completion_tokens": 506,
+          "total_tokens": 2048,
+          "estimated_cost_usd": 0.008915,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 2
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:55:59.913976",
+          "provider": "openai",
+          "operation": "ilustracion_3_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1541,
+          "completion_tokens": 533,
+          "total_tokens": 2074,
+          "estimated_cost_usd": 0.009182,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 3
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:56:17.393043",
+          "provider": "openai",
+          "operation": "ilustracion_4_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1557,
+          "completion_tokens": 551,
+          "total_tokens": 2108,
+          "estimated_cost_usd": 0.009402,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 4
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:56:34.846454",
+          "provider": "openai",
+          "operation": "ilustracion_5_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1566,
+          "completion_tokens": 524,
+          "total_tokens": 2090,
+          "estimated_cost_usd": 0.009155,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 5
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:56:48.160539",
+          "provider": "openai",
+          "operation": "ilustracion_6_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1555,
+          "completion_tokens": 489,
+          "total_tokens": 2044,
+          "estimated_cost_usd": 0.008777,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 6
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:57:03.369338",
+          "provider": "openai",
+          "operation": "ilustracion_7_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1555,
+          "completion_tokens": 483,
+          "total_tokens": 2038,
+          "estimated_cost_usd": 0.008717,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 7
+          }
+        },
+        {
+          "timestamp": "2026-03-01T15:57:20.624075",
+          "provider": "openai",
+          "operation": "ilustracion_8_de_8",
+          "model": "gpt-4o",
+          "prompt_tokens": 1501,
+          "completion_tokens": 507,
+          "total_tokens": 2008,
+          "estimated_cost_usd": 0.008823,
+          "metadata": {
+            "historia": "Kira_Toby_y_la_Bufanda_Plateada",
+            "ilustracion": 8
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T16:29:03.233820",
+      "session_end": "2026-03-01T16:30:20.065793",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 3,
+        "estimated_cost_usd": 0.12
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T16:29:29.383512",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "canguro saltarín",
+            "pose": "front",
+            "backend": "runway"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T16:29:55.398403",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "canguro saltarín",
+            "pose": "side",
+            "backend": "runway"
+          }
+        },
+        {
+          "timestamp": "2026-03-01T16:30:20.059753",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "canguro saltarín",
+            "pose": "quarter",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T16:40:18.872878",
+      "session_end": "2026-03-01T16:40:49.727011",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T16:40:49.726575",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "pez dorado sabio",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T16:52:16.483612",
+      "session_end": "2026-03-01T16:52:38.070669",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T16:52:38.070164",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "perrito bombero",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T17:23:05.402205",
+      "session_end": "2026-03-01T17:23:33.614426",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T17:23:33.613969",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "imagen-4.0-fast-generate-001",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "topo constructor",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T17:41:00.936746",
+      "session_end": "2026-03-01T17:41:21.632127",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T17:41:21.631648",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "caballito de mar mágico",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T18:01:55.039741",
+      "session_end": "2026-03-01T18:02:24.779616",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T18:02:24.779193",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "serpiente maga",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T21:43:42.002506",
+      "session_end": "2026-03-01T21:44:12.146494",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T21:44:12.145952",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "okapi modista",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T21:44:29.226152",
+      "session_end": "2026-03-01T21:44:56.981238",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T21:44:56.973778",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "zebra risueña",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T21:49:09.100228",
+      "session_end": "2026-03-01T21:49:34.387662",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T21:49:34.387174",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "zorrillo perfumista",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T21:52:05.848673",
+      "session_end": "2026-03-01T21:52:31.154638",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T21:52:31.153866",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "jirafa soñadora",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:17:06.233695",
+      "session_end": "2026-03-01T22:17:28.824726",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:17:28.824260",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "tapir cartógrafo",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:37:18.059002",
+      "session_end": "2026-03-01T22:37:41.591901",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:37:41.591424",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "ciervo explorador",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:42:47.920877",
+      "session_end": "2026-03-01T22:43:10.484656",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:43:10.484178",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "conejito blanco",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:43:48.170304",
+      "session_end": "2026-03-01T22:44:13.354628",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:44:13.354121",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "vaca pintora",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:46:45.353945",
+      "session_end": "2026-03-01T22:47:10.869370",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:47:10.868903",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "buey granjero",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T22:58:05.468915",
+      "session_end": "2026-03-01T22:58:26.520442",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T22:58:26.519960",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "panda cocinero",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-01T23:07:49.162390",
+      "session_end": "2026-03-01T23:08:11.363266",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-01T23:08:11.362674",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "pájaro cantor",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-02T08:00:26.851449",
+      "session_end": "2026-03-02T08:00:52.863201",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-02T08:00:52.855228",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "lobo músico",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
+    },
+    {
+      "session_start": "2026-03-02T08:01:08.239216",
+      "session_end": "2026-03-02T08:01:35.522534",
+      "totals": {
+        "prompt_tokens": 0,
+        "completion_tokens": 0,
+        "total_tokens": 0,
+        "images_generated": 1,
+        "estimated_cost_usd": 0.04
+      },
+      "entries": [
+        {
+          "timestamp": "2026-03-02T08:01:35.513095",
+          "provider": "google",
+          "operation": "generar_vista_personaje",
+          "model": "gen4_image",
+          "images_generated": 1,
+          "estimated_cost_usd": 0.04,
+          "metadata": {
+            "personaje": "ciervo gentil",
+            "pose": "front",
+            "backend": "runway"
+          }
+        }
+      ]
     }
   ],
-  "last_updated": "2026-03-01T00:49:57.529076",
+  "last_updated": "2026-03-02T08:01:35.522544",
   "cumulative": {
-    "total_tokens": 139282,
-    "images_generated": 15,
-    "estimated_cost_usd": 1.1894,
-    "total_sessions": 3
+    "total_tokens": 216402,
+    "images_generated": 36,
+    "estimated_cost_usd": 2.3562,
+    "total_sessions": 24
   }
 }

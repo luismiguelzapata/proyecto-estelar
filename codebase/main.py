@@ -80,12 +80,20 @@ Ejemplos:
     python main.py --modo escenas --historia "ruta.txt" --characters "characters.json" --threshold 90
     python main.py --modo escenas --historia "ruta.txt" --solo-validar
 
-  Ilustraciones de cuento (.md + PNG automático con Google Imagen):
+  Ilustraciones de cuento (.md + PNG con Google Imagen):
     python main.py --modo ilustracion --historia "outputs/historias/revision/TITULO/TITULO-xxx.txt"
+    python main.py --modo ilustracion --historia "ruta.txt" --model runway
 
   Solo imágenes de personajes del JSON:
     python main.py --modo imagen
+    python main.py --modo imagen --model runway
     python main.py --modo imagen --placeholder   # sin API (testing)
+
+  Generar imágenes de UN personaje aleatorio (sin pipeline de historia):
+    python main.py --modo generar-personaje                                   # 2D aleatorio (default)
+    python main.py --modo generar-personaje --style 3D --model runway         # 3D Pixar con Runway
+    python main.py --modo generar-personaje --personaje "panda cocinero" --style 2D
+    python main.py --modo generar-personaje --forzar   # regenera aunque ya existan
 
   Ver historial de consumo de tokens:
     python main.py --tokens
@@ -101,14 +109,15 @@ Estructura de salida:
 
     parser.add_argument(
         "--modo",
-        choices=["historia", "imagen", "completo", "escenas", "ilustracion"],
+        choices=["historia", "imagen", "completo", "escenas", "ilustracion", "generar-personaje"],
         default="historia",
         help=(
-            "historia:    genera historia nueva (incluye escenas automáticamente)\n"
-            "escenas:     genera/re-genera escenas de video de una historia ya guardada\n"
-            "ilustracion: genera prompts de ilustración de cuento (sin cámara, ENVIRONMENT rico)\n"
-            "imagen:      genera imágenes de personajes secundarios\n"
-            "completo:    historia + imágenes del personaje"
+            "historia:          genera historia nueva (incluye escenas automáticamente)\n"
+            "escenas:           genera/re-genera escenas de video de una historia ya guardada\n"
+            "ilustracion:       genera prompts de ilustración de cuento (sin cámara, ENVIRONMENT rico)\n"
+            "imagen:            genera imágenes de todos los personajes secundarios del JSON\n"
+            "generar-personaje: genera imágenes de UN personaje aleatorio (sin pipeline completo)\n"
+            "completo:          historia + imágenes del personaje"
         ),
     )
     parser.add_argument(
@@ -145,6 +154,39 @@ Estructura de salida:
         help="[modo imagen] Crear imágenes placeholder para testing (sin API)",
     )
     parser.add_argument(
+        "--personaje",
+        type=str,
+        default=None,
+        metavar="NOMBRE",
+        help="[modo generar-personaje] Nombre exacto del personaje a generar. "
+             "Si no se especifica, elige uno al azar del JSON.",
+    )
+    parser.add_argument(
+        "--forzar",
+        action="store_true",
+        help="[modo generar-personaje / imagen] Regenera aunque las imágenes ya existan",
+    )
+    parser.add_argument(
+        "--style",
+        choices=["2D", "3D"],
+        default="2D",
+        help=(
+            "[modo generar-personaje] Estilo visual del personaje:\n"
+            "  2D → ilustración plana tipo cuento (inputs.opt2-2D.json, default)\n"
+            "  3D → render Pixar/CGI (inputs.opt2-3D.json)"
+        ),
+    )
+    parser.add_argument(
+        "--model",
+        choices=["gemini", "runway"],
+        default="runway",
+        help=(
+            "Backend de generación de imágenes:\n"
+            "  runway  → Runway Gen-4 Image (default, estilo cartoon bold)\n"
+            "  gemini  → Google Imagen 4"
+        ),
+    )
+    parser.add_argument(
         "--tokens",
         action="store_true",
         help="Mostrar historial acumulado de tokens y salir",
@@ -164,8 +206,8 @@ Estructura de salida:
     print()
 
     try:
-        # El modo escenas no necesita inicializar el generador de historias
-        if args.modo != "escenas":
+        # Los modos de imagen no necesitan inicializar el generador de historias
+        if args.modo not in ("escenas", "imagen", "generar-personaje"):
             print("📚 Inicializando...\n")
             inicializar_generador()
 
@@ -184,13 +226,22 @@ Estructura de salida:
             ejecutar_ilustraciones_historia_existente(
                 historia_path=args.historia,
                 characters_path=args.characters,
+                model=args.model,
             )
 
         elif args.modo == "imagen":
-            ejecutar_generador_imagenes(args.placeholder)
+            ejecutar_generador_imagenes(args.placeholder, model=args.model)
+
+        elif args.modo == "generar-personaje":
+            ejecutar_generar_personaje(
+                nombre=args.personaje,
+                model=args.model,
+                forzar=args.forzar,
+                style=args.style,
+            )
 
         elif args.modo == "completo":
-            ejecutar_modo_completo()
+            ejecutar_modo_completo(model=args.model)
 
         # ── Resumen de tokens de la sesión ─────────────────────────────
         tracker.print_summary("SESIÓN ACTUAL")
@@ -282,6 +333,7 @@ def ejecutar_escenas_historia_existente(
 def ejecutar_ilustraciones_historia_existente(
     historia_path: str | None,
     characters_path: str | None,
+    model: str = "gemini",
 ):
     """
     Genera prompts de ilustración de cuento (ilustracionN.md) para una
@@ -328,6 +380,7 @@ def ejecutar_ilustraciones_historia_existente(
         characters_data=characters_data,
         output_dir=output_dir,
         historia_titulo=titulo,
+        model=model,
     )
 
     n_ilus = resultado.get("scenes_count", 0)
@@ -471,7 +524,7 @@ def ejecutar_historia_unica() -> dict | None:
     return None
 
 
-def ejecutar_generador_imagenes(usar_placeholder: bool = False):
+def ejecutar_generador_imagenes(usar_placeholder: bool = False, model: str = "gemini"):
     """Genera imágenes de todos los personajes secundarios del JSON."""
     print("🎨 Generador de Imágenes de Personajes\n")
 
@@ -488,7 +541,7 @@ def ejecutar_generador_imagenes(usar_placeholder: bool = False):
             continue
 
         nombre = p.get("nombre", "?")
-        ok = crear_imagen_placeholder(nombre) if usar_placeholder else generar_imagen_personaje(p)
+        ok = crear_imagen_placeholder(nombre) if usar_placeholder else generar_imagen_personaje(p, model=model)
 
         if ok:
             generadas += 1
@@ -501,7 +554,122 @@ def ejecutar_generador_imagenes(usar_placeholder: bool = False):
     print(f"   📂 {ASSETS_PERSONAJES_DIR}")
 
 
-def ejecutar_modo_completo():
+def ejecutar_generar_personaje(
+    nombre: str | None = None,
+    model: str = "gemini",
+    forzar: bool = False,
+    style: str = "2D",
+):
+    """
+    Genera las 3 vistas (front / side / quarter) de UN personaje,
+    sin necesidad de pasar por el pipeline completo de historia.
+
+    El JSON de origen y la clave de prompt dependen del estilo:
+      --style 2D → inputs.opt2-2D.json, clave "prompt-2D"  (default)
+      --style 3D → inputs.opt2-3D.json, clave "prompt-3D"
+
+    Si --personaje no se especifica, elige uno al azar entre los disponibles.
+
+    USO:
+      python main.py --modo generar-personaje --model runway
+      python main.py --modo generar-personaje --style 3D --model runway
+      python main.py --modo generar-personaje --personaje "panda cocinero" --style 2D
+      python main.py --modo generar-personaje --forzar
+    """
+    import random
+    from modules.image_generator import (
+        generar_tres_vistas_personaje,
+        POSES_PERSONAJE,
+        _condensar_prompt_2D_para_runway,
+        _condensar_prompt_3D_para_runway,
+        _prompt_con_pose,
+    )
+    from config.config import JSON_INPUT_FILE_2D, JSON_INPUT_FILE_3D
+
+    print(f"🎨 GENERADOR DE PERSONAJE  [{style}]\n")
+
+    # ── Elegir JSON y clave de prompt según estilo ────────────────────────
+    json_file  = JSON_INPUT_FILE_2D if style == "2D" else JSON_INPUT_FILE_3D
+    prompt_key = f"prompt-{style}"   # "prompt-2D" o "prompt-3D"
+
+    if not json_file.exists():
+        print(f"❌ No se encontró el archivo {json_file.name}")
+        return
+
+    with open(json_file, encoding="utf-8") as f:
+        datos = json.load(f)
+
+    personajes = datos.get("construccionHistorias", {}).get("personajesSecundarios", [])
+    con_prompt = [p for p in personajes if isinstance(p, dict) and prompt_key in p]
+
+    if not con_prompt:
+        print(f"❌ No se encontraron personajes con '{prompt_key}' en {json_file.name}")
+        return
+
+    # ── Listar disponibles ────────────────────────────────────────────────
+    print(f"📋 Personajes disponibles ({len(con_prompt)}) — {json_file.name}:")
+    for p in con_prompt:
+        print(f"   • {p.get('nombre', '?')}")
+    print()
+
+    # ── Elegir personaje ──────────────────────────────────────────────────
+    if nombre:
+        nombre_lower = nombre.lower()
+        elegido = next(
+            (p for p in con_prompt if p.get("nombre", "").lower() == nombre_lower),
+            None,
+        )
+        if elegido is None:
+            print(f"❌ No se encontró el personaje '{nombre}' en {json_file.name}.")
+            print("   Usa uno de los nombres de la lista de arriba.")
+            return
+        print(f"👤 Personaje seleccionado: {elegido['nombre']}")
+    else:
+        elegido = random.choice(con_prompt)
+        print(f"🎲 Personaje aleatorio:    {elegido['nombre']}")
+
+    nombre_elegido = elegido["nombre"]
+    prompt_visual  = elegido[prompt_key]
+    print(f"🖼️  Modelo de imagen:       {model}")
+    print(f"🎨 Estilo:                 {style}")
+    print(f"📂 Destino: assets/personajes/{nombre_elegido.lower().replace(' ', '-')}/\n")
+
+    tracker.set_log_path(LOGS_DIR)
+
+    vistas = generar_tres_vistas_personaje(
+        nombre_personaje=nombre_elegido,
+        prompt_3d=prompt_visual,
+        forzar=forzar,
+        model=model,
+        estilo=style,
+    )
+
+    ok = sum(1 for v in vistas.values() if v)
+    print(f"\n{'─'*60}")
+    print(f"  ✅ Imagen(es) generada(s): {ok}/{len(vistas)} para '{nombre_elegido}'  [{style}]")
+    for pose, ruta in vistas.items():
+        estado = f"→ {ruta}" if ruta else "❌ falló"
+        print(f"     {pose:8s} {estado}")
+    print(f"{'─'*60}")
+
+    # ── Mostrar modelo y prompt enviado ───────────────────────────────────
+    pose_desc = POSES_PERSONAJE["front"]["descripcion"]
+    if style == "3D" and model == "runway":
+        prompt_enviado = _condensar_prompt_3D_para_runway(prompt_visual, pose_desc)
+    elif style == "3D":
+        prompt_enviado = _prompt_con_pose(prompt_visual, pose_desc)
+    elif model == "runway":
+        prompt_enviado = _condensar_prompt_2D_para_runway(prompt_visual)
+    else:
+        prompt_enviado = prompt_visual  # 2D + Gemini: prompt completo
+
+    model_label = "Runway gen4_image" if model == "runway" else f"Gemini ({model})"
+    print(f"\n  🤖 Modelo usado : {model_label}  ({len(prompt_enviado)} chars)")
+    print(f"  📝 Prompt enviado:\n")
+    print(f"{prompt_enviado}\n")
+
+
+def ejecutar_modo_completo(model: str = "gemini"):
     """
     Modo completo: historia + escenas de video + ilustraciones + imágenes del personaje.
 
@@ -509,6 +677,9 @@ def ejecutar_modo_completo():
       1. Genera la historia y los prompts de escenas de video (escenas/)
       2. Genera los prompts de ilustración de cuento (ilustraciones/prompts-ilustraciones/)
       3. Genera las imágenes del personaje secundario en assets/personajes/
+
+    Args:
+        model: backend de imagen — "gemini" (Google Imagen 4) o "runway" (Runway Gen-4)
     """
     print("🚀 MODO COMPLETO: Historia + Escenas + Ilustraciones + Imágenes\n")
 
@@ -537,6 +708,7 @@ def ejecutar_modo_completo():
         characters_data=characters_data,
         output_dir=output_ilustraciones,
         historia_titulo=titulo,
+        model=model,
     )
 
     # ── 3. Imágenes del Personaje Secundario ──────────────────────────────
@@ -546,7 +718,7 @@ def ejecutar_modo_completo():
         "historia":  guardado.get("historia", ""),
         "elementos": guardado.get("elementos", {}),
     }
-    resultado_img = generar_imagenes_escena(historia_dict)
+    resultado_img = generar_imagenes_escena(historia_dict, model=model)
 
     # ── Resumen ───────────────────────────────────────────────────────────
     n_ilus = resultado_ilus.get("scenes_count", 0)

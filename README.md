@@ -242,3 +242,40 @@ clips de video individuales
       ↓
 Edición manual → video_completo.mp4
 ```
+
+
+
+
+# Con Gemini (default — igual que antes)
+python main.py --modo completo
+python main.py --modo ilustracion --historia "ruta.txt"
+
+# Con Runway
+python main.py --modo completo --model runway
+python main.py --modo ilustracion --historia "ruta.txt" --model runway
+python main.py --modo imagen --model runway
+
+main.py
+Nuevo flag --style:
+
+
+--style {2D,3D}   default: 2D
+Lógica en ejecutar_generar_personaje:
+
+--style	JSON cargado	Clave de prompt
+2D (default)	inputs.opt2-2D.json	"prompt-2D"
+3D	inputs.opt2-3D.json	"prompt-3D"
+Ejemplos de uso:
+
+
+# 2D aleatorio con Runway (default)
+python main.py --modo generar-personaje --model runway
+
+# 3D específico con Runway
+python main.py --modo generar-personaje --style 3D --personaje "panda cocinero" --model runway
+
+# 2D específico con Gemini
+python main.py --modo generar-personaje --style 2D --personaje "ardilla mensajera"
+
+# Regenerar aunque ya existan
+python main.py --modo generar-personaje --style 3D --model runway --forzar
